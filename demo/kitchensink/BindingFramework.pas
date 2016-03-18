@@ -72,7 +72,7 @@ begin
       [rfReplaceAll]);
 
   Result := StringReplace(Result,
-      '#{hwcfversion}',
+      '#{djf.version}',
       DWF_SERVER_VERSION,
       [rfReplaceAll]);
 

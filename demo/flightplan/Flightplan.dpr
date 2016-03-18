@@ -1,6 +1,6 @@
 (*
 
-    Daraja Web Framework
+    Daraja Framework
     Copyright (C) 2016  Michael Justin
 
     This program is free software: you can redistribute it and/or modify

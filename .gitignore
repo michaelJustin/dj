@@ -77,3 +77,6 @@ heaptrace.log
 # exact
 test/unittests/Unittests.fpcunit.ini
 test/unittests/Unittests.res
+*.bak
+demo/kitchensink/KitchenSinkDemo.res
+*.rsj
