@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Flightplan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.css" />
+    <script src="https://code.jquery.com/jquery-1.11.0.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.js"></script>
+</head>
+
+<body>
+
+    <div data-role="page" id="one">
+
+        <div data-role="header">
+            <h1>Flightplan - Step 1</h1>
+            <a href="./#popup" data-icon="info" data-rel="dialog" data-transition="pop">About</a>
+        </div>
+        <!-- /header -->
+
+        <div data-role="content">
+            <h2>Choose your Departure Airport</h2>
+
+            <div class="content-primary">
+                <ul data-role="listview" data-filter="true" data-inset="true">
+                    #{airports}
+                </ul>
+            </div>
+            <!--/content-primary -->
+
+        </div>
+        <!-- /content -->
+
+        <div data-role="footer" data-position="fixed">
+            <a href="./#popup" data-icon="info" data-rel="dialog" data-transition="pop">About</a>
+        </div>
+        <!-- /footer -->
+
+    </div>
+    <!-- /page -->
+
+    <!-- Start of page: #popup -->
+    <div data-role="page" id="popup">
+
+        <div data-role="header" data-theme="e">
+            <h1>About ...</h1>
+        </div>
+        <!-- /header -->
+
+        <div data-role="content" data-theme="d">
+            <h2>Daraja Framework demo</h2>
+            <p>
+                The Daraja framework allows to build web applications from simple building blocks.
+            </p>
+            <p>
+                Full source code is included in the registered version.
+            </p>
+            <p>
+                This demo uses the jQuery mobile framework.
+            </p>
+            <p><a href="#one" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back</a></p>
+        </div>
+        <!-- /content -->
+
+        <div data-role="footer">
+            <h4>Habarisoft 2016</h4>
+        </div>
+        <!-- /footer -->
+    </div>
+    <!-- /page popup -->
+
+</body>
+
+</html>

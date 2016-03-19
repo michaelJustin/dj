@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Flightplan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.css" />
+    <script src="https://code.jquery.com/jquery-1.11.0.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.js"></script>
+</head>
+
+<body>
+
+    <div data-role="page" id="one">
+
+        <div data-role="header">
+            <a href="./#popup" data-icon="info" data-rel="dialog" data-transition="pop">About</a>
+            <h1>Flightplan - Step 4</h1>
+            <a href="./" data-icon="home" class="ui-btn-right">home</a>
+        </div>
+        <!-- /header -->
+
+
+        <div data-role="content">
+
+            <div class="content-primary">
+
+                <a href="#" data-role="button" data-icon="arrow-l">#{airport1}</a>
+                <a href="?id1=#{id1}" data-role="button" data-icon="arrow-l">#{airport2}</a>
+                <!-- a href="?id1=#{id1}&id2=#{id2}" data-role="button" data-icon="arrow-l">#{selectedDate}</a -->
+
+                <h2>Choose Flight on #{selectedDate}</h2>
+
+                <ul data-role="listview" data-inset="true">
+                    #{flights}
+                </ul>
+            </div>
+            <!--/content-primary -->
+
+        </div>
+        <!-- /content -->
+
+        <div data-role="footer" data-position="fixed">
+            <a href="./#popup" data-icon="info" data-rel="dialog" data-transition="pop">About</a>
+        </div>
+        <!-- /footer -->
+
+    </div>
+    <!-- /page -->
+
+</body>
+
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Daraja Framework</title>
+    <meta name="description" content="Daraja Framework">
+    <meta name="author" content="Michael Justin">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,700" rel="stylesheet" type="text/css" />
+
+    <!-- Le styles -->
+    <link href="#{bootstrap.home}/css/bootstrap.css" rel="stylesheet">
+    <style>
+        body,
+        p,
+        h1,
+        h3 {
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        body {
+            padding-top: 60px;
+            /* 60px to make the container go all the way to the bottom of the topbar */
+        }
+        
+        section {
+            padding-top: 0px;
+        }
+        
+        section > .row {
+            margin-bottom: 10px;
+        }
+    </style>
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="#{webContext.requestContextPath}/images/favicon.png">
+
+</head>
+
+<body data-spy="scroll">
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+
+                <a class="navbar-brand" href="#{webContext.requestContextPath}/index.html">
+                    <img title="Habarisoft" class="favicon" alt="Habarisoft" src="#{webContext.requestContextPath}/images/favicon.png" />                    Daraja Framework #{djf.version}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <section>
+
+            <div class="jumbotron">
+                <h1>Create HTTP services with Delphi and Free Pascal.</h1>
+            </div>
+
+
+            <div class="row">
+
+                <!-- tile -->
+                <div class="col-md-4">
+                    <h3>Hello World!</h3>
+                    <hr class="soften" />
+                    <p class="lead"><i class="icon-globe"></i> This example dynamically creates a simple HTML document.</p>
+                    <p>
+                        <a class="btn btn-primary" href="hello.html">Show</a>
+                        <a class="btn" href="source.html?file=HelloWorldCmp.pas">Source</a>
+                    </p>
+                </div>
+
+                <!-- tile -->
+                <div class="col-md-4">
+                    <h3>Forms</h3>
+                    <hr class="soften" />
+                    <p class="lead"><i class="icon-pencil"></i> This example shows a HTML form and uses the <a href="http://en.wikipedia.org/wiki/Post/Redirect/Get">Post/Redirect/Get (PRG)</a>                        web development design pattern.</p>
+
+                    <p>
+                        <a class="btn btn-primary" href="form.html">Show</a>
+                        <a class="btn" href="source.html?file=FormCmp.pas">Source</a>
+                    </p>
+
+                </div>
+
+                <!-- tile -->
+                <div class="col-md-4">
+                    <h3>File upload</h3>
+                    <hr class="soften" />
+                    <p class="lead"><i class="icon-upload"></i> This example returns a dynamic HTML page containing file upload forms. The
+                        second form uses HTML5 multiple selection capabiliy.</p>
+
+                    <p>
+                        <a class="btn btn-primary" href="upload.html">Show</a>
+                        <a class="btn" href="source.html?file=FileUploadCmp.pas">Source</a>
+                    </p>
+
+                </div>
+
+
+            </div>
+            <!-- row -->
+
+            <div class="row">
+
+                <!-- tile -->
+                <div class="col-md-4">
+                    <h3>Ajax (jQuery)</h3>
+                    <hr class="soften" />
+                    <p class="lead"><i class="icon-refresh"></i> This example uses jQuery to perform a partial update of the dynamic HTML
+                        document. Pressing the button will get a server response which will be inserted in the HTML.</p>
+                    <p>
+                        <a class="btn btn-primary" href="ajax.html">Show</a>
+                        <a class="btn" href="source.html?file=AjaxCmp.pas">Source</a>
+                    </p>
+
+                </div>
+
+                <!-- tile -->
+                <div class="col-md-4">
+                    <h3>QR Code</h3>
+                    <hr class="soften" />
+                    <p class="lead"><i class="icon-qrcode"></i> This example dynamically creates a QR Code image for text entered below.
+                        It uses the Google API to build the image data.</p>
+
+                    <form method="GET" action="qr" class="form-inline">
+
+                        <input class="form-control" name="t" value="Hello QR Code!" />
+
+                        <input type="submit" class="btn btn-primary" />
+
+                        <a class="btn" href="source.html?file=QrCodeCmp.pas">Source</a>
+
+
+                    </form>
+
+                </div>
+
+
+                <!-- tile -->
+                <div class="col-md-4">
+                    <h3>Live Statistics</h3>
+                    <hr class="soften" />
+                    <p class="lead"><i class="icon-signal"></i> This example uses jQuery and long polling to display request statistics.
+                        Best viewed with multiple browser windows.</p>
+                    <p>
+                        <a class="btn btn-primary" href="ajaxstats.html">Show</a>
+                        <a class="btn" href="source.html?file=AjaxStatsCmp.pas">Source</a>
+                    </p>
+
+                </div>
+
+            </div>
+            <!-- row -->
+
+        </section>
+        <!-- demo directory -->
+
+        <footer class="footer" id="contact">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>Copyright 2016 <a href="https://habarisoft.com/">Habarisoft</a>.
+
+                        <a href="http://getbootstrap.com/">Bootstrap</a> licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>.
+
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /container -->
+
+    <!-- Le javascript =============================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="#{jquery.min.js}"></script>
+    <script src="#{bootstrap.home}/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

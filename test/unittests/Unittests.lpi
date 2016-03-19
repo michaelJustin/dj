@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="9"/>
+    <PathDelim Value="\"/>
+    <General>
+      <SessionStorage Value="InProjectDir"/>
+      <MainUnit Value="0"/>
+      <Title Value="Unittests"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
+    </General>
+    <i18n>
+      <EnableI18N LFM="False"/>
+    </i18n>
+    <VersionInfo>
+      <StringTable ProductVersion=""/>
+    </VersionInfo>
+    <BuildModes Count="1">
+      <Item1 Name="Default" Default="True"/>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
+      <ExcludeFileFilter Value="*.(bak|ppu|o|so);*~;backup"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="3">
+      <Item1>
+        <PackageName Value="FPCUnitTestRunner"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="FCL"/>
+      </Item3>
+    </RequiredPackages>
+    <Units Count="28">
+      <Unit0>
+        <Filename Value="Unittests.lpr"/>
+        <IsPartOfProject Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="testbinarymessage.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="testprimitivemap.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="..\common-tests\DecoderTests.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="..\common-tests\StompEncodingTests.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="..\common-tests\BasicTests.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="..\common-tests\CoreTests.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="..\common-tests\ReceiveNoWaitTests.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="..\common-tests\FailoverTests.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="..\common-tests\QueuebrowserTests.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="..\common-tests\Stomp12Tests.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="..\common-tests\TransactionTests.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="..\common-tests\UnicodeText.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="..\common-tests\SendReceiveTests.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="..\common-tests\WildcardTests.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="..\common-tests\HeartbeatTests.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="..\common-tests\HeartbeatServer.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="djTestConfigAPI.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="dwfTestUnit.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="TestClient.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="TestComponents.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="TestdjWebComponentHandler.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="TestdjWebComponentHolder.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="TestRestful.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="TestSessions.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="djPathMapTests.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="djWebAppContextTests.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="djDefaultWebComponentTests.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit27>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <PathDelim Value="\"/>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir);C:\Delphi\indy-10.6\Lib\Core\"/>
+      <OtherUnitFiles Value="..\..\source;..\..\source\optional;..\..\..\slf4p\src\main;C:\Delphi\indy-10.6\Lib\Protocols\;C:\Delphi\indy-10.6\Lib\Core\;C:\Delphi\indy-10.6\Lib\System\"/>
+    </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <SyntaxMode Value="Delphi"/>
+        <IncludeAssertionCode Value="True"/>
+      </SyntaxOptions>
+    </Parsing>
+    <CodeGeneration>
+      <Checks>
+        <RangeChecks Value="True"/>
+        <OverflowChecks Value="True"/>
+        <StackChecks Value="True"/>
+      </Checks>
+    </CodeGeneration>
+    <Linking>
+      <Debugging>
+        <UseHeaptrc Value="True"/>
+      </Debugging>
+    </Linking>
+    <Other>
+      <CustomOptions Value="-dDARAJA_LOGGING"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="23">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+      <Item4>
+        <Name Value="EBTStompClientNotConnectedError"/>
+      </Item4>
+      <Item5>
+        <Name Value="ESynapseError"/>
+      </Item5>
+      <Item6>
+        <Name Value="EAssertionFailedError"/>
+      </Item6>
+      <Item7>
+        <Name Value="EIdReadTimeout"/>
+      </Item7>
+      <Item8>
+        <Name Value="EConnectionFailedException"/>
+      </Item8>
+      <Item9>
+        <Name Value="Exception"/>
+      </Item9>
+      <Item10>
+        <Name Value="EIgnoredTest"/>
+      </Item10>
+      <Item11>
+        <Name Value="EBTStompServerErrorMessage"/>
+      </Item11>
+      <Item12>
+        <Name Value="EBTStompServerHeartbeatMissing"/>
+      </Item12>
+      <Item13>
+        <Name Value="EJMSException"/>
+      </Item13>
+      <Item14>
+        <Name Value="EBTStompError"/>
+      </Item14>
+      <Item15>
+        <Name Value="EIdSocketError"/>
+      </Item15>
+      <Item16>
+        <Name Value="EIdConnClosedGracefully"/>
+      </Item16>
+      <Item17>
+        <Name Value="EConvertError"/>
+      </Item17>
+      <Item18>
+        <Name Value="EIllegalStateException"/>
+      </Item18>
+      <Item19>
+        <Name Value="EIdHTTPProtocolException"/>
+      </Item19>
+      <Item20>
+        <Name Value="EWebComponentException"/>
+      </Item20>
+      <Item21>
+        <Name Value="EUnitTestException"/>
+      </Item21>
+      <Item22>
+        <Name Value="EListError"/>
+      </Item22>
+      <Item23>
+        <Name Value="EIdCouldNotBindSocket"/>
+      </Item23>
+    </Exceptions>
+  </Debugging>
+</CONFIG>
