@@ -89,6 +89,10 @@ begin
     NewDecoder := ADecoder.ReadBody(Stream, AMsgEnd);
     if ADecoder.Filename <> '' then
     begin
+
+      Config.GetContext.Log(
+        Format('Received %s (%d bytes)', [ADecoder.Filename, Stream.Size]));
+
       try
         Stream.Position := 0;
         Response.ContentText := Response.ContentText
@@ -100,6 +104,8 @@ begin
         Stream.SaveToFile(UploadFile);
         Response.ContentText := Response.ContentText
           + '<p>' + UploadFile + ' written</p>';
+
+        Config.GetContext.Log(Format('Saved %s', [UploadFile]));
 
       except
         NewDecoder.Free;
