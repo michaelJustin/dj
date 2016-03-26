@@ -163,8 +163,11 @@ begin
     {$ENDIF}
 
     // same path -> error
-    Context.AddWebComponent(Holder2, '/bar');
-
+    try
+      Context.AddWebComponent(Holder2, '/bar');
+    finally
+      Holder2.Free; // fix leak
+    end;
   finally
     Context.Free;
   end;
