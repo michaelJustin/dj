@@ -61,10 +61,17 @@ begin
   LBoundaryEnd := LBoundaryStart + '--';
 
   LDecoder := TIdMessageDecoderMIME.Create(nil);
+
   try
     TIdMessageDecoderMIME(LDecoder).MIMEBoundary := LBoundary;
     LDecoder.SourceStream := Request.PostStream;
     LDecoder.FreeSourceStream := False;
+
+    // Copy from
+    // http://stackoverflow.com/questions/27257577/indy-mime-decoding-of-multipart-form-data-requests-returns-trailing-cr-lf
+    // note: this is a workaround, which enforces a specific encoding
+    TIdMessageDecoderMIME(LDecoder).Headers.Values['Content-Transfer-Encoding'] := '8bit';
+    TIdMessageDecoderMIME(LDecoder).BodyEncoded := False;
 
     LBoundaryFound := False;
     LIsStartBoundary := False;
@@ -117,5 +124,5 @@ begin
     LDecoder.Free;
   end;
 end;
-end.
 
+end.

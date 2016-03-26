@@ -17,11 +17,11 @@
 
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
-    develop commercial activities involving the software without
+    develop commercial activities involving the Daraja framework without
     disclosing the source code of your own applications. These activities
-    include: offering paid services to customers as an ASP, serving resources
-    in a web application, shipping the Daraja Web Framework with a closed
-    source product.
+    include: offering paid services to customers as an ASP, shipping Daraja
+    with a closed source product.
+    
 *)
 
 program KitchenSinkDemo;
