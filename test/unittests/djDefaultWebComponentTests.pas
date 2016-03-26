@@ -41,7 +41,7 @@ type
 
     procedure TestDefaultWebComponentInRootContext;
 
-    procedure DefaultWebComponentMissingResourcePath;
+    // procedure DefaultWebComponentMissingResourcePath;
 
     procedure DefaultWebComponentResNotFound;
   end;
@@ -50,7 +50,7 @@ implementation
 
 uses
   TestComponents, TestClient, djWebAppContext,
-  djInterfaces, djWebComponentHolder, djServer, djDefaultWebComponent,
+  djWebComponentHolder, djServer, djDefaultWebComponent,
   IdHTTP,
   IdGlobal,
   SysUtils;
@@ -113,19 +113,13 @@ begin
     // test static
     CheckEquals('staticcontent', Get('/test/static.html'), '/test/static.html');
 
-    // Expected Exception := EIdHTTPProtocolException;
-    try
-      Get('/test/missing.html')
-    except
-      on E: EIdHTTPProtocolException do
-      begin
-        // expected exception
-      end;
-      on E: Exception do
-      begin
-        Fail(E.Message);
-      end;
-    end;
+    {$IFDEF VER3}
+    ExpectException(EIdHTTPProtocolException);
+    {$ELSE}
+    ExpectedException := EIdHTTPProtocolException;
+    {$ENDIF}
+
+     Get('/test/missing.html');
 
   finally
     Server.Free;
@@ -172,26 +166,20 @@ begin
     // test static
     CheckEquals('staticcontent', Get('/static.html'), '/static.html');
 
-    // Expected Exception := EIdHTTPProtocolException;
-    try
-      Get('/missing.html');
-    except
-      on E: EIdHTTPProtocolException do
-      begin
-        // expected exception
-      end;
-      on E: Exception do
-      begin
-        Fail(E.Message);
-      end;
-    end;
+    {$IFDEF VER3}
+    ExpectException(EIdHTTPProtocolException);
+    {$ELSE}
+    ExpectedException := EIdHTTPProtocolException;
+    {$ENDIF}
+
+    Get('/missing.html');
 
   finally
     Server.Free;
   end;
-
 end;
 
+(*
 procedure TdjDefaultWebComponentTests.DefaultWebComponentMissingResourcePath;
 var
   Server: TdjServer;
@@ -207,20 +195,14 @@ begin
     // create default web component and register it
     Holder := TdjWebComponentHolder.Create(TdjDefaultWebComponent);
 
-    // this triggers a warning only
-    // Expected Exception := EWebComponentException;
-    try
-      Context.AddWebComponent(Holder, '/');
-    except
-      on E: EWebComponentException do
-      begin
-        // expected exception
-      end;
-      on E: Exception do
-      begin
-        Fail(E.Message);
-      end;
-    end;
+    // todo this triggers a warning only ok for dynamic environments
+
+    {$IFDEF VER3}
+    // ExpectException(EWebComponentException);
+    {$ELSE}
+    // ExpectedException := EWebComponentException;
+    {$ENDIF}
+    Context.AddWebComponent(Holder, '/');
 
     Server.Start;
 
@@ -229,6 +211,7 @@ begin
     Server.Free;
   end;
 end;
+*)
 
 procedure TdjDefaultWebComponentTests.DefaultWebComponentResNotFound;
 var

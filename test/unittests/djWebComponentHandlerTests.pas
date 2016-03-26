@@ -175,19 +175,15 @@ begin
 
       Handler.AddWithMapping(H1, '/index.html');
 
-      try
-        // add the same path map
-        Handler.AddWithMapping(H1, '/index.html');
-      except
-        on E: EWebComponentException do
-        begin
-          // expected exception
-        end;
-        on E: Exception do
-        begin
-          Fail(E.Message);
-        end;
-      end;
+      {$IFDEF VER3}
+      ExpectException(EWebComponentException);
+      {$ELSE}
+      ExpectedException := EWebComponentException;
+      {$ENDIF}
+
+      // add the same path map
+      Handler.AddWithMapping(H1, '/index.html');
+
     finally
       Handler.Free;
     end;
@@ -215,20 +211,15 @@ begin
       try
         H2.SetContext(Context.GetCurrentContext);
 
+        {$IFDEF VER3}
+        ExpectException(EWebComponentException);
+        {$ELSE}
+        ExpectedException := EWebComponentException;
+        {$ENDIF}
+
         // add the same path map
-        // Expected Exception := EWebComponentException;
-        try
-          Handler.AddWithMapping(H2, '/index.html');
-        except
-          on E: EWebComponentException do
-          begin
-            // expected exception
-          end;
-          on E: Exception do
-          begin
-            Fail(E.Message);
-          end;
-        end;
+        Handler.AddWithMapping(H2, '/index.html');
+
       finally
         H2.Free;
       end;
@@ -239,8 +230,6 @@ begin
     Context.Free;
   end;
 end;
-
-
 
 procedure TdjWebComponentHandlerTests.TestTwoComponentsSameNameFails;
 var
@@ -262,20 +251,15 @@ begin
         H2.SetContext(Context.GetCurrentContext);
         H2.Name := 'SameNameFails';
 
+        {$IFDEF VER3}
+        ExpectException(EWebComponentException);
+        {$ELSE}
+        ExpectedException := EWebComponentException;
+        {$ENDIF}
+
         // add the same name
-        // Expected Exception := EWebComponentException;
-        try
-          Handler.AddWithMapping(H2, '/b.html');
-        except
-          on E: EWebComponentException do
-          begin
-            // expected exception
-          end;
-          on E: Exception do
-          begin
-            Fail(E.Message);
-          end;
-        end;
+        Handler.AddWithMapping(H2, '/b.html');
+
       finally
         H2.Free;
       end;
@@ -307,20 +291,15 @@ begin
       try
         H2.SetContext(C2.GetCurrentContext);
 
+        {$IFDEF VER3}
+        ExpectException(EWebComponentException);
+        {$ELSE}
+        ExpectedException := EWebComponentException;
+        {$ENDIF}
+
         // different context fails
-        // ExpectedException := EWebComponentException;
-        try
-          Handler.AddWithMapping(H2, '/b.html');
-        except
-          on E: EWebComponentException do
-          begin
-            // expected exception
-          end;
-          on E: Exception do
-          begin
-            Fail(E.Message);
-          end;
-      end;
+        Handler.AddWithMapping(H2, '/b.html');
+
       finally
         H2.Free;
       end;

@@ -170,20 +170,14 @@ begin
     // Test the correct path
     CheckEquals('example', Get('/web/hello.html'));
 
+    {$IFDEF VER3}
+    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
+    {$ELSE}
+    ExpectedException := EIdHTTPProtocolException;
+    {$ENDIF}
+
     // Test non-existent path
-    try
-      CheckEquals('', Get('/web/bar'));
-    except
-      on E: EIdHTTPProtocolException do
-      begin
-        // expected exception
-        CheckEquals('HTTP/1.1 404 Not Found', E.Message);
-      end;
-      on E: Exception do
-      begin
-        Fail(E.Message);
-      end;
-    end;
+    CheckEquals('', Get('/web/bar'));
 
   finally
     Server.Free;
@@ -281,20 +275,15 @@ begin
     // Test the component
     CheckEquals('example', Get('/foo/bar'));
 
+    {$IFDEF VER3}
+    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
+    {$ELSE}
+    ExpectedException := EIdHTTPProtocolException;
+    {$ENDIF}
+
     // test invalid path
-    // Expected Exception := EIdHTTPProtocolException;
-    try
-      CheckEquals('', Get('/foo2/bar'));
-    except
-      on E: EIdHTTPProtocolException do
-      begin
-        // expected exception
-      end;
-      on E: Exception do
-      begin
-        Fail(E.Message);
-      end;
-    end;
+    CheckEquals('', Get('/foo2/bar'));
+
   finally
     // Server.Stop;
     Server.Free;
@@ -562,17 +551,14 @@ begin
 
     Server.Start;
 
-    // Test the component
-    try
-      TdjHTTPClient.Get('/ctx/exception');
+    {$IFDEF VER3}
+    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
+    {$ELSE}
+    ExpectedException := EIdHTTPProtocolException;
+    {$ENDIF}
 
-      Fail('Expected EIdHTTPProtocolException');
-    except
-      on E: EIdHTTPProtocolException do
-      begin
-        CheckEquals(404, E.ErrorCode);
-      end;
-    end;
+    // Test the component
+    TdjHTTPClient.Get('/ctx/exception');
 
   finally
     Server.Free;
@@ -596,15 +582,14 @@ begin
 
     Server.Start;
 
+    {$IFDEF VER3}
+    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 500 Internal Server Error');
+    {$ELSE}
+    ExpectedException := EIdHTTPProtocolException;
+    {$ENDIF}
+
     // Test the component
-    try
-      TdjHTTPClient.Get('/ctx/exception');
-    except
-      on E: EIdHTTPProtocolException do
-      begin
-        CheckEquals(500, E.ErrorCode);
-      end;
-    end;
+    TdjHTTPClient.Get('/ctx/exception');
 
   finally
     Server.Free;
@@ -628,14 +613,13 @@ begin
     // Test the component
     CheckEquals('Hello', Get('/get/hello'));
 
-    try
-      Get('/get2/hello')
-    except
-      on E: EIdHTTPProtocolException do
-      begin
-        CheckEquals(404, E.ErrorCode);
-      end;
-    end;
+    {$IFDEF VER3}
+    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
+    {$ELSE}
+    ExpectedException := EIdHTTPProtocolException;
+    {$ENDIF}
+
+    Get('/get2/hello')
 
   finally
     Server.Free;
@@ -656,15 +640,14 @@ begin
 
     Server.Start;
 
+    {$IFDEF VER3}
+    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 405 Method not allowed');
+    {$ELSE}
+    ExpectedException := EIdHTTPProtocolException;
+    {$ENDIF}
+
     // Test a GET
-    try
-      Get('/get/hello')
-    except
-      on E: EIdHTTPProtocolException do
-      begin
-        CheckEquals(405, E.ErrorCode);
-      end;
-    end;
+    Get('/get/hello')
 
   finally
     Server.Free;
@@ -714,23 +697,21 @@ begin
     CheckEquals('example', Get('/foo/bar'));
     CheckEquals('Hello universe!', Get('/foo2/bar2'));
 
-    try
-      TdjHTTPClient.Get('/foo/bar2');
-    except
-      on E: EIdHTTPProtocolException do
-      begin
-        CheckEquals(404, E.ErrorCode);
-      end;
-    end;
+    {$IFDEF VER3}
+    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
+    {$ELSE}
+    ExpectedException := EIdHTTPProtocolException;
+    {$ENDIF}
 
-    try
-      TdjHTTPClient.Get('/foo2/bar');
-    except
-      on E: EIdHTTPProtocolException do
-      begin
-        CheckEquals(404, E.ErrorCode);
-      end;
-    end;
+    TdjHTTPClient.Get('/foo/bar2');
+
+    {$IFDEF VER3}
+    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
+    {$ELSE}
+    ExpectedException := EIdHTTPProtocolException;
+    {$ENDIF}
+
+    TdjHTTPClient.Get('/foo2/bar');
 
   finally
     Server.Free;
@@ -920,16 +901,14 @@ begin
 
     Server.Start;
 
+    {$IFDEF VER3}
+    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
+    {$ELSE}
+    ExpectedException := EIdHTTPProtocolException;
+    {$ENDIF}
+
     // this does not work as the connector listens on port 8181
-    try
-      Get('/get/hello');
-      Fail('Expected 404');
-    except
-      on E: EIdHTTPProtocolException do
-      begin
-        CheckEquals(404, E.ErrorCode);
-      end;
-    end;
+    Get('/get/hello');
 
     // this works (special port)
     Get('/get/hello', 'http://127.0.0.1:8181');
