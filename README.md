@@ -1,5 +1,5 @@
 
-[![Build Status](https://travis-ci.org/michaelJustin/daraja-framework.svg?branch=master)](https://travis-ci.org/profile/michaelJustin)
+[![Build Status](https://travis-ci.org/michaelJustin/daraja-framework.svg?branch=master)](https://travis-ci.org/michaelJustin/daraja-framework)
 
 # Daraja Framework
 
