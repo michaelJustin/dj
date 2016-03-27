@@ -44,7 +44,7 @@ matrix:
     - os: linux
       env: LAZ_VER=1.6    LAZ_ENV=qemu-arm LAZ_OPT="--os=linux --cpu=arm --widgetset=nogui"
 
-#before_install:
+before_install:
     # Start virtual display server
   - sh -e /etc/init.d/xvfb start || true
 
