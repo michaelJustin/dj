@@ -51,6 +51,7 @@ before_install:
 install:
     # Install prerequisites (fpc/lazarus/wine/qemu)
   - sudo python ./.travis.install.py
+  - svn co https://svn.atozed.com:444/svn/Indy10/trunk/Lib ./indy/Lib --username Indy-Public-RO 
 
 script:
   - lazbuild $LAZ_OPT ./test/unittests/Unittests.lpi               # Build test project
