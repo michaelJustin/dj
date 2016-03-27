@@ -7,7 +7,7 @@ sudo: true
 branches:
   only:
     - develop
-	
+
 os:
 #  - linux
   - osx
