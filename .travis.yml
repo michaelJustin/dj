@@ -3,11 +3,6 @@
 
 sudo: required
 
-# whitelist
-branches:
-  only:
-    - develop
-
 os:
   - linux
 #  - osx
@@ -20,7 +15,7 @@ env:
 #    - LAZ_PKG=true   # Use the latest version from the default package manager
 #    - LAZ_VER=1.0.14 # Use specific (binary) release
 #    - LAZ_VER=1.2.6
-     - LAZ_VER=1.4.4
+#    - LAZ_VER=1.4.4
      - LAZ_VER=1.6
 
 matrix:
@@ -51,7 +46,7 @@ before_install:
 install:
     # Install prerequisites (fpc/lazarus/wine/qemu)
   - sudo python ./.travis.install.py
-  - svn co https://svn.atozed.com:444/svn/Indy10/trunk/Lib ./indy/Lib --username Indy-Public-RO 
+  - svn co https://svn.atozed.com:444/svn/Indy10/trunk/Lib ./indy/Lib --username Indy-Public-RO --non-interactive --trust-server-cert 
 
 script:
   - lazbuild $LAZ_OPT ./test/unittests/Unittests.lpi               # Build test project
