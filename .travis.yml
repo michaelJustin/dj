@@ -3,6 +3,11 @@
 
 sudo: true
 
+# whitelist
+branches:
+  only:
+    - develop
+	
 os:
 #  - linux
   - osx
