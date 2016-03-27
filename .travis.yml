@@ -41,8 +41,8 @@ matrix:
 #      env: LAZ_VER=1.2.6  LAZ_ENV=qemu-arm LAZ_OPT="--os=linux --cpu=arm --widgetset=nogui"
 #    - os: linux
 #      env: LAZ_VER=1.4.4  LAZ_ENV=qemu-arm LAZ_OPT="--os=linux --cpu=arm --widgetset=nogui"
-    - os: linux
-      env: LAZ_VER=1.6    LAZ_ENV=qemu-arm LAZ_OPT="--os=linux --cpu=arm --widgetset=nogui"
+#    - os: linux
+#      env: LAZ_VER=1.6    LAZ_ENV=qemu-arm LAZ_OPT="--os=linux --cpu=arm --widgetset=nogui"
 
 before_install:
     # Start virtual display server
@@ -53,5 +53,5 @@ install:
   - sudo python ./.travis.install.py
 
 script:
-  - lazbuild $LAZ_OPT test/unittests/Unittests.lpi               # Build test project
+  - lazbuild $LAZ_OPT -uDARAJA_LOGGING ./test/unittests/Unittests.lpi               # Build test project
 #  - $LAZ_ENV ./bin/my_lazarus_tests --all --format=plain # Run my_lazarus_test testsuite
