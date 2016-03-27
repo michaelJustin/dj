@@ -1,7 +1,7 @@
 # Part of `travis-lazarus` (https://github.com/nielsAD/travis-lazarus)
 # License: MIT
 
-sudo: required
+sudo: false
 
 # whitelist
 branches:
