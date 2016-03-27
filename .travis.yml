@@ -5,43 +5,43 @@ sudo: true
 
 os:
   - linux
-  - osx
+#  - osx
 
 env:
   global:
     - WINEPREFIX=~/.winelaz
     - DISPLAY=:99.0
   matrix:
-    - LAZ_PKG=true   # Use the latest version from the default package manager
-    - LAZ_VER=1.0.14 # Use specific (binary) release
-    - LAZ_VER=1.2.6
-    - LAZ_VER=1.4.4
+#    - LAZ_PKG=true   # Use the latest version from the default package manager
+#    - LAZ_VER=1.0.14 # Use specific (binary) release
+#    - LAZ_VER=1.2.6
+#    - LAZ_VER=1.4.4
     - LAZ_VER=1.6
 
 matrix:
   include:
-    - os: linux
-      env: LAZ_VER=1.2.6  LAZ_ENV=wine WINEARCH=win32 LAZ_OPT="--os=win32 --cpu=i386"
-    - os: linux
-      env: LAZ_VER=1.4.4  LAZ_ENV=wine WINEARCH=win32 LAZ_OPT="--os=win32 --cpu=i386"
-    - os: linux
-      env: LAZ_VER=1.6    LAZ_ENV=wine WINEARCH=win32 LAZ_OPT="--os=win32 --cpu=i386"
-    - os: linux
-      env: LAZ_VER=1.2.6  LAZ_ENV=wine WINEARCH=win64 LAZ_OPT="--os=win64 --cpu=x86_64"
-    - os: linux
-      env: LAZ_VER=1.4.4  LAZ_ENV=wine WINEARCH=win64 LAZ_OPT="--os=win64 --cpu=x86_64"
-    - os: linux
-      env: LAZ_VER=1.6    LAZ_ENV=wine WINEARCH=win64 LAZ_OPT="--os=win64 --cpu=x86_64"
-    - os: linux
-      env: LAZ_VER=1.2.6  LAZ_ENV=qemu-arm LAZ_OPT="--os=linux --cpu=arm --widgetset=nogui"
-    - os: linux
-      env: LAZ_VER=1.4.4  LAZ_ENV=qemu-arm LAZ_OPT="--os=linux --cpu=arm --widgetset=nogui"
+#    - os: linux
+#      env: LAZ_VER=1.2.6  LAZ_ENV=wine WINEARCH=win32 LAZ_OPT="--os=win32 --cpu=i386"
+#    - os: linux
+#      env: LAZ_VER=1.4.4  LAZ_ENV=wine WINEARCH=win32 LAZ_OPT="--os=win32 --cpu=i386"
+#    - os: linux
+#      env: LAZ_VER=1.6    LAZ_ENV=wine WINEARCH=win32 LAZ_OPT="--os=win32 --cpu=i386"
+#    - os: linux
+#      env: LAZ_VER=1.2.6  LAZ_ENV=wine WINEARCH=win64 LAZ_OPT="--os=win64 --cpu=x86_64"
+#    - os: linux
+#      env: LAZ_VER=1.4.4  LAZ_ENV=wine WINEARCH=win64 LAZ_OPT="--os=win64 --cpu=x86_64"
+#    - os: linux
+#      env: LAZ_VER=1.6    LAZ_ENV=wine WINEARCH=win64 LAZ_OPT="--os=win64 --cpu=x86_64"
+#    - os: linux
+#      env: LAZ_VER=1.2.6  LAZ_ENV=qemu-arm LAZ_OPT="--os=linux --cpu=arm --widgetset=nogui"
+#    - os: linux
+#      env: LAZ_VER=1.4.4  LAZ_ENV=qemu-arm LAZ_OPT="--os=linux --cpu=arm --widgetset=nogui"
     - os: linux
       env: LAZ_VER=1.6    LAZ_ENV=qemu-arm LAZ_OPT="--os=linux --cpu=arm --widgetset=nogui"
 
-before_install:
+#before_install:
     # Start virtual display server
-  - sh -e /etc/init.d/xvfb start || true
+#  - sh -e /etc/init.d/xvfb start || true
 
 install:
     # Install prerequisites (fpc/lazarus/wine/qemu)
