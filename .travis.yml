@@ -4,12 +4,12 @@
 sudo: true
 
 os:
-  - linux
+#  - linux
   - osx
 
 env:
   global:
-    - WINEPREFIX=~/.winelaz
+#    - WINEPREFIX=~/.winelaz
     - DISPLAY=:99.0
   matrix:
 #    - LAZ_PKG=true   # Use the latest version from the default package manager
