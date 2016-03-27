@@ -5,12 +5,12 @@ sudo: true
 
 os:
   - linux
-#  - osx
+  - osx
 
 env:
   global:
-#    - WINEPREFIX=~/.winelaz
-#    - DISPLAY=:99.0
+    - WINEPREFIX=~/.winelaz
+    - DISPLAY=:99.0
   matrix:
 #    - LAZ_PKG=true   # Use the latest version from the default package manager
 #    - LAZ_VER=1.0.14 # Use specific (binary) release
@@ -41,7 +41,7 @@ matrix:
 
 #before_install:
     # Start virtual display server
-#  - sh -e /etc/init.d/xvfb start || true
+  - sh -e /etc/init.d/xvfb start || true
 
 install:
     # Install prerequisites (fpc/lazarus/wine/qemu)
@@ -49,4 +49,4 @@ install:
 
 script:
   - lazbuild $LAZ_OPT my_lazarus_tests.lpi               # Build test project
- # - $LAZ_ENV ./bin/my_lazarus_tests --all --format=plain # Run my_lazarus_test testsuite
+  - $LAZ_ENV ./bin/my_lazarus_tests --all --format=plain # Run my_lazarus_test testsuite
