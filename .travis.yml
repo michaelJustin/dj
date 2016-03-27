@@ -1,7 +1,7 @@
 # Part of `travis-lazarus` (https://github.com/nielsAD/travis-lazarus)
 # License: MIT
 
-sudo: false
+sudo: required
 
 # whitelist
 branches:
@@ -10,14 +10,14 @@ branches:
 
 os:
   - linux
-  - osx
+#  - osx
 
 env:
   global:
-#    - WINEPREFIX=~/.winelaz
+    - WINEPREFIX=~/.winelaz
     - DISPLAY=:99.0
   matrix:
-     - LAZ_PKG=true   # Use the latest version from the default package manager
+#    - LAZ_PKG=true   # Use the latest version from the default package manager
 #    - LAZ_VER=1.0.14 # Use specific (binary) release
 #    - LAZ_VER=1.2.6
 #    - LAZ_VER=1.4.4
