@@ -50,7 +50,7 @@ before_install:
 
 install:
     # Install prerequisites (fpc/lazarus/wine/qemu)
-  - ./.travis.install.py
+  - sudo ./.travis.install.py
 
 script:
   - lazbuild $LAZ_OPT my_lazarus_tests.lpi               # Build test project
