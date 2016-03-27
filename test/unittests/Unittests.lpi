@@ -181,7 +181,6 @@
       </Debugging>
     </Linking>
     <Other>
-      <CustomOptions Value="-dDARAJA_LOGGING"/>
     </Other>
   </CompilerOptions>
   <Debugging>
