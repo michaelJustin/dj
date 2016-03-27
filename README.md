@@ -22,3 +22,7 @@ A simple logging facade with support for LazLogger, Log4D, and other logging fra
 https://github.com/michaelJustin/slf4p
 
 You can find this project at https://github.com/michaelJustin/daraja-framework
+
+## Getting Started PDF
+
+The "Getting Started with Daraja Framework" document for release 1.0 is available at https://darajaframework.com/docs/1.0/DarajaFrameworkGettingStarted.pdf 
