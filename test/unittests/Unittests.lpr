@@ -77,6 +77,8 @@ begin
   Tests := TTestSuite.Create(DWF_SERVER_FULL_NAME);
 
   Tests.AddTest(TTestSuite.Create(TdjPathMapTests));
+
+  {$IFNDEF LINUX}
   Tests.AddTest(TTestSuite.Create(TdjWebComponentHolderTests));
   Tests.AddTest(TTestSuite.Create(TdjWebComponentHandlerTests));
   Tests.AddTest(TTestSuite.Create(TdjWebAppContextTests));
@@ -84,21 +86,24 @@ begin
 
   Tests.AddTest(TTestSuite.Create(TSessionTests));
   Tests.AddTest(TTestSuite.Create(TAPIConfigTests));
+  {$ENDIF}
 
   RegisterTest('', Tests);
 
-  {.$IFDEF LINUX}
+  {$IFDEF LINUX}
+  // Launch console Test Runner ----------------------------------------------
   consoletestrunner.TTestRunner.Create(nil).Run;
 
   // ReadLn;
-
-  (* {$ELSE}
+  {$ELSE}
   // Launch GUI Test Runner --------------------------------------------------
   Application.Initialize;
   Application.CreateForm(TGuiTestRunner, TestRunner);
   TestRunner.Caption := DWF_SERVER_FULL_NAME + ' FPCUnit tests';
   Application.Run;
-  {$ENDIF} *)
+  {$ENDIF}
 
+  {$IFNDEF LINUX}
   SetHeapTraceOutput('heaptrace.log');
+  {$ENDIF}
 end.
