@@ -70,7 +70,7 @@ begin
   GIdIconvUseTransliteration := True;
   {$ENDIF}
 
-  ConsoleTests := IsConsole;
+  ConsoleTests := ParamCount > 0;
 
   {$IFDEF DARAJA_LOGGING}
   SimpleLogger.Configure('showDateTime', 'true');
