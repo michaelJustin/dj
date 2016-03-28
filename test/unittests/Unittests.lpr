@@ -82,7 +82,7 @@ begin
   Tests.AddTest(TTestSuite.Create(TdjWebComponentHolderTests));
   Tests.AddTest(TTestSuite.Create(TdjWebComponentHandlerTests));
 
-  if not ConsoleTests then
+  // if not ConsoleTests then
   begin  
     Tests.AddTest(TTestSuite.Create(TdjWebAppContextTests));
     Tests.AddTest(TTestSuite.Create(TdjDefaultWebComponentTests));
