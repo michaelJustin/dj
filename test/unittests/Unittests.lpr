@@ -64,10 +64,13 @@ uses
 
 var
   Tests: TTestSuite;
+  ConsoleTests: Boolean;
 begin
   {$IFDEF LINUX}
   GIdIconvUseTransliteration := True;
   {$ENDIF}
+
+  ConsoleTests := IsConsole;
 
   {$IFDEF DARAJA_LOGGING}
   SimpleLogger.Configure('showDateTime', 'true');
@@ -75,33 +78,36 @@ begin
   {$ENDIF DARAJA_LOGGING}
 
   Tests := TTestSuite.Create(DWF_SERVER_FULL_NAME);
-
   Tests.AddTest(TTestSuite.Create(TdjPathMapTests));
 
-  {$IFNDEF LINUX}
-  Tests.AddTest(TTestSuite.Create(TdjWebComponentHolderTests));
-  Tests.AddTest(TTestSuite.Create(TdjWebComponentHandlerTests));
-  Tests.AddTest(TTestSuite.Create(TdjWebAppContextTests));
-  Tests.AddTest(TTestSuite.Create(TdjDefaultWebComponentTests));
+  if not ConsoleTests then
+  begin
+    Tests.AddTest(TTestSuite.Create(TdjWebComponentHolderTests));
+    Tests.AddTest(TTestSuite.Create(TdjWebComponentHandlerTests));
+    Tests.AddTest(TTestSuite.Create(TdjWebAppContextTests));
+    Tests.AddTest(TTestSuite.Create(TdjDefaultWebComponentTests));
 
-  Tests.AddTest(TTestSuite.Create(TSessionTests));
-  Tests.AddTest(TTestSuite.Create(TAPIConfigTests));
-  {$ENDIF}
+    Tests.AddTest(TTestSuite.Create(TSessionTests));
+    Tests.AddTest(TTestSuite.Create(TAPIConfigTests));
+  end;
 
   RegisterTest('', Tests);
 
-  {$IFDEF LINUX}
-  // Launch console Test Runner ----------------------------------------------
-  consoletestrunner.TTestRunner.Create(nil).Run;
+  if ConsoleTests then
+  begin
+    // Launch console Test Runner --------------------------------------------
+    consoletestrunner.TTestRunner.Create(nil).Run;
 
-  // ReadLn;
-  {$ELSE}
-  // Launch GUI Test Runner --------------------------------------------------
-  Application.Initialize;
-  Application.CreateForm(TGuiTestRunner, TestRunner);
-  TestRunner.Caption := DWF_SERVER_FULL_NAME + ' FPCUnit tests';
-  Application.Run;
-  {$ENDIF}
+    {$IFNDEF LINUX}
+    ReadLn;
+    {$ENDIF}
+  end else begin
+    // Launch GUI Test Runner ------------------------------------------------
+    Application.Initialize;
+    Application.CreateForm(TGuiTestRunner, TestRunner);
+    TestRunner.Caption := DWF_SERVER_FULL_NAME + ' FPCUnit tests';
+    Application.Run;
+  end;
 
   {$IFNDEF LINUX}
   SetHeapTraceOutput('heaptrace.log');
