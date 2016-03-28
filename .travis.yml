@@ -3,6 +3,11 @@
 
 sudo: required
 
+# whitelist
+branches:
+  only:
+    - develop
+	
 os:
   - linux
 #  - osx
