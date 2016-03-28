@@ -159,8 +159,8 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir);C:\Delphi\indy-10.6\Lib\Core\"/>
-      <OtherUnitFiles Value="..\..\source;..\..\source\optional;..\..\..\slf4p\src\main;C:\Delphi\indy-10.6\Lib\Protocols\;C:\Delphi\indy-10.6\Lib\Core\;C:\Delphi\indy-10.6\Lib\System\"/>
+      <IncludeFiles Value="$(ProjOutDir);C:\Delphi\indy-10.6\Lib\Core\;..\..\indy-10.6\Lib\Core"/>
+      <OtherUnitFiles Value="..\..\source;..\..\source\optional;..\..\..\slf4p\src\main;C:\Delphi\indy-10.6\Lib\Protocols\;C:\Delphi\indy-10.6\Lib\Core\;C:\Delphi\indy-10.6\Lib\System\;..\..\indy-10.6\Lib\Core;..\..\indy-10.6\Lib\Protocols;..\..\indy-10.6\Lib\System"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
@@ -181,7 +181,7 @@
       </Debugging>
     </Linking>
     <Other>
-      <CustomOptions Value="-dDARAJA_LOGGING"/>
+      <CustomOptions Value="-dDARAJA_LOGGINGx"/>
     </Other>
   </CompilerOptions>
   <Debugging>

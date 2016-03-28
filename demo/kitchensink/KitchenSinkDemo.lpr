@@ -137,6 +137,7 @@ uses
     end;
   end;
 
+  (*
   procedure CatchUnhandledException(Obj: TObject; Addr: Pointer;
     FrameCount: longint; Frames: PPointer);
   var
@@ -161,10 +162,15 @@ uses
         Writeln(hstdout^, '>', BackTraceStrFunc(Frames[i]));
     end;
     Writeln(hstdout^, '');
+
+    ReadLn;
   end;
+  *)
 
 begin
-  ExceptProc := @CatchUnhandledException;
+  //  ExceptProc := @CatchUnhandledException;
 
   Demo;
+
+  SetHeapTraceOutput('heaptrace.log');
 end.

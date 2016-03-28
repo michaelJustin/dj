@@ -44,8 +44,8 @@ type
    *)
   TUploadPage = class(TdjWebComponent)
   private
-    procedure ProcessMimePart(var VDecoder: TIdMessageDecoder;
-      var VMsgEnd: Boolean; const Response: TIdHTTPResponseInfo);
+    procedure ProcessMimePart(var ADecoder: TIdMessageDecoder;
+      var AMsgEnd: Boolean; const Response: TIdHTTPResponseInfo);
   public
     procedure OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
       override;
@@ -77,39 +77,45 @@ begin
   ForceDirectories(Result);
 end;
 
-procedure TUploadPage.ProcessMimePart(var VDecoder: TIdMessageDecoder;
-  var VMsgEnd: Boolean; const Response: TIdHTTPResponseInfo);
+procedure TUploadPage.ProcessMimePart(var ADecoder: TIdMessageDecoder;
+  var AMsgEnd: Boolean; const Response: TIdHTTPResponseInfo);
 var
-  LMStream: TMemoryStream;
-  LNewDecoder: TIdMessageDecoder;
+  Stream: TMemoryStream;
+  NewDecoder: TIdMessageDecoder;
   UploadFile: string;
 begin
-  LMStream := TMemoryStream.Create;
+  Stream := TMemoryStream.Create;
   try
-    LNewDecoder := VDecoder.ReadBody(LMStream, VMsgEnd);
-    if VDecoder.Filename <> '' then
+    NewDecoder := ADecoder.ReadBody(Stream, AMsgEnd);
+    if ADecoder.Filename <> '' then
     begin
+
+      Config.GetContext.Log(
+        Format('Received %s (%d bytes)', [ADecoder.Filename, Stream.Size]));
+
       try
-        LMStream.Position := 0;
+        Stream.Position := 0;
         Response.ContentText := Response.ContentText
           + Format('<p>%s %d bytes</p>' + #13#10,
-            [VDecoder.Filename, LMStream.Size]);
+            [ADecoder.Filename, Stream.Size]);
 
         // write stream to upload folder
-        UploadFile := GetUploadFolder + VDecoder.Filename;
-        LMStream.SaveToFile(UploadFile);
+        UploadFile := GetUploadFolder + ADecoder.Filename;
+        Stream.SaveToFile(UploadFile);
         Response.ContentText := Response.ContentText
           + '<p>' + UploadFile + ' written</p>';
 
+        Config.GetContext.Log(Format('Saved %s', [UploadFile]));
+
       except
-        LNewDecoder.Free;
+        NewDecoder.Free;
         raise;
       end;
     end;
-    VDecoder.Free;
-    VDecoder := LNewDecoder;
+    ADecoder.Free;
+    ADecoder := NewDecoder;
   finally
-    LMStream.Free;
+    Stream.Free;
   end;
 end;
 
