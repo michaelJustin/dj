@@ -49,5 +49,5 @@ install:
   - svn co https://svn.atozed.com:444/svn/Indy10/trunk/Lib ./indy-10.6/Lib --username Indy-Public-RO --non-interactive --trust-server-cert --no-auth-cache --password ''
 
 script:
-  - lazbuild $LAZ_OPT ./test/unittests/Unittests.lpi               # Build test project
+  - lazbuild $LAZ_OPT -uDARAJA_LOGGING ./test/unittests/Unittests.lpi               # Build test project
 #  - $LAZ_ENV ./bin/my_lazarus_tests --all --format=plain # Run my_lazarus_test testsuite
