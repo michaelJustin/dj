@@ -57,7 +57,8 @@ uses
   IdGlobal,
   testregistry,
   fpcunit,
-  GuiTestRunner;
+  GuiTestRunner,
+  consoletestrunner;
 
 {$R *.res}
 
@@ -86,11 +87,18 @@ begin
 
   RegisterTest('', Tests);
 
+  {.$IFDEF LINUX}
+  consoletestrunner.TTestRunner.Create(nil).Run;
+
+  // ReadLn;
+
+  (* {$ELSE}
   // Launch GUI Test Runner --------------------------------------------------
   Application.Initialize;
   Application.CreateForm(TGuiTestRunner, TestRunner);
   TestRunner.Caption := DWF_SERVER_FULL_NAME + ' FPCUnit tests';
   Application.Run;
+  {$ENDIF} *)
 
   SetHeapTraceOutput('heaptrace.log');
 end.
