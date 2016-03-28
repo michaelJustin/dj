@@ -33,7 +33,7 @@ interface
 {$i IdCompilerDefines.inc}
 
 const
-  DWF_SERVER_VERSION = '1.0.1-SNAPSHOT';
+  DWF_SERVER_VERSION = '1.0.1';
   DWF_SERVER_FULL_NAME = 'Daraja Framework ' + DWF_SERVER_VERSION;
   DWF_SERVER_COPYRIGHT = 'Copyright (C) 2016 Michael Justin';
 
