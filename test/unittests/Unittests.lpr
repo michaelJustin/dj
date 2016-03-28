@@ -81,10 +81,10 @@ begin
   Tests.AddTest(TTestSuite.Create(TdjPathMapTests));
   Tests.AddTest(TTestSuite.Create(TdjWebComponentHolderTests));
   Tests.AddTest(TTestSuite.Create(TdjWebComponentHandlerTests));
+  Tests.AddTest(TTestSuite.Create(TdjWebAppContextTests));
 
-  // if not ConsoleTests then
+  if not ConsoleTests then
   begin  
-    Tests.AddTest(TTestSuite.Create(TdjWebAppContextTests));
     Tests.AddTest(TTestSuite.Create(TdjDefaultWebComponentTests));
 
     Tests.AddTest(TTestSuite.Create(TSessionTests));
