@@ -84,3 +84,4 @@ demo/kitchensink/KitchenSinkDemo.res
 test/unittests/Unittests.fpcunit.ini
 test/unittests/Unittests.res
 test/unittests/dunit.ini
+indy-10.6/Lib
