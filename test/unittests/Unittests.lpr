@@ -64,13 +64,13 @@ uses
 
 var
   Tests: TTestSuite;
-  ConsoleTests: Boolean;
+  UseConsoleTestRunner: Boolean;
 begin
   {$IFDEF LINUX}
   GIdIconvUseTransliteration := True;
   {$ENDIF}
 
-  ConsoleTests := ParamCount > 0;
+  UseConsoleTestRunner := ParamCount > 0;
 
   {$IFDEF DARAJA_LOGGING}
   SimpleLogger.Configure('showDateTime', 'true');
@@ -83,7 +83,7 @@ begin
   Tests.AddTest(TTestSuite.Create(TdjWebComponentHandlerTests));
   Tests.AddTest(TTestSuite.Create(TdjWebAppContextTests));
 
-  if not ConsoleTests then
+  if not UseConsoleTestRunner then
   begin  
     Tests.AddTest(TTestSuite.Create(TdjDefaultWebComponentTests));
 
@@ -93,7 +93,7 @@ begin
 
   RegisterTest('', Tests);
 
-  if ConsoleTests then
+  if UseConsoleTestRunner then
   begin
     // Launch console Test Runner --------------------------------------------
     consoletestrunner.TTestRunner.Create(nil).Run;
