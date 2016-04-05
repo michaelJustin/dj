@@ -64,13 +64,13 @@ uses
 
 var
   Tests: TTestSuite;
-  ConsoleTests: Boolean;
+  UseConsoleTestRunner: Boolean;
 begin
   {$IFDEF LINUX}
   GIdIconvUseTransliteration := True;
   {$ENDIF}
 
-  ConsoleTests := IsConsole;
+  UseConsoleTestRunner := ParamCount > 0;
 
   {$IFDEF DARAJA_LOGGING}
   SimpleLogger.Configure('showDateTime', 'true');
@@ -79,21 +79,22 @@ begin
 
   Tests := TTestSuite.Create(DWF_SERVER_FULL_NAME);
   Tests.AddTest(TTestSuite.Create(TdjPathMapTests));
+  Tests.AddTest(TTestSuite.Create(TdjWebComponentHolderTests));
+  Tests.AddTest(TTestSuite.Create(TdjWebComponentHandlerTests));
+  Tests.AddTest(TTestSuite.Create(TdjWebAppContextTests));
+  Tests.AddTest(TTestSuite.Create(TdjDefaultWebComponentTests));
 
-  if not ConsoleTests then
-  begin
-    Tests.AddTest(TTestSuite.Create(TdjWebComponentHolderTests));
-    Tests.AddTest(TTestSuite.Create(TdjWebComponentHandlerTests));
-    Tests.AddTest(TTestSuite.Create(TdjWebAppContextTests));
-    Tests.AddTest(TTestSuite.Create(TdjDefaultWebComponentTests));
 
+  if not UseConsoleTestRunner then
+  begin  
+    
     Tests.AddTest(TTestSuite.Create(TSessionTests));
     Tests.AddTest(TTestSuite.Create(TAPIConfigTests));
   end;
 
   RegisterTest('', Tests);
 
-  if ConsoleTests then
+  if UseConsoleTestRunner then
   begin
     // Launch console Test Runner --------------------------------------------
     consoletestrunner.TTestRunner.Create(nil).Run;
