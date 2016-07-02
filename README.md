@@ -11,7 +11,7 @@ Daraja provides the core foundation for serving HTTP resources of all content-ty
 
 ### daraja-restful
 
-A RESTful framework extension, currently only compatible with Delphi 2009 and newer. 
+A RESTful framework extension, version 1.0 is compatible with Delphi 2009 and newer. Version 2.0 introduces support for Free Pascal, using a slightly different configuration of RESTful resource handlers.
 
 https://github.com/michaelJustin/daraja-restful
 
