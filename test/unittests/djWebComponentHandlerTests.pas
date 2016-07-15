@@ -49,13 +49,12 @@ implementation
 uses
   Classes, SysUtils,
   djWebComponentHolder, IdCustomHTTPServer, djWebComponent, djWebAppContext,
-  djWebComponentHandler, djInterfaces;
+  djWebComponentHandler, djInterfaces, djTypes;
 
 type
   TExamplePage = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); override;
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
   TOtherPage = class(TdjWebComponent)
@@ -64,8 +63,7 @@ type
 
   { TExamplePage }
 
-procedure TExamplePage.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TExamplePage.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
   inherited;
 

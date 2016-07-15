@@ -105,7 +105,7 @@ uses
   djInterfaces, djWebComponent, djWebComponentHolder,
   djWebComponentContextHandler, djServer,
   djDefaultHandler, djStatisticsHandler,
-  djHTTPConnector, djContextHandlerCollection, djHandlerList,
+  djHTTPConnector, djContextHandlerCollection, djHandlerList, djTypes,
   IdCustomHTTPServer, IdHTTP, IdServerInterceptLogFile,
   IdSchedulerOfThreadPool, IdGlobal, IdException,
   Dialogs, SysUtils, Classes;
@@ -336,12 +336,10 @@ end;
 // --------------------------------------------------- TestWebComponentContext
 type
   TConfigTestWebComponent = class(TdjWebComponent)
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); override;
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
-procedure TConfigTestWebComponent.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TConfigTestWebComponent.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ContentText := GetWebComponentConfig.GetInitParameter('test')
     + ',ctx=' + GetWebComponentConfig.GetContext.GetContextPath;
@@ -929,12 +927,11 @@ end;
 type
   TCharSetComponent = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse);
       override;
   end;
 
-procedure TCharSetComponent.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TCharSetComponent.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ContentText := '中文';
   Response.ContentType := 'text/plain';

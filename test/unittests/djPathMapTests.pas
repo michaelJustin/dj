@@ -49,7 +49,7 @@ type
 implementation
 
 uses
-  djInterfaces, djPathMap, djWebComponentHandler, djWebAppContext, djServer,
+  djPathMap,
   SysUtils, Classes;
 
 type

@@ -43,20 +43,18 @@ type
 implementation
 
 uses
-  djWebComponentHolder, djWebComponent, djWebAppContext,
+  djWebComponentHolder, djWebComponent, djWebAppContext, djTypes,
   IdCustomHTTPServer;
 
 type
   TExamplePage = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); override;
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
 { TExamplePage }
 
-procedure TExamplePage.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TExamplePage.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
   inherited;
 

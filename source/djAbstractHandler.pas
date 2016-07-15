@@ -37,7 +37,7 @@ uses
 {$IFDEF DARAJA_LOGGING}
   djLogAPI, djLoggerFactory,
 {$ENDIF DARAJA_LOGGING}
-  IdCustomHTTPServer;
+  djTypes;
 
 type
   (**
@@ -80,8 +80,8 @@ type
      *
      * \sa IHandler
      *)
-    procedure Handle(Target: string; Context: TdjServerContext; Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); virtual; abstract;
+    procedure Handle(Target: string; Context: TdjServerContext; Request: TdjRequest; Response:
+      TdjResponse); virtual; abstract;
 
   end;
 

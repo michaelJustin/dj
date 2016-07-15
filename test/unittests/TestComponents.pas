@@ -29,7 +29,7 @@ unit TestComponents;
 interface
 
 uses
-  djInterfaces, djWebComponent, djAbstractHandler, djServerContext,
+  djInterfaces, djWebComponent, djAbstractHandler, djServerContext, djTypes,
   IdCustomHTTPServer,
   Dialogs, SysUtils, Classes;
 
@@ -40,7 +40,7 @@ type
   THelloHandler = class(TdjAbstractHandler)
   public
     procedure Handle(Target: string; Context: TdjServerContext;
-      Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo); override;
+      Request: TdjRequest; Response: TdjResponse); override;
   end;
 
 
@@ -48,14 +48,13 @@ type
 
   TExamplePage = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse);
       override;
   end;
 
   THello2WebComponent = class(TdjWebComponent)
   public
-    procedure Service(Context: TdjServerContext; Request: TIdHTTPRequestInfo;
-      Response: TIdHTTPResponseInfo); override;
+    procedure Service(Context: TdjServerContext; Request: TdjRequest; Response: TdjResponse); override;
   end;
 
   TExceptionInInitComponent = class(TdjWebComponent)
@@ -65,13 +64,12 @@ type
 
   TExceptionComponent = class(TdjWebComponent)
   public
-    procedure Service(Context: TdjServerContext; Request: TIdHTTPRequestInfo;
-      Response: TIdHTTPResponseInfo); override;
+    procedure Service(Context: TdjServerContext; Request: TdjRequest; Response: TdjResponse); override;
   end;
 
   TGetComponent = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse);
       override;
   end;
 
@@ -80,19 +78,19 @@ type
 
   TNoOpComponent = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse);
       override;
   end;
 
   TPostComponent = class(TdjWebComponent)
   public
-    procedure OnPost(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+    procedure OnPost(Request: TdjRequest; Response: TdjResponse);
       override;
   end;
 
   TLogComponent = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse);
       override;
   end;
 
@@ -103,8 +101,7 @@ type
 
 { TExamplePage }
 
-procedure TExamplePage.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TExamplePage.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ContentText := 'example';
 end;
@@ -112,7 +109,7 @@ end;
 { THello2WebComponent }
 
 procedure THello2WebComponent.Service(Context: TdjServerContext;
-  Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+  Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ContentText := 'Hello universe!';
 end;
@@ -120,15 +117,14 @@ end;
 { TExceptionComponent }
 
 procedure TExceptionComponent.Service(Context: TdjServerContext;
-  Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+  Request: TdjRequest; Response: TdjResponse);
 begin
   raise EUnitTestException.Create('test');
 end;
 
 { TGetComponent }
 
-procedure TGetComponent.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TGetComponent.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ContentText := 'Hello';
 end;
@@ -136,7 +132,7 @@ end;
 { THelloHandler }
 
 procedure THelloHandler.Handle(Target: string; Context: TdjServerContext;
-  Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+  Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ContentText := 'Hello world!';
   Response.ResponseNo := 200;
@@ -144,16 +140,14 @@ end;
 
 { TNoOpComponent }
 
-procedure TNoOpComponent.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TNoOpComponent.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
   WriteLn('>>>> ' + GetWebComponentConfig.GetInitParameter('a'));
 end;
 
 { TLogComponent }
 
-procedure TLogComponent.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TLogComponent.OnGet(Request: TdjRequest; Response: TdjResponse);
 var
   Value: string;
 begin
@@ -166,8 +160,7 @@ end;
 
 { TPostComponent }
 
-procedure TPostComponent.OnPost(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TPostComponent.OnPost(Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ContentText := 'posted.this';
 end;

@@ -37,7 +37,7 @@ uses
 {$IFDEF DARAJA_LOGGING}
   djLogAPI, djLoggerFactory,
 {$ENDIF DARAJA_LOGGING}
-  IdCustomHTTPServer;
+  djTypes;
 
 type
   (**
@@ -87,8 +87,7 @@ type
      * \throws EWebComponentException if an exception occurs that interferes with the component's normal operation
      * \sa IHandler
      *)
-    procedure Service(Context: TdjServerContext; Request: TIdHTTPRequestInfo;
-      Response: TIdHTTPResponseInfo); override;
+    procedure Service(Context: TdjServerContext; Request: TdjRequest; Response: TdjResponse); override;
 
   end;
 
@@ -167,9 +166,8 @@ begin
   end;
 end;
 
-procedure TdjDefaultWebComponent.Service(Context: TdjServerContext; Request:
-  TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TdjDefaultWebComponent.Service(Context: TdjServerContext;
+  Request: TdjRequest; Response: TdjResponse);
 var
   RelFileName: string;
   FileName: string;

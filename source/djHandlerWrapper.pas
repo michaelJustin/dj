@@ -37,6 +37,7 @@ uses
 {$IFDEF DARAJA_LOGGING}
   djLogAPI, djLoggerFactory,
 {$ENDIF DARAJA_LOGGING}
+  djTypes,
   IdCustomHTTPServer;
 
 (**
@@ -63,8 +64,8 @@ type
     (**
      * Get a HTTP session.
      *)
-    function GetSession(Context: TdjServerContext; Request: TIdHTTPRequestInfo;
-      Response: TIdHTTPResponseInfo; const Create: Boolean): TIdHTTPSession;
+    function GetSession(Context: TdjServerContext; Request: TdjRequest;
+      Response: TdjResponse; const Create: Boolean): TIdHTTPSession;
 
   public
     constructor Create; override;
@@ -113,8 +114,8 @@ type
      *
      * \sa IHandler
      *)
-    procedure Handle(Target: string; Context: TdjServerContext; Request:
-      TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo); override;
+    procedure Handle(Target: string; Context: TdjServerContext;
+      Request: TdjRequest; Response: TdjResponse); override;
 
     // properties
     property Handler: IHandler read GetHandler write SetHandler;
@@ -137,7 +138,7 @@ begin
 end;
 
 function TdjHandlerWrapper.GetSession(Context: TdjServerContext;
-  Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo;
+  Request: TdjRequest; Response: TdjResponse;
   const Create: Boolean): TIdHTTPSession;
 var
   C: TIdServerContext;
@@ -237,7 +238,7 @@ end;
 // IHandler
 
 procedure TdjHandlerWrapper.Handle(Target: string; Context: TdjServerContext;
-  Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+  Request: TdjRequest; Response: TdjResponse);
 begin
   if (Assigned(Handler)) and Handler.IsStarted then
   begin

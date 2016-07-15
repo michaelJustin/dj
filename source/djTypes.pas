@@ -21,53 +21,26 @@
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the Daraja framework without
     disclosing the source code of your own applications. These activities
-    include: offering paid services to customers as an ASP, shipping Daraja 
+    include: offering paid services to customers as an ASP, shipping Daraja
     with a closed source product.
 
 *)
 
-unit djGlobal;
+unit djTypes;
 
 interface
 
 {$i IdCompilerDefines.inc}
 
-const
-  DWF_SERVER_VERSION = '1.5-SNAPSHOT';
-  DWF_SERVER_FULL_NAME = 'Daraja Framework ' + DWF_SERVER_VERSION;
-  DWF_SERVER_COPYRIGHT = 'Copyright (C) 2016 Michael Justin';
+uses
+  IdCustomHTTPServer;
 
-function HTMLEncode(const AData: string): string;
+type
+  TdjRequest = TIdHTTPRequestInfo;
+
+  TdjResponse = TIdHTTPResponseInfo;
 
 implementation
 
-// http://stackoverflow.com/a/2971923/80901
-function HTMLEncode(const AData: string): string;
-var
-  Pos, I: Integer;
-
-  procedure Encode(const AStr: string);
-  begin
-    Move(AStr[1], Result[Pos], Length(AStr) * SizeOf(Char));
-    Inc(Pos, Length(AStr));
-  end;
-
-begin
-  SetLength(Result, Length(AData) * 6);
-  Pos := 1;
-  for I := 1 to length(AData) do
-  begin
-    case AData[I] of
-      '<': Encode('&lt;');
-      '>': Encode('&gt;');
-      '&': Encode('&amp;');
-      '"': Encode('&quot;');
-    else
-      Result[Pos] := AData[I];
-      Inc(Pos);
-    end;
-  end;
-  SetLength(Result, Pos - 1);
-end;
-
 end.
+
