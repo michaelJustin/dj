@@ -29,6 +29,7 @@ program Unittests;
 {$APPTYPE CONSOLE}
 
 uses
+  djTypes in '..\..\source\djTypes.pas',
   djServerInterfaces in '..\..\source\djServerInterfaces.pas',
   djAbstractHandler in '..\..\source\djAbstractHandler.pas',
   djWebComponent in '..\..\source\djWebComponent.pas',
