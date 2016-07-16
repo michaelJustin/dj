@@ -37,7 +37,7 @@ uses
 {$IFDEF DARAJA_LOGGING}
   djLogAPI, djLoggerFactory,
 {$ENDIF DARAJA_LOGGING}
-  IdCustomHTTPServer, IdContext;
+  djTypes, IdContext;
 
 type
   (**
@@ -57,8 +57,7 @@ type
     procedure Trace(const S: string);
 
     procedure OnCommand(AContext: TIdContext;
-      ARequestInfo: TIdHTTPRequestInfo;
-      AResponseInfo: TIdHTTPResponseInfo);
+      ARequestInfo: TdjRequest; AResponseInfo: TdjResponse);
 
   public
     (**
@@ -218,7 +217,7 @@ begin
 end;
 
 procedure TdjHTTPConnector.OnCommand(AContext: TIdContext;
-  ARequestInfo: TIdHTTPRequestInfo; AResponseInfo: TIdHTTPResponseInfo);
+  ARequestInfo: TdjRequest; AResponseInfo: TdjResponse);
 begin
   try
     Trace('OnCommand ' + ARequestInfo.Document);
