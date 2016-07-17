@@ -31,9 +31,6 @@ program VerifyAndroidUserID;
 {$i IdCompilerDefines.inc}
 
 uses
-{$IFDEF LINUX}
-  cthreads,
-{$ENDIF}
   djServer,
   djWebAppContext,
   djDefaultWebComponent,
