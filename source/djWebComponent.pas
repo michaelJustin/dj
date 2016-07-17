@@ -37,7 +37,7 @@ uses
 {$IFDEF DARAJA_LOGGING}
   djLogAPI, djLoggerFactory,
 {$ENDIF DARAJA_LOGGING}
-  IdCustomHTTPServer;
+  djTypes;
 
 type
   (**
@@ -60,51 +60,43 @@ type
     (**
      * Called by the server (via the service method) to allow a component to handle a DELETE request.
      *)
-    procedure OnDelete(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); virtual;
+    procedure OnDelete(Request: TdjRequest; Response: TdjResponse); virtual;
 
     (**
      * Called by the server (via the service method) to allow a component to handle a GET request.
      *)
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
-      virtual;
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse); virtual;
 
     (**
      * Called by the server (via the service method) to allow a component to handle a HEAD request.
      *)
-    procedure OnHead(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); virtual;
+    procedure OnHead(Request: TdjRequest; Response: TdjResponse); virtual;
 
     (**
      * Called by the server (via the service method) to allow a component to handle a OPTIONS request.
      *)
-    procedure OnOptions(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); virtual;
+    procedure OnOptions(Request: TdjRequest; Response: TdjResponse); virtual;
 
     (**
      * Called by the server (via the service method) to allow a component to handle a POST request.
      *)
-    procedure OnPost(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); virtual;
+    procedure OnPost(Request: TdjRequest; Response: TdjResponse); virtual;
 
     (**
      * Called by the server (via the service method) to allow a component to handle a PUT request.
      *)
-    procedure OnPut(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
-      virtual;
+    procedure OnPut(Request: TdjRequest; Response: TdjResponse); virtual;
 
     (**
      * Called by the server (via the service method) to allow a component to handle a TRACE request.
      *)
-    procedure OnTrace(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); virtual;
+    procedure OnTrace(Request: TdjRequest; Response: TdjResponse); virtual;
 
     (**
      * Called by the server (via the service method) to allow a component to handle a PATCH request.
      * \sa http://tools.ietf.org/html/rfc5789
      *)
-    procedure OnPatch(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); virtual;
+    procedure OnPatch(Request: TdjRequest; Response: TdjResponse); virtual;
 
   public
     constructor Create;
@@ -121,8 +113,8 @@ type
      * \param Response HTTP response
      * \throws EWebComponentException if an exception occurs that interferes with the component's normal operation
      *)
-    procedure Service(Context: TdjServerContext; Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); override;
+    procedure Service(Context: TdjServerContext; Request: TdjRequest; Response:
+      TdjResponse); override;
 
   end;
 
@@ -132,6 +124,9 @@ type
   TdjWebComponentClass = class of TdjWebComponent;
 
 implementation
+
+uses
+  IdCustomHTTPServer;
 
 const
   HTTP_ERROR_METHOD_NOT_ALLOWED = 405;
@@ -157,56 +152,48 @@ begin
   inherited;
 end;
 
-procedure TdjWebComponent.OnDelete(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TdjWebComponent.OnDelete(Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ResponseNo := HTTP_ERROR_METHOD_NOT_ALLOWED;
 end;
 
-procedure TdjWebComponent.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TdjWebComponent.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ResponseNo := HTTP_ERROR_METHOD_NOT_ALLOWED;
 end;
 
-procedure TdjWebComponent.OnHead(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TdjWebComponent.OnHead(Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ResponseNo := HTTP_ERROR_METHOD_NOT_ALLOWED;
 end;
 
-procedure TdjWebComponent.OnOptions(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TdjWebComponent.OnOptions(Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ResponseNo := HTTP_ERROR_METHOD_NOT_ALLOWED;
 end;
 
-procedure TdjWebComponent.OnPost(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TdjWebComponent.OnPost(Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ResponseNo := HTTP_ERROR_METHOD_NOT_ALLOWED;
 end;
 
-procedure TdjWebComponent.OnPut(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TdjWebComponent.OnPut(Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ResponseNo := HTTP_ERROR_METHOD_NOT_ALLOWED;
 end;
 
-procedure TdjWebComponent.OnTrace(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TdjWebComponent.OnTrace(Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ResponseNo := HTTP_ERROR_METHOD_NOT_ALLOWED;
 end;
 
-procedure TdjWebComponent.OnPatch(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TdjWebComponent.OnPatch(Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ResponseNo := HTTP_ERROR_METHOD_NOT_ALLOWED;
 end;
 
-procedure TdjWebComponent.Service(Context: TdjServerContext; Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TdjWebComponent.Service(Context: TdjServerContext;
+  Request: TdjRequest; Response: TdjResponse);
 begin
   case Request.CommandType of
     hcHEAD:

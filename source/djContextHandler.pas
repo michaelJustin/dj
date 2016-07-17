@@ -37,7 +37,7 @@ uses
 {$IFDEF DARAJA_LOGGING}
   djLogAPI, djLoggerFactory,
 {$ENDIF DARAJA_LOGGING}
-  IdCustomHTTPServer,
+  djTypes,
   Classes;
 
 const
@@ -208,8 +208,8 @@ type
      *
      * \sa IHandler
      *)
-    procedure Handle(Target: string; Context: TdjServerContext; Request:
-      TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo); override;
+    procedure Handle(Target: string; Context: TdjServerContext;
+      Request: TdjRequest; Response: TdjResponse); override;
 
     // properties
 
@@ -426,8 +426,8 @@ begin
   inherited;
 end;
 
-procedure TdjContextHandler.Handle(Target: string; Context: TdjServerContext; Request:
-  TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+procedure TdjContextHandler.Handle(Target: string; Context: TdjServerContext;
+  Request: TdjRequest; Response: TdjResponse);
 begin
   Trace('Handle ' + Target);
 end;

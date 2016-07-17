@@ -57,6 +57,7 @@
 *.tvsconfig
 *.dsk
 *.dproj
+*.2007
 
 # Delphi history and backups
 __history/

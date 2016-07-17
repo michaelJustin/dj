@@ -26,48 +26,47 @@
 
 *)
 
-unit djGlobal;
+unit ThankYouCmp;
+
+// note: this is unsupported example code
 
 interface
 
 {$i IdCompilerDefines.inc}
 
-const
-  DWF_SERVER_VERSION = '1.1-SNAPSHOT';
-  DWF_SERVER_FULL_NAME = 'Daraja Framework ' + DWF_SERVER_VERSION;
-  DWF_SERVER_COPYRIGHT = 'Copyright (C) 2016 Michael Justin';
+uses
+  djWebComponent,
+  IdCustomHTTPServer;
 
-function HTMLEncode(const AData: string): string;
+type
+  TThankYouPage = class(TdjWebComponent)
+  public
+    procedure OnGet(Request: TIdHTTPRequestInfo; Response:
+      TIdHTTPResponseInfo); override;
+  end;
 
 implementation
 
-// http://stackoverflow.com/a/2971923/80901
-function HTMLEncode(const AData: string): string;
+uses
+  BindingFramework,
+  SysUtils;
+
+{ TThankYouPage }
+
+procedure TThankYouPage.OnGet(Request: TIdHTTPRequestInfo;
+  Response: TIdHTTPResponseInfo);
 var
-  Pos, I: Integer;
-
-  procedure Encode(const AStr: string);
-  begin
-    Move(AStr[1], Result[Pos], Length(AStr) * SizeOf(Char));
-    Inc(Pos, Length(AStr));
-  end;
-
+  Tmp: string;
 begin
-  SetLength(Result, Length(AData) * 6);
-  Pos := 1;
-  for I := 1 to length(AData) do
-  begin
-    case AData[I] of
-      '<': Encode('&lt;');
-      '>': Encode('&gt;');
-      '&': Encode('&amp;');
-      '"': Encode('&quot;');
-    else
-      Result[Pos] := AData[I];
-      Inc(Pos);
-    end;
-  end;
-  SetLength(Result, Pos - 1);
+  Tmp := Bind(Config.GetContext.GetContextPath, 'thankyou.html');
+
+  Tmp := StringReplace(Tmp, '${textfield1}',
+    Request.Session.Content.Values['form:tokenInfo'], []);
+
+  Response.ContentText := Tmp;
+  Response.ContentType := 'text/html';
+  Response.CharSet := 'utf-8';
 end;
 
 end.
+

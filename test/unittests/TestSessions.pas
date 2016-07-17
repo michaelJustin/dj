@@ -56,33 +56,31 @@ implementation
 uses
   TestClient,
   djWebAppContext, djServerContext, djInterfaces, djWebComponent, djServer,
-  djHandlerWrapper, djHTTPConnector,
+  djHandlerWrapper, djHTTPConnector, djTypes,
   IdCustomHTTPServer, IdHTTP,
   Dialogs, SysUtils, Classes;
 
 type
   TExamplePage = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); override;
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
   TSessionDetector = class(TdjHandlerWrapper)
   public
-    procedure Handle(Target: string; Context: TdjServerContext; Request:
-      TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo); override;
+    procedure Handle(Target: string; Context: TdjServerContext;
+      Request: TdjRequest; Response: TdjResponse); override;
   end;
 
   TSessionComponent = class(TdjWebComponent)
   public
-    procedure Service(Context: TdjServerContext; Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); override;
+    procedure Service(Context: TdjServerContext;
+      Request: TdjRequest; Response: TdjResponse); override;
   end;
 
   TSessionPOSTComponent = class(TdjWebComponent)
   public
-    procedure OnPost(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); override;
+    procedure OnPost(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
 // helper functions ----------------------------------------------------------
@@ -95,8 +93,7 @@ end;
 
 { TExamplePage }
 
-procedure TExamplePage.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TExamplePage.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ContentText := 'example';
 end;
@@ -104,7 +101,7 @@ end;
 { TSessionDetector }
 
 procedure TSessionDetector.Handle(Target: string; Context: TdjServerContext;
-  Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+  Request: TdjRequest; Response: TdjResponse);
 begin
   inherited; // required to get a session (in "with context" mode)
 
@@ -287,7 +284,7 @@ end;
 { TSessionComponent }
 
 procedure TSessionComponent.Service(Context: TdjServerContext;
-  Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+  Request: TdjRequest; Response: TdjResponse);
 begin
   Assert(not Assigned(Request.Session));
 
@@ -300,8 +297,7 @@ end;
 
 { TSessionPOSTComponent }
 
-procedure TSessionPOSTComponent.OnPost(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TSessionPOSTComponent.OnPost(Request: TdjRequest; Response: TdjResponse);
 begin
   if Assigned(Request.Session) then
   begin

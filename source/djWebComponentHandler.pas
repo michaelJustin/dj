@@ -39,7 +39,7 @@ uses
 {$IFDEF DARAJA_LOGGING}
   djLogAPI, djLoggerFactory,
 {$ENDIF DARAJA_LOGGING}
-  IdCustomHTTPServer;
+  djTypes;
 
 type
   (**
@@ -66,7 +66,7 @@ type
     function StripContext(const Doc: string): string;
 
     procedure InvokeService(Comp: TdjWebComponent; Context: TdjServerContext;
-      Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+      Request: TdjRequest; Response: TdjResponse);
 
     procedure CheckStoreContext(const Context: IContext);
 
@@ -148,7 +148,7 @@ type
      * \sa IHandler
      *)
     procedure Handle(Target: string; Context: TdjServerContext; Request:
-      TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo); override;
+      TdjRequest; Response: TdjResponse); override;
 
     // ILifeCycle interface
 
@@ -509,8 +509,7 @@ begin
 end;
 
 procedure TdjWebComponentHandler.InvokeService(Comp: TdjWebComponent; Context:
-  TdjServerContext; Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+  TdjServerContext; Request: TdjRequest; Response: TdjResponse);
 var
   Msg: string;
 begin
@@ -581,8 +580,7 @@ begin
 end;
 
 procedure TdjWebComponentHandler.Handle(Target: string; Context:
-  TdjServerContext; Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+  TdjServerContext; Request: TdjRequest; Response: TdjResponse);
 var
   Holder: TdjWebComponentHolder;
 begin
