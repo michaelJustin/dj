@@ -24,7 +24,7 @@
     
 *)
 
-program KitchenSinkDemo;
+program VerifyAndroidUserID;
 
 // note: this is unsupported example code
 

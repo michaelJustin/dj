@@ -10,7 +10,7 @@
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <Title Value="KitchenSinkDemo"/>
+      <Title Value="VerifyAndroidUserID"/>
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
     </General>
@@ -33,7 +33,7 @@
     </RunParams>
     <Units Count="2">
       <Unit0>
-        <Filename Value="KitchenSinkDemo.lpr"/>
+        <Filename Value="VerifyAndroidUserID.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
@@ -46,7 +46,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="KitchenSinkDemo"/>
+      <Filename Value="VerifyAndroidUserID"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir);C:\Delphi\indy-10.6\Lib\Core\"/>
