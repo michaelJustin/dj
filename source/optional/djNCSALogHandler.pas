@@ -44,7 +44,7 @@ type
   (**
    * Implements NCSA logging.
    *
-   * \sa http://en.wikipedia.org/wiki/NCSA_log_formats
+   * \sa https://en.wikipedia.org/wiki/Common_Log_Format
    *
    * \note This class is unsupported demonstration code.
    *)
