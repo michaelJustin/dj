@@ -35,7 +35,7 @@ interface
 uses
   djServerContext, djHandlerCollection,
   {$IFDEF DARAJA_LOGGING}djLogAPI, djLoggerFactory,{$ENDIF DARAJA_LOGGING}
-  IdCustomHTTPServer;
+  djTypes;
 
 type
   (**
@@ -75,8 +75,8 @@ type
      *
      * \sa IHandler
      *)
-    procedure Handle(Target: string; Context: TdjServerContext; Request: TIdHTTPRequestInfo;
-      Response: TIdHTTPResponseInfo); override;
+    procedure Handle(Target: string; Context: TdjServerContext;
+      Request: TdjRequest; Response: TdjResponse); override;
 
   end;
 
@@ -98,8 +98,8 @@ begin
   {$ENDIF DARAJA_LOGGING}
 end;
 
-procedure TdjHandlerList.Handle(Target: string; Context: TdjServerContext; Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TdjHandlerList.Handle(Target: string; Context: TdjServerContext;
+  Request: TdjRequest; Response: TdjResponse);
 var
   H: IHandler;
 begin

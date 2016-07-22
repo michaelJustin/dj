@@ -33,8 +33,8 @@ interface
 {$i IdCompilerDefines.inc}
 
 uses
-  djHandlerWrapper, djServerContext,
-  IdCustomHTTPServer, IdThreadSafe;
+  djHandlerWrapper, djServerContext, djTypes,
+  IdThreadSafe;
 
 type
   (**
@@ -87,8 +87,8 @@ type
      * \sa IHandler
      *
      *)
-    procedure Handle(Target: string; Context: TdjServerContext; Request:
-      TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo); override;
+    procedure Handle(Target: string; Context: TdjServerContext;
+      Request: TdjRequest; Response: TdjResponse); override;
 
     // properties
     property Requests: Int64 read GetRequests;
@@ -217,7 +217,7 @@ begin
 end;
 
 procedure TdjStatisticsHandler.Handle(Target: string; Context: TdjServerContext;
-  Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+  Request: TdjRequest; Response: TdjResponse);
 var
   Started: Cardinal;
   Elapsed: Cardinal;

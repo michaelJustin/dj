@@ -33,7 +33,7 @@ interface
 {$i IdCompilerDefines.inc}
 
 uses
-  IdCustomHTTPServer, djServerContext,
+  djServerContext, djTypes,
   SysUtils,
   {$IFDEF FPC}fgl{$ELSE}Generics.Collections{$ENDIF};
 
@@ -65,7 +65,7 @@ type
   IHandler = interface(ILifeCycle)
     ['{670E1E72-7EAA-4655-B40C-DD273110B9B7}']
     procedure Handle(Target: string; Context: TdjServerContext; Request:
-      TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+      TdjRequest; Response: TdjResponse);
   end;
 
   {$IFDEF FPC}
@@ -145,8 +145,8 @@ type
   IWebComponent = interface
     ['{22F7C5D3-36AD-4BCA-BE06-E4FAA03A7A72}']
     procedure Init(const Config: IWebComponentConfig);
-    procedure Service(Context: TdjServerContext; Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo);
+    procedure Service(Context: TdjServerContext; Request: TdjRequest; Response:
+      TdjResponse);
     function GetWebComponentConfig: IWebComponentConfig;
 
     property Config: IWebComponentConfig read GetWebComponentConfig;

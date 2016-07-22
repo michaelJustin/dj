@@ -38,7 +38,7 @@ uses
 {$IFDEF DARAJA_LOGGING}
   djLogAPI, djLoggerFactory,
 {$ENDIF DARAJA_LOGGING}
-  IdCustomHTTPServer;
+  djTypes;
 
 type
   (**
@@ -62,8 +62,8 @@ type
      * \param Request HTTP request
      * \param Response HTTP response
      *)
-    procedure DoHandle(Target: string; Context: TdjServerContext; Request:
-      TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+    procedure DoHandle(Target: string; Context: TdjServerContext;
+      Request: TdjRequest; Response: TdjResponse);
 
   public
     (**
@@ -126,9 +126,8 @@ type
      *
      * \sa IHandler
      *)
-    procedure Handle(Target: string; Context: TdjServerContext; Request:
-      TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); override;
+    procedure Handle(Target: string; Context: TdjServerContext;
+      Request: TdjRequest; Response: TdjResponse); override;
 
     // ILifeCycle interface
 
@@ -265,8 +264,7 @@ begin
 end;
 
 procedure TdjWebComponentContextHandler.DoHandle(Target: string;
-  Context: TdjServerContext; Request: TIdHTTPRequestInfo; Response:
-  TIdHTTPResponseInfo);
+  Context: TdjServerContext; Request: TdjRequest; Response: TdjResponse);
 begin
   Trace('Context ' + ContextPath + ' handles ' + Target);
 
@@ -274,8 +272,7 @@ begin
 end;
 
 procedure TdjWebComponentContextHandler.Handle(Target: string;
-  Context: TdjServerContext; Request: TIdHTTPRequestInfo; Response:
-  TIdHTTPResponseInfo);
+  Context: TdjServerContext; Request: TdjRequest; Response: TdjResponse);
 begin
   if not ContextMatches(ToConnectorName(Context), Target) then
   begin

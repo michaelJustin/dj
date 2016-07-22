@@ -21,55 +21,26 @@
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the Daraja framework without
     disclosing the source code of your own applications. These activities
-    include: offering paid services to customers as an ASP, shipping Daraja 
+    include: offering paid services to customers as an ASP, shipping Daraja
     with a closed source product.
 
 *)
 
-// this is unsupported demonstration code
-
-unit rsRoute;
-
-{$i IdCompilerDefines.inc}
+unit djTypes;
 
 interface
 
+{$i IdCompilerDefines.inc}
+
 uses
-  {$IFDEF DARAJA_LOGGING}
-  djLogAPI, djLoggerFactory,
-  {$ENDIF DARAJA_LOGGING}
-  IdCustomHTTPServer,
-  SysUtils;
+  IdCustomHTTPServer;
 
 type
-  TRequest = TIdHTTPRequestInfo;
-  TResponse = TIdHTTPResponseInfo;
+  TdjRequest = TIdHTTPRequestInfo;
 
-  TRouteProc = reference
-    to procedure(Request: TRequest; Response: TResponse);
-
-  (**
-   * Route.
-   *)
-  TrsRoute = class
-  private
-    FPath: string;
-    FHandler: TRouteProc;
-  public
-    constructor Create(Path: string; Handler: TRouteProc);
-
-    property Path: string read FPath;
-    property Handler: TRouteProc read FHandler;
-  end;
+  TdjResponse = TIdHTTPResponseInfo;
 
 implementation
 
-{ TrsRoute }
-
-constructor TrsRoute.Create(Path: string; Handler: TRouteProc);
-begin
-  FPath := Path;
-  FHandler := Handler;
-end;
-
 end.
+

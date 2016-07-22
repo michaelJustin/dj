@@ -26,61 +26,66 @@
 
 *)
 
-// this is unsupported demonstration code
+unit BindingFramework;
 
-unit rsRouteMappings;
-
-{$i IdCompilerDefines.inc}
+// note: this is unsupported example code
 
 interface
 
-uses
-  rsRoute, rsRouteCriteria,
-  {$IFDEF DARAJA_LOGGING}
-  djLogAPI, djLoggerFactory,
-  {$ENDIF DARAJA_LOGGING}
-  {$IFDEF FPC}fgl{$ELSE}Generics.Collections{$ENDIF},
-  SysUtils;
+{$i IdCompilerDefines.inc}
 
-type
-  (**
-   * Route mappings.
-   *)
-  TrsRouteMappings = class(TObjectDictionary<TrsRouteCriteria, TrsRoute>)
-  public
-    constructor Create; overload;
-
-    function FindMatch(C: TrsRouteCriteria; var Route: TrsRoute): TrsRouteCriteria;
-  end;
-
-  TrsMethodMappings = TObjectDictionary<string, TrsRouteMappings>;
+function Bind(Context, FileName: string): string;
 
 implementation
 
-{ TrsRouteMappings }
+uses
+  djGlobal,
+  SysUtils, Classes;
 
-constructor TrsRouteMappings.Create;
+function osname: string;
 begin
-  inherited Create([doOwnsKeys, doOwnsValues], TrsCriteriaComparer.Create);
+  Result := {$IFDEF LINUX} 'Linux' {$ELSE} 'Windows' {$ENDIF};
 end;
 
-function TrsRouteMappings.FindMatch(C: TrsRouteCriteria;
-  var Route: TrsRoute): TrsRouteCriteria;
+function Bind(Context, FileName: string): string;
 var
-  MatchingRC: TrsRouteCriteria;
+  SL : TStringList;
 begin
-  Route := nil;
-  Result := nil;
-  for MatchingRC in Keys do
-  begin
-    // Log(Format('Comparing %s %s', [C.Path + C.Produces, MatchingRC.Path + MatchingRC.Produces]));
-    if TrsRouteCriteria.Matches(MatchingRC, C) then
-    begin
-      Route := Self[MatchingRC];
-      Result := MatchingRC;
-      Break;
+  SL := TStringList.Create;
+    try
+      SL.LoadFromFile(
+        ExtractFilePath(ParamStr(0)) + 'webapps/' + Context + '/'
+       + FileName);
+      Result := SL.Text;
+    finally
+      SL.Free;
     end;
-  end;
+
+  Result := StringReplace(Result,
+      '#{webContext.requestContextPath}',
+      '/' + Context,
+      [rfReplaceAll]);
+
+  Result := StringReplace(Result,
+      '#{osname}',
+      osname,
+      [rfReplaceAll]);
+
+  Result := StringReplace(Result,
+      '#{djf.version}',
+      DWF_SERVER_VERSION,
+      [rfReplaceAll]);
+
+  Result := StringReplace(Result,
+      '#{bootstrap.home}',
+      'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0',
+      [rfReplaceAll]);
+
+  Result := StringReplace(Result,
+      '#{jquery.min.js}',
+      'https://code.jquery.com/jquery-1.10.2.min.js',
+      [rfReplaceAll]);
+
 end;
 
 end.

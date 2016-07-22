@@ -33,12 +33,11 @@ interface
 {$i IdCompilerDefines.inc}
 
 uses
-  djInterfaces, djWebComponentConfig, djServerContext,
+  djInterfaces, djWebComponentConfig, djServerContext, djTypes,
 {$IFDEF DARAJA_LOGGING}
   djLogAPI, djLoggerFactory,
 {$ENDIF DARAJA_LOGGING}
-  IdCustomHTTPServer,
-  Classes;
+  IdCustomHTTPServer, Classes;
 
 type
   (**
@@ -68,8 +67,8 @@ type
      * \param Response HTTP response
      * \throws EWebComponentException if an exception occurs that interferes with the component's normal operation
      *)
-    procedure Service(Context: TdjServerContext; Request: TIdHTTPRequestInfo;
-      Response: TIdHTTPResponseInfo); virtual;
+    procedure Service(Context: TdjServerContext; Request: TdjRequest;
+      Response: TdjResponse); virtual;
 
   public
     (**
@@ -113,7 +112,7 @@ type
      * \returns HTTP session
      *)
     function GetSession(Context: TdjServerContext;
-      Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo;
+      Request: TdjRequest; Response: TdjResponse;
       const Create: Boolean = True): TIdHTTPSession;
 
     (**
@@ -172,7 +171,7 @@ begin
 end;
 
 function TdjGenericWebComponent.GetSession(Context: TdjServerContext;
-  Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo;
+  Request: TdjRequest; Response: TdjResponse;
   const Create: Boolean): TIdHTTPSession;
 var
   C: TIdServerContext;
@@ -212,8 +211,8 @@ begin
   FConfig := TdjWebComponentConfig.Create(Config);
 end;
 
-procedure TdjGenericWebComponent.Service(Context: TdjServerContext; Request:
-  TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+procedure TdjGenericWebComponent.Service(Context: TdjServerContext;
+  Request: TdjRequest; Response: TdjResponse);
 begin
   Trace('Service');
 end;
