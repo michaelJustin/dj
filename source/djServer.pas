@@ -60,7 +60,7 @@ const
    * \li a HTTP server run time environment, based on <a target="_blank" href="http://www.indyproject.org/">Internet Direct (Indy)</a>
    *
    * Copyright (C) 2016 Michael Justin
-   * https://habarisoft.com/
+   * https://www.habarisoft.com/
    * Mail: mailto:info@habarisoft.com
    *
    * \section trademarks Trademarks
