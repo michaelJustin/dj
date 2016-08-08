@@ -36,8 +36,19 @@ uses
   IdCustomHTTPServer;
 
 type
+  (**
+   * \class TdjRequest
+   *
+   * HTTP request information.
+   * Type mapping to TIdHTTPRequestInfo.
+   *)
   TdjRequest = TIdHTTPRequestInfo;
 
+  (**
+   * \class TdjResponse
+   *
+   * HTTP response information.
+   *)  
   TdjResponse = TIdHTTPResponseInfo;
 
 implementation
