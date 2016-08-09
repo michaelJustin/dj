@@ -40,7 +40,7 @@ type
    * \class TdjRequest
    *
    * HTTP request information.
-   * Type mapping to TIdHTTPRequestInfo.
+   * Type alias for Indy class TIdHTTPRequestInfo.
    *)
   TdjRequest = TIdHTTPRequestInfo;
 
@@ -48,6 +48,7 @@ type
    * \class TdjResponse
    *
    * HTTP response information.
+   * Type alias for Indy class TIdHTTPResponseInfo.
    *)  
   TdjResponse = TIdHTTPResponseInfo;
 
