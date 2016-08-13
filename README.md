@@ -23,6 +23,6 @@ You can find this project at https://github.com/michaelJustin/daraja-framework
 
 ### Getting Started PDF
 
-A Getting Started document (PDF) is available at https://darajaframework.com/docs/1.0/DarajaFrameworkGettingStarted.pdf
+A Getting Started document (PDF) is available at https://darajaframework.com/docs/1.1/DarajaFrameworkGettingStarted.pdf
 
 
