@@ -21,8 +21,13 @@ https://github.com/michaelJustin/slf4p
 
 You can find this project at https://github.com/michaelJustin/daraja-framework
 
+## Documentation
+
 ### Getting Started PDF
 
-A Getting Started document (PDF) is available at https://darajaframework.com/docs/1.1/DarajaFrameworkGettingStarted.pdf
+A Getting Started document (PDF) is available at https://www.darajaframework.com/docs/1.1/DarajaFrameworkGettingStarted.pdf
 
+### Project home page
+
+Visit https://www.darajaframework.com/ for more information about the Daraja Framework project.
 
