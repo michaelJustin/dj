@@ -31,3 +31,24 @@ A Getting Started document (PDF) is available at https://www.habarisoft.com/dara
 
 Visit https://www.habarisoft.com/daraja_framework.html for more information.
 
+## IDE configuration
+
+### Required paths
+
+* The project search path must include the Indy and Daraja source directories.
+
+Example:
+
+`<daraja-home>\source;<indy-home>\Lib\Core\;<indy-home>\Lib\Protocols\;<indy-home>\Lib\System\`
+
+* The project search path for Include files must include the Indy Core path.
+
+Example:
+
+`<indy-home>\Lib\Core\`
+
+### Optional source
+
+Some useful (but optional) units are located in the `optional` subfolder. Include it when needed:
+
+`<daraja-home>\source;<daraja-home>\source\optional;<indy-home>\Lib\Core\;<indy-home>\Lib\Protocols\;<indy-home>\Lib\System\`
