@@ -127,14 +127,8 @@ begin
     // Test the correct path
     CheckGETResponseEquals('example', '/web/hello.html');
 
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
     // Test non-existent path
-    CheckGETResponseEquals('', '/web/bar');
+    CheckGETResponse404('/web/bar');
 
   finally
     Server.Free;
@@ -232,14 +226,8 @@ begin
     // Test the component
     CheckGETResponseEquals('example', '/foo/bar');
 
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
     // test invalid path
-    CheckGETResponseEquals('', '/foo2/bar');
+    CheckGETResponse404('/foo2/bar');
 
   finally
     // Server.Stop;
@@ -506,14 +494,8 @@ begin
 
     Server.Start;
 
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
     // Test the component
-    CheckGETResponseEquals('', '/ctx/exception');
+    CheckGETResponse404('/ctx/exception');
 
   finally
     Server.Free;
@@ -537,14 +519,8 @@ begin
 
     Server.Start;
 
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 500 Internal Server Error');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
     // Test the component
-    CheckGETResponseEquals('', '/ctx/exception');
+    CheckGETResponse500('/ctx/exception');
 
   finally
     Server.Free;
@@ -568,13 +544,7 @@ begin
     // Test the component
     CheckGETResponseEquals('Hello', '/get/hello');
 
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
-    CheckGETResponseEquals('', '/get2/hello');
+    CheckGETResponse404('/get2/hello');
 
   finally
     Server.Free;
@@ -595,14 +565,8 @@ begin
 
     Server.Start;
 
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 405 Method not allowed');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
     // Test a GET
-    CheckGETResponseEquals('', '/get/hello')
+    CheckGETResponse405('/get/hello')
 
   finally
     Server.Free;
@@ -652,21 +616,7 @@ begin
     CheckGETResponseEquals('example', '/foo/bar');
     CheckGETResponseEquals('Hello universe!', '/foo2/bar2');
 
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
-    CheckGETResponseEquals('', '/foo/bar2');
-
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
-    CheckGETResponseEquals('', '/foo2/bar');
+    CheckGETResponse404('/foo2/bar');
 
   finally
     Server.Free;
@@ -856,21 +806,15 @@ begin
 
     Server.Start;
 
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
     // this does not work as the connector listens on port 8181
-    CheckGETResponseEquals('', '/get/hello');
+    CheckGETResponse404('/get/hello');
 
     // this works (special port)
-    CheckGETResponseEquals('', '/get/hello', 'http://127.0.0.1:8181');
+    CheckGETResponseEquals('example', 'http://127.0.0.1:8181/get/hello');
 
     // this works (default port)
-    CheckGETResponseEquals('', '/public/hello', 'http://' + DEFAULT_BINDING_IP + ':' +
-      IntToStr(DEFAULT_BINDING_PORT));
+    CheckGETResponseEquals('example', 'http://' + DEFAULT_BINDING_IP + ':' +
+      IntToStr(DEFAULT_BINDING_PORT) + '/public/hello');
 
   finally
     Server.Free;

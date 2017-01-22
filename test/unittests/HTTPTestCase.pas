@@ -48,6 +48,10 @@ type
 
     procedure CheckGETResponse404(URL: string = ''; msg: string = '');
 
+    procedure CheckGETResponse405(URL: string = ''; msg: string = '');
+
+    procedure CheckGETResponse500(URL: string = ''; msg: string = '');
+
     procedure CheckPOSTResponseEquals(Expected: string; URL: string = ''; msg: string = '');
 
   end;
@@ -76,6 +80,22 @@ begin
 
   IdHTTP.Get(URL, [404]);
   CheckEquals(404, IdHTTP.ResponseCode);
+end;
+
+procedure THTTPTestCase.CheckGETResponse405(URL, msg: string);
+begin
+  if Pos('http', URL) <> 1 then URL := 'http://127.0.0.1' + URL;
+
+  IdHTTP.Get(URL, [405]);
+  CheckEquals(405, IdHTTP.ResponseCode);
+end;
+
+procedure THTTPTestCase.CheckGETResponse500(URL, msg: string);
+begin
+  if Pos('http', URL) <> 1 then URL := 'http://127.0.0.1' + URL;
+
+  IdHTTP.Get(URL, [500]);
+  CheckEquals(500, IdHTTP.ResponseCode);
 end;
 
 procedure THTTPTestCase.CheckGETResponseContains(Expected: string; URL: string = ''; msg: string = '');

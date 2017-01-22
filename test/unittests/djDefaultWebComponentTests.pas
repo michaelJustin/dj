@@ -85,7 +85,7 @@ begin
         // expected
       end;
     end;
-    (**)
+
     // create default web component and register it
     Holder := TdjWebComponentHolder.Create(TdjDefaultWebComponent);
     Context.AddWebComponent(Holder, '/');
@@ -93,14 +93,7 @@ begin
     // test static
     CheckGETResponseEquals('staticcontent', '/test/static.html', '/test/static.html');
 
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException);
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
-     CheckGETResponseEquals('', '/test/missing.html');
-
+    CheckGETResponse404('/test/missing.html');
   finally
     Server.Free;
   end;
@@ -145,13 +138,7 @@ begin
     // test static
     CheckGETResponseEquals('staticcontent', '/static.html', '/static.html');
 
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException);
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
-    CheckGETResponseEquals('', '/missing.html');
+    CheckGETResponse404('/test/missing.html');
 
   finally
     Server.Free;
