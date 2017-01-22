@@ -29,13 +29,13 @@ unit djDefaultWebComponentTests;
 interface
 
 uses
+  HTTPTestCase,
   {$IFDEF FPC}fpcunit,testregistry{$ELSE}TestFramework{$ENDIF};
 
 type
-
   { TdjDefaultWebComponentTests }
 
-  TdjDefaultWebComponentTests = class(TTestCase)
+  TdjDefaultWebComponentTests = class(THTTPTestCase)
   published
     procedure TestDefaultWebComponent;
 
@@ -49,30 +49,10 @@ type
 implementation
 
 uses
-  TestComponents, TestClient, djWebAppContext,
-  djWebComponentHolder, djServer, djDefaultWebComponent,
-  IdHTTP,
-  IdGlobal,
+  TestComponents, djWebAppContext, djWebComponentHolder, djServer,
+  djDefaultWebComponent,
+  IdHTTP, IdGlobal,
   SysUtils;
-
-// helper functions ----------------------------------------------------------
-
-{$IFDEF FPC}
-function Get(Document: string; Host: string = 'http://127.0.0.1'; ADestEncoding: IIdTextEncoding = nil): string;
-begin
-  Result := TdjHTTPClient.Get(Document, Host, ADestEncoding);
-end;
-{$ELSE}
-function Get(Document: string; Host: string = 'http://127.0.0.1'): string;
-begin
-  Result := TdjHTTPClient.Get(Document, Host);
-end;
-{$ENDIF}
-
-function Get404(Document: string; Host: string = 'http://127.0.0.1'): string;
-begin
-  Result := TdjHTTPClient.Get(Host + Document, [404]);
-end;
 
 procedure TdjDefaultWebComponentTests.TestDefaultWebComponent;
 var
@@ -93,11 +73,11 @@ begin
     Server.Start;
 
     // test TExampleWebComponent
-    CheckEquals('example', Get('/test/index.html'), '/test/index.html');
+    CheckGETResponseEquals('example', '/test/index.html', '/test/index.html');
 
     // test static
     try
-      CheckEquals('staticcontent', Get('/test/static.html'),
+      CheckGETResponseEquals('staticcontent', '/test/static.html',
         '/test/static.html');
     except
       on E: EIdHTTPProtocolException do
@@ -111,7 +91,7 @@ begin
     Context.AddWebComponent(Holder, '/');
 
     // test static
-    CheckEquals('staticcontent', Get('/test/static.html'), '/test/static.html');
+    CheckGETResponseEquals('staticcontent', '/test/static.html', '/test/static.html');
 
     {$IFDEF FPC}
     ExpectException(EIdHTTPProtocolException);
@@ -119,7 +99,7 @@ begin
     ExpectedException := EIdHTTPProtocolException;
     {$ENDIF}
 
-     Get('/test/missing.html');
+     CheckGETResponseEquals('', '/test/missing.html');
 
   finally
     Server.Free;
@@ -147,11 +127,11 @@ begin
 
     Server.Start;
 
-    CheckEquals('example', Get('/index.html'), '/index.html');
+    CheckGETResponseEquals('example', '/index.html', '/index.html');
 
     // test static
     try
-      CheckEquals('staticcontent', Get('/static.html'), '/static.html');
+      CheckGETResponseEquals('staticcontent', '/static.html', '/static.html');
     except
       on E: EIdHTTPProtocolException do
       begin
@@ -164,7 +144,7 @@ begin
     Context.AddWebComponent(Holder, '/');
 
     // test static
-    CheckEquals('staticcontent', Get('/static.html'), '/static.html');
+    CheckGETResponseEquals('staticcontent', '/static.html', '/static.html');
 
     {$IFDEF FPC}
     ExpectException(EIdHTTPProtocolException);
@@ -172,7 +152,7 @@ begin
     ExpectedException := EIdHTTPProtocolException;
     {$ENDIF}
 
-    Get('/missing.html');
+    CheckGETResponseEquals('', '/missing.html');
 
   finally
     Server.Free;
@@ -228,7 +208,7 @@ begin
 
     Server.Start;
 
-    CheckEquals('', Get404('/notthere.html'));
+    CheckGETResponse404('/notthere.html');
 
   finally
     Server.Free;

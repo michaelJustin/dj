@@ -84,7 +84,8 @@ uses
   TestFramework,
   GUITestRunner,
   TextTestRunner,
-  SysUtils;
+  SysUtils,
+  HTTPTestCase in 'HTTPTestCase.pas';
 
 begin
   RegisterTests('', [TdjPathMapTests.Suite]);

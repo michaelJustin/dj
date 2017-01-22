@@ -156,6 +156,8 @@ begin
   Value := Config.GetContext.GetInitParameter('key');
 
   Config.GetContext.Log('Value=' + Value);
+
+  Response.ContentText := 'TLogComponent';
 end;
 
 { TPostComponent }
