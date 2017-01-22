@@ -48,7 +48,7 @@ implementation
 
 uses
   Classes, SysUtils,
-  djWebComponentHolder, IdCustomHTTPServer, djWebComponent, djWebAppContext,
+  djWebComponentHolder, djWebComponent, djWebAppContext,
   djWebComponentHandler, djInterfaces, djTypes;
 
 type

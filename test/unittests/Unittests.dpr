@@ -77,14 +77,14 @@ uses
   djWebComponentHandlerTests,
   djDefaultWebComponentTests,
   djTestConfigAPI in 'djTestConfigAPI.pas',
-  TestClient in 'TestClient.pas',
   TestComponents in 'TestComponents.pas',
   UnicodeText in 'UnicodeText.pas',
   TestSessions in 'TestSessions.pas',
   TestFramework,
   GUITestRunner,
   TextTestRunner,
-  SysUtils;
+  SysUtils,
+  HTTPTestCase in 'HTTPTestCase.pas';
 
 begin
   RegisterTests('', [TdjPathMapTests.Suite]);
