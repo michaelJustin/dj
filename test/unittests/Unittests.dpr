@@ -69,10 +69,8 @@ uses
   djDefaultWebComponent in '..\..\source\optional\djDefaultWebComponent.pas',
   djStacktrace in '..\..\source\optional\djStacktrace.pas',
   djStatisticsHandler in '..\..\source\optional\djStatisticsHandler.pas',
-  {$IFDEF DARAJA_LOGGING}
   djLogAPI,
   djLogOverSimpleLogger,
-  {$ENDIF}
   djPathMapTests,
   djWebAppContextTests,
   djWebComponentHolderTests,
