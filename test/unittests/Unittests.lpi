@@ -189,7 +189,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="23">
+    <Exceptions Count="25">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -259,6 +259,12 @@
       <Item23>
         <Name Value="EIdCouldNotBindSocket"/>
       </Item23>
+      <Item24>
+        <Name Value="EIdNotConnected"/>
+      </Item24>
+      <Item25>
+        <Name Value="EIdClosedSocket"/>
+      </Item25>
     </Exceptions>
   </Debugging>
 </CONFIG>

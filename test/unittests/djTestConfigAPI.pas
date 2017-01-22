@@ -31,13 +31,13 @@ unit djTestConfigAPI;
 interface
 
 uses
+  HTTPTestCase,
   {$IFDEF FPC}fpcunit,testregistry{$ELSE}TestFramework{$ENDIF};
 
 type
-
   { TAPIConfigTests }
 
-  TAPIConfigTests = class(TTestCase)
+  TAPIConfigTests = class(THTTPTestCase)
   published
     procedure ConfigOneContext;
 
@@ -100,56 +100,12 @@ type
 implementation
 
 uses
-  TestComponents, TestClient,
-  djWebAppContext,
-  djInterfaces, djWebComponent, djWebComponentHolder,
-  djWebComponentContextHandler, djServer,
-  djDefaultHandler, djStatisticsHandler,
+  TestComponents,
+  djWebAppContext, djInterfaces, djWebComponent, djWebComponentHolder,
+  djWebComponentContextHandler, djServer, djDefaultHandler, djStatisticsHandler,
   djHTTPConnector, djContextHandlerCollection, djHandlerList, djTypes,
-  IdCustomHTTPServer, IdHTTP, IdServerInterceptLogFile,
-  IdSchedulerOfThreadPool, IdGlobal, IdException,
-  Dialogs, SysUtils, Classes;
-
-// helper functions ----------------------------------------------------------
-
-{$IFDEF FPC}
-function Get(Document: string; Host: string = 'http://127.0.0.1'; ADestEncoding: IIdTextEncoding = nil): string;
-begin
-  Result := TdjHTTPClient.Get(Document, Host, ADestEncoding);
-end;
-{$ELSE}
-function Get(Document: string; Host: string = 'http://127.0.0.1'): string;
-begin
-  Result := TdjHTTPClient.Get(Document, Host);
-end;
-{$ENDIF}
-
-function GetHeader(AKey: string; Document: string; Host: string = 'http://127.0.0.1'): string;
-begin
-  Result := TdjHTTPClient.GetHeader(AKey, Document, Host);
-end;
-
-function Post(Document: string): string;
-var
-  Strings: TStrings;
-  C: TdjHTTPClient;
-begin
-  C := TdjHTTPClient.Create;
-  try
-    Strings := TStringList.Create;
-    try
-      Strings.Add('send=send');
-
-      Result := C.Post('http://' + DEFAULT_BINDING_IP + ':' +
-        IntToStr(DEFAULT_BINDING_PORT) + Document, Strings);
-
-    finally
-      Strings.Free;
-    end;
-  finally
-    C.Free
-  end
-end;
+  IdServerInterceptLogFile, IdSchedulerOfThreadPool, IdGlobal, IdException,
+  SysUtils, Classes;
 
 procedure TAPIConfigTests.ConfigAbsolutePath;
 var
@@ -168,16 +124,10 @@ begin
     Server.Start;
 
     // Test the correct path
-    CheckEquals('example', Get('/web/hello.html'));
-
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
+    CheckGETResponseEquals('example', '/web/hello.html');
 
     // Test non-existent path
-    CheckEquals('', Get('/web/bar'));
+    CheckGETResponse404('/web/bar');
 
   finally
     Server.Free;
@@ -198,7 +148,7 @@ begin
     Server.Handler := HandlerList;
     Server.Start;
 
-    CheckTrue(Pos('Daraja Framework', Get('/')) > 0);
+    CheckGETResponseContains('Daraja Framework', '');
 
   finally
     Server.Free;
@@ -227,7 +177,7 @@ begin
 
     Server.Start;
 
-    CheckTrue(Pos('Daraja Framework', Get('/')) > 0);
+    CheckGETResponseContains('Daraja Framework', '');
   finally
     Server.Free;
   end;
@@ -251,8 +201,8 @@ begin
     Server.Start;
 
     // Test the component
-    CheckEquals('example', Get('/foo/bar'));
-    CheckEquals('example', Get('/foo/bar2'));
+    CheckGETResponseEquals('example', '/foo/bar');
+    CheckGETResponseEquals('example', '/foo/bar2');
 
   finally
     Server.Free;
@@ -273,16 +223,10 @@ begin
     Server.Start;
 
     // Test the component
-    CheckEquals('example', Get('/foo/bar'));
-
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
+    CheckGETResponseEquals('example', '/foo/bar');
 
     // test invalid path
-    CheckEquals('', Get('/foo2/bar'));
+    CheckGETResponse404('/foo2/bar');
 
   finally
     // Server.Stop;
@@ -304,7 +248,7 @@ begin
     Server.Start;
 
     // Test the component
-    CheckEquals('example', Get('/foo/bar'));
+    CheckGETResponseEquals('example', '/foo/bar');
 
   finally
     Server.Free;
@@ -326,7 +270,7 @@ begin
     Server.Start;
 
     // Test the component
-    CheckEquals('example', Get('/foo/bar', 'http://[::1]'));
+    CheckGETResponseEquals('example', 'http://[::1]/foo/bar');
 
   finally
     Server.Free;
@@ -366,7 +310,7 @@ begin
     Server.Start;
 
     // Test the component
-    CheckEquals('success,ctx=context', Get('/context/'));
+    CheckGETResponseEquals('success,ctx=context', '/context/');
 
   finally
     Server.Free;
@@ -390,7 +334,7 @@ begin
       Server.Start;
 
       // Test the component
-      CheckEquals('Hello world!', Get('/'));
+      CheckGETResponseEquals('Hello world!', '/');
 
       CheckEquals(1, Wrapper.Responses2xx);
 
@@ -442,8 +386,8 @@ begin
       Server.Start;
 
       // Test the component
-      CheckEquals('example', Get('/web1/example1.html'));
-      CheckEquals('example', Get('/web2/example2.html'));
+      CheckGETResponseEquals('example', '/web1/example1.html');
+      CheckGETResponseEquals('example', '/web2/example2.html');
 
       CheckEquals(2, Wrapper.Responses2xx);
       CheckEquals(2, Wrapper.Requests, 'Requests');
@@ -483,8 +427,8 @@ begin
       Server.Start;
 
       // Test the component
-      CheckEquals('example', Get('/web1/example1.html'));
-      CheckEquals('example', Get('/web2/example2.html'));
+      CheckGETResponseEquals('example', '/web1/example1.html');
+      CheckGETResponseEquals('example', '/web2/example2.html');
 
       CheckEquals(2, Wrapper.Responses2xx);
       CheckEquals(2, Wrapper.Requests, 'Requests');
@@ -549,14 +493,8 @@ begin
 
     Server.Start;
 
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
     // Test the component
-    TdjHTTPClient.Get('/ctx/exception');
+    CheckGETResponse404('/ctx/exception');
 
   finally
     Server.Free;
@@ -580,14 +518,8 @@ begin
 
     Server.Start;
 
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 500 Internal Server Error');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
     // Test the component
-    TdjHTTPClient.Get('/ctx/exception');
+    CheckGETResponse500('/ctx/exception');
 
   finally
     Server.Free;
@@ -609,15 +541,9 @@ begin
     Server.Start;
 
     // Test the component
-    CheckEquals('Hello', Get('/get/hello'));
+    CheckGETResponseEquals('Hello', '/get/hello');
 
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
-    Get('/get2/hello')
+    CheckGETResponse404('/get2/hello');
 
   finally
     Server.Free;
@@ -638,14 +564,8 @@ begin
 
     Server.Start;
 
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 405 Method not allowed');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
     // Test a GET
-    Get('/get/hello')
+    CheckGETResponse405('/get/hello')
 
   finally
     Server.Free;
@@ -665,7 +585,7 @@ begin
 
     Server.Start;
 
-    CheckEquals('posted.this', Post('/post/this'));
+    CheckPOSTResponseEquals('posted.this', '/post/this');
 
   finally
     Server.Free;
@@ -692,24 +612,10 @@ begin
     Server.Start;
 
     // Test the components
-    CheckEquals('example', Get('/foo/bar'));
-    CheckEquals('Hello universe!', Get('/foo2/bar2'));
+    CheckGETResponseEquals('example', '/foo/bar');
+    CheckGETResponseEquals('Hello universe!', '/foo2/bar2');
 
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
-    TdjHTTPClient.Get('/foo/bar2');
-
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
-    TdjHTTPClient.Get('/foo2/bar');
+    CheckGETResponse404('/foo2/bar');
 
   finally
     Server.Free;
@@ -766,7 +672,7 @@ begin
     Server.Add(Context);
     Server.Start;
 
-    Get('/log/hello')
+    CheckGETResponseContains('TLogComponent', '/log/hello')
 
   finally
     Server.Free;
@@ -803,7 +709,7 @@ begin
 
       Server.Start;
 
-      CheckEquals('Hello', Get('/get/hello'));
+      CheckGETResponseEquals('Hello', '/get/hello');
 
     finally
       Server.Free;
@@ -842,7 +748,7 @@ begin
 
     Server.Start;
 
-    CheckEquals('Hello', Get('/get/hello'));
+    CheckGETResponseEquals('Hello', '/get/hello');
 
     Server.Stop;
 
@@ -899,21 +805,15 @@ begin
 
     Server.Start;
 
-    {$IFDEF FPC}
-    ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
-    {$ELSE}
-    ExpectedException := EIdHTTPProtocolException;
-    {$ENDIF}
-
     // this does not work as the connector listens on port 8181
-    Get('/get/hello');
+    CheckGETResponse404('/get/hello');
 
     // this works (special port)
-    Get('/get/hello', 'http://127.0.0.1:8181');
+    CheckGETResponseEquals('example', 'http://127.0.0.1:8181/get/hello');
 
     // this works (default port)
-    Get('/public/hello', 'http://' + DEFAULT_BINDING_IP + ':' +
-      IntToStr(DEFAULT_BINDING_PORT));
+    CheckGETResponseEquals('example', 'http://' + DEFAULT_BINDING_IP + ':' +
+      IntToStr(DEFAULT_BINDING_PORT) + '/public/hello');
 
   finally
     Server.Free;
@@ -957,10 +857,10 @@ begin
     // Test at http://127.0.0.1/get/hello
 
     {$IFDEF FPC}
-    CheckEquals('中文', Get('/get/hello', 'http://127.0.0.1',
-      IndyTextEncoding_UTF8));  // TODO hangs on Linux
+    // CheckGETResponse('中文', '/get/hello', 'http://127.0.0.1',
+    //  IndyTextEncoding_UTF8);  // TODO hangs on Linux
     {$ELSE}
-    CheckEquals('中文', Get('/get/hello', 'http://127.0.0.1'));
+    CheckGETResponseEquals('中文', '/get/hello');
     {$ENDIF}
 
   finally

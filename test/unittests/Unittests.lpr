@@ -48,7 +48,6 @@ uses
   djWebComponentHandlerTests,
   djDefaultWebComponentTests,
   djTestConfigAPI,
-  TestClient,
   TestComponents,
   TestSessions,
   djGlobal,
