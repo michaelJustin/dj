@@ -234,7 +234,7 @@ begin
     Server.Add(Context);
     Server.Start;
 
-    CheckGETResponseEquals('', '/get/hello')
+    CheckGETResponseContains('200 OK', '/get/hello')
 
   finally
     Server.Free;
