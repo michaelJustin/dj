@@ -113,7 +113,7 @@ begin
     // test static
     CheckEquals('staticcontent', Get('/test/static.html'), '/test/static.html');
 
-    {$IFDEF VER3}
+    {$IFDEF FPC}
     ExpectException(EIdHTTPProtocolException);
     {$ELSE}
     ExpectedException := EIdHTTPProtocolException;
@@ -166,7 +166,7 @@ begin
     // test static
     CheckEquals('staticcontent', Get('/static.html'), '/static.html');
 
-    {$IFDEF VER3}
+    {$IFDEF FPC}
     ExpectException(EIdHTTPProtocolException);
     {$ELSE}
     ExpectedException := EIdHTTPProtocolException;
@@ -197,7 +197,7 @@ begin
 
     // todo this triggers a warning only ok for dynamic environments
 
-    {$IFDEF VER3}
+    {$IFDEF FPC}
     // ExpectException(EWebComponentException);
     {$ELSE}
     // ExpectedException := EWebComponentException;

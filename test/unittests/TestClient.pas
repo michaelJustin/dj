@@ -86,13 +86,13 @@ begin
   end;
 end;
 {$ELSE}
-class function TdjHTTPClient.Get(Document: string; Host: string = 'http://127.0.0.1'{$IFDEF STRING_IS_ANSI}; ADestEncoding: IIdTextEncoding = nil{$ENDIF}): string;
+class function TdjHTTPClient.Get(Document: string; Host: string = 'http://127.0.0.1'): string;
 var
   HTTP: TIdHTTP;
 begin
   HTTP := TIdHTTP.Create;
   try
-    Result := HTTP.Get(Host + Document{$IFDEF STRING_IS_ANSI}, ADestEncoding{$ENDIF});
+    Result := HTTP.Get(Host + Document);
 
   finally
     HTTP.Free;

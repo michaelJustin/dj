@@ -21,7 +21,7 @@
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the Daraja framework without
     disclosing the source code of your own applications. These activities
-    include: offering paid services to customers as an ASP, shipping Daraja 
+    include: offering paid services to customers as an ASP, shipping Daraja
     with a closed source product.
 
 *)
@@ -170,7 +170,7 @@ begin
     // Test the correct path
     CheckEquals('example', Get('/web/hello.html'));
 
-    {$IFDEF VER3}
+    {$IFDEF FPC}
     ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
     {$ELSE}
     ExpectedException := EIdHTTPProtocolException;
@@ -275,7 +275,7 @@ begin
     // Test the component
     CheckEquals('example', Get('/foo/bar'));
 
-    {$IFDEF VER3}
+    {$IFDEF FPC}
     ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
     {$ELSE}
     ExpectedException := EIdHTTPProtocolException;
@@ -549,7 +549,7 @@ begin
 
     Server.Start;
 
-    {$IFDEF VER3}
+    {$IFDEF FPC}
     ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
     {$ELSE}
     ExpectedException := EIdHTTPProtocolException;
@@ -580,7 +580,7 @@ begin
 
     Server.Start;
 
-    {$IFDEF VER3}
+    {$IFDEF FPC}
     ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 500 Internal Server Error');
     {$ELSE}
     ExpectedException := EIdHTTPProtocolException;
@@ -611,7 +611,7 @@ begin
     // Test the component
     CheckEquals('Hello', Get('/get/hello'));
 
-    {$IFDEF VER3}
+    {$IFDEF FPC}
     ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
     {$ELSE}
     ExpectedException := EIdHTTPProtocolException;
@@ -638,7 +638,7 @@ begin
 
     Server.Start;
 
-    {$IFDEF VER3}
+    {$IFDEF FPC}
     ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 405 Method not allowed');
     {$ELSE}
     ExpectedException := EIdHTTPProtocolException;
@@ -695,7 +695,7 @@ begin
     CheckEquals('example', Get('/foo/bar'));
     CheckEquals('Hello universe!', Get('/foo2/bar2'));
 
-    {$IFDEF VER3}
+    {$IFDEF FPC}
     ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
     {$ELSE}
     ExpectedException := EIdHTTPProtocolException;
@@ -703,7 +703,7 @@ begin
 
     TdjHTTPClient.Get('/foo/bar2');
 
-    {$IFDEF VER3}
+    {$IFDEF FPC}
     ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
     {$ELSE}
     ExpectedException := EIdHTTPProtocolException;
@@ -899,7 +899,7 @@ begin
 
     Server.Start;
 
-    {$IFDEF VER3}
+    {$IFDEF FPC}
     ExpectException(EIdHTTPProtocolException, 'HTTP/1.1 404 Not Found');
     {$ELSE}
     ExpectedException := EIdHTTPProtocolException;
