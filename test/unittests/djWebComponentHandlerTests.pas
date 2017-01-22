@@ -173,7 +173,7 @@ begin
 
       Handler.AddWithMapping(H1, '/index.html');
 
-      {$IFDEF VER3}
+      {$IFDEF FPC}
       ExpectException(EWebComponentException);
       {$ELSE}
       ExpectedException := EWebComponentException;
@@ -209,7 +209,7 @@ begin
       try
         H2.SetContext(Context.GetCurrentContext);
 
-        {$IFDEF VER3}
+        {$IFDEF FPC}
         ExpectException(EWebComponentException);
         {$ELSE}
         ExpectedException := EWebComponentException;
@@ -249,7 +249,7 @@ begin
         H2.SetContext(Context.GetCurrentContext);
         H2.Name := 'SameNameFails';
 
-        {$IFDEF VER3}
+        {$IFDEF FPC}
         ExpectException(EWebComponentException);
         {$ELSE}
         ExpectedException := EWebComponentException;
@@ -289,7 +289,7 @@ begin
       try
         H2.SetContext(C2.GetCurrentContext);
 
-        {$IFDEF VER3}
+        {$IFDEF FPC}
         ExpectException(EWebComponentException);
         {$ELSE}
         ExpectedException := EWebComponentException;
