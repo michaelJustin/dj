@@ -29,10 +29,11 @@ unit TestSessions;
 interface
 
 uses
+  HTTPTestCase,
   {$IFDEF FPC}fpcunit,testregistry{$ELSE}TestFramework{$ENDIF};
 
 type
-  TSessionTests = class(TTestCase)
+  TSessionTests = class(THTTPTestCase)
   published
     procedure TestCreateSession;
 
@@ -54,7 +55,6 @@ type
 implementation
 
 uses
-  TestClient,
   djWebAppContext, djServerContext, djInterfaces, djWebComponent, djServer,
   djHandlerWrapper, djHTTPConnector, djTypes,
   IdCustomHTTPServer, IdHTTP,
@@ -82,14 +82,6 @@ type
   public
     procedure OnPost(Request: TdjRequest; Response: TdjResponse); override;
   end;
-
-// helper functions ----------------------------------------------------------
-
-function Get(Document: string; Host: string = 'http://127.0.0.1'): string;
-begin
-  Result := TdjHTTPClient.Get(Document, Host);
-end;
-
 
 { TExamplePage }
 
@@ -137,7 +129,7 @@ begin
 
     Server.Start;
 
-    CheckEquals('success', Get('/session/example'));
+    CheckGETResponseEquals('success', '/session/example');
 
   finally
     Server.Free;
@@ -163,7 +155,7 @@ begin
 
     Server.Start;
 
-    CheckEquals('success', Get('/session/example'));
+    CheckGETResponseEquals('success', '/session/example');
 
   finally
     Server.Free;
@@ -190,7 +182,7 @@ begin
 
     Server.Start;
 
-    CheckEquals('success', Get('/test'));
+    CheckGETResponseEquals('success', '/test');
 
   finally
     Server.Free;
@@ -242,7 +234,7 @@ begin
     Server.Add(Context);
     Server.Start;
 
-    Get('/get/hello')
+    CheckGETResponseEquals('', '/get/hello')
 
   finally
     Server.Free;
@@ -253,8 +245,6 @@ procedure TSessionTests.TestPostHasSession;
 var
   Server: TdjServer;
   Context: TdjWebAppContext;
-  Client: TIdHTTP;
-  SL: TStrings;
 begin
   Server := TdjServer.Create;
   try
@@ -265,17 +255,8 @@ begin
     Server.Add(Context);
     Server.Start;
 
-    Client := TIdHTTP.Create;
-    try
-      SL := TStringList.Create;
-      try
-        CheckEquals('success', Client.Post('http://127.0.0.1/post/hello', SL ));
-      finally
-        SL.Free;
-      end;
-    finally
-      Client.Free;
-    end;
+    CheckPOSTResponseEquals('success', '/post/hello');
+
   finally
     Server.Free;
   end;

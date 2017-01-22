@@ -104,7 +104,6 @@ begin
   finally
     Server.Free;
   end;
-
 end;
 
 procedure TdjDefaultWebComponentTests.TestDefaultWebComponentInRootContext;
