@@ -104,9 +104,8 @@ uses
   djWebAppContext, djInterfaces, djWebComponent, djWebComponentHolder,
   djWebComponentContextHandler, djServer, djDefaultHandler, djStatisticsHandler,
   djHTTPConnector, djContextHandlerCollection, djHandlerList, djTypes,
-  IdCustomHTTPServer, IdHTTP, IdServerInterceptLogFile,
-  IdSchedulerOfThreadPool, IdGlobal, IdException,
-  Dialogs, SysUtils, Classes;
+  IdServerInterceptLogFile, IdSchedulerOfThreadPool, IdGlobal, IdException,
+  SysUtils, Classes;
 
 procedure TAPIConfigTests.ConfigAbsolutePath;
 var

@@ -30,7 +30,7 @@ interface
 
 uses
   HTTPTestCase,
-  {$IFDEF FPC}fpcunit,testregistry{$ELSE}TestFramework{$ENDIF};
+  {$IFDEF FPC}testregistry{$ELSE}TestFramework{$ENDIF};
 
 type
   { TdjDefaultWebComponentTests }

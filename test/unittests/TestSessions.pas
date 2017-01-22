@@ -30,7 +30,7 @@ interface
 
 uses
   HTTPTestCase,
-  {$IFDEF FPC}fpcunit,testregistry{$ELSE}TestFramework{$ENDIF};
+  {$IFDEF FPC}testregistry{$ELSE}TestFramework{$ENDIF};
 
 type
   TSessionTests = class(THTTPTestCase)
@@ -57,7 +57,6 @@ implementation
 uses
   djWebAppContext, djServerContext, djInterfaces, djWebComponent, djServer,
   djHandlerWrapper, djHTTPConnector, djTypes,
-  IdCustomHTTPServer, IdHTTP,
   Dialogs, SysUtils, Classes;
 
 type

@@ -32,9 +32,7 @@ uses
   {$IFDEF FPC}fpcunit,testregistry{$ELSE}TestFramework{$ENDIF};
 
 type
-
   { TdjWebComponentHolderTests }
-
   TdjWebComponentHolderTests = class(TTestCase)
   published
     procedure TestCreate;
@@ -43,8 +41,7 @@ type
 implementation
 
 uses
-  djWebComponentHolder, djWebComponent, djWebAppContext, djTypes,
-  IdCustomHTTPServer;
+  djWebComponentHolder, djWebComponent, djWebAppContext, djTypes;
 
 type
   TExamplePage = class(TdjWebComponent)
