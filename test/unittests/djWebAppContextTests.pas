@@ -82,7 +82,7 @@ begin
   try
     Context.Add(TExamplePage, '/bar');
 
-    {$IFDEF VER3}
+    {$IFDEF FPC}
     ExpectException(EWebComponentException, 'Mapping key exists');
     {$ELSE}
     ExpectedException := EWebComponentException;
@@ -105,7 +105,7 @@ begin
   try
     Context.AddWebComponent(TExamplePage, '/bar');
 
-    {$IFDEF VER3}
+    {$IFDEF FPC}
     ExpectException(EWebComponentException, 'Mapping key exists');
     {$ELSE}
     ExpectedException := EWebComponentException;
@@ -130,7 +130,7 @@ begin
     Holder := TdjWebComponentHolder.Create(TExamplePage);
     Context.AddWebComponent(Holder, '/bar');
 
-    {$IFDEF VER3}
+    {$IFDEF FPC}
     ExpectException(EWebComponentException, 'Web Component TExamplePage is already installed in context foo');
     {$ELSE}
     ExpectedException := EWebComponentException;
@@ -156,7 +156,7 @@ begin
     Holder2 := TdjWebComponentHolder.Create(TExamplePage);
     Context.AddWebComponent(Holder1, '/bar');
 
-    {$IFDEF VER3}
+    {$IFDEF FPC}
     ExpectException(EWebComponentException, 'Mapping key exists');
     {$ELSE}
     ExpectedException := EWebComponentException;
