@@ -39,9 +39,7 @@ uses
 {$IFDEF LINUX}
   cthreads,
 {$ENDIF}
-{$IFDEF DARAJA_LOGGING}
   djLogAPI, djLogOverSimpleLogger, SimpleLogger,
-{$ENDIF}
   Forms,
   Interfaces,
   djPathMapTests,
@@ -72,10 +70,8 @@ begin
 
   UseConsoleTestRunner := ParamCount > 0;
 
-  {$IFDEF DARAJA_LOGGING}
   SimpleLogger.Configure('showDateTime', 'true');
   SimpleLogger.Configure('defaultLogLevel', 'trace');
-  {$ENDIF DARAJA_LOGGING}
 
   Tests := TTestSuite.Create(DWF_SERVER_FULL_NAME);
   Tests.AddTest(TTestSuite.Create(TdjPathMapTests));
@@ -84,10 +80,8 @@ begin
   Tests.AddTest(TTestSuite.Create(TdjWebAppContextTests));
   Tests.AddTest(TTestSuite.Create(TdjDefaultWebComponentTests));
 
-
   if not UseConsoleTestRunner then
-  begin  
-    
+  begin
     Tests.AddTest(TTestSuite.Create(TSessionTests));
     Tests.AddTest(TTestSuite.Create(TAPIConfigTests));
   end;
