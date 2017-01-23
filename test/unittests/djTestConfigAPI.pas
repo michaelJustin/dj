@@ -100,12 +100,32 @@ type
 implementation
 
 uses
-  TestComponents,
   djWebAppContext, djInterfaces, djWebComponent, djWebComponentHolder,
   djWebComponentContextHandler, djServer, djDefaultHandler, djStatisticsHandler,
   djHTTPConnector, djContextHandlerCollection, djHandlerList, djTypes,
   IdServerInterceptLogFile, IdSchedulerOfThreadPool, IdGlobal, IdException,
-  SysUtils, Classes;
+  SysUtils, Classes, djAbstractHandler, djServerContext;
+
+type
+  EUnitTestException = class(Exception);
+
+{ TAPIConfigTests }
+
+// this web component returns '' as HTTP GET response ------------------------
+
+type
+  TExamplePage = class(TdjWebComponent)
+  public
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse);
+      override;
+  end;
+
+{ TExamplePage }
+
+procedure TExamplePage.OnGet(Request: TdjRequest; Response: TdjResponse);
+begin
+  Response.ContentText := 'example';
+end;
 
 procedure TAPIConfigTests.ConfigAbsolutePath;
 var
@@ -317,6 +337,24 @@ begin
   end;
 end;
 
+// TestWrapper ---------------------------------------------------------------
+
+type
+  THelloHandler = class(TdjAbstractHandler)
+  public
+    procedure Handle(Target: string; Context: TdjServerContext;
+      Request: TdjRequest; Response: TdjResponse); override;
+  end;
+
+{ THelloHandler }
+
+procedure THelloHandler.Handle(Target: string; Context: TdjServerContext;
+  Request: TdjRequest; Response: TdjResponse);
+begin
+  Response.ContentText := 'Hello world!';
+  Response.ResponseNo := 200;
+end;
+
 procedure TAPIConfigTests.TestWrapper;
 var
   Server: TdjServer;
@@ -442,6 +480,10 @@ begin
   end;
 end;
 
+type
+  TNoMethodComponent = class(TdjWebComponent)
+  end;
+
 procedure TAPIConfigTests.TestBindErrorRaisesException;
 var
   Server1: TdjServer;
@@ -476,6 +518,22 @@ begin
   end;
 end;
 
+// this web component raises an exception in the Init method -----------------
+type
+  TExceptionInInitComponent = class(TdjWebComponent)
+  public
+    procedure Init(const Config: IWebComponentConfig); override;
+  end;
+
+{ TExceptionInInitComponent }
+
+procedure TExceptionInInitComponent.Init(const Config: IWebComponentConfig);
+begin
+  inherited;
+
+  raise EUnitTestException.Create('error');
+end;
+
 procedure TAPIConfigTests.TestExceptionInInitStopsComponent;
 var
   Server: TdjServer;
@@ -501,6 +559,24 @@ begin
   end;
 end;
 
+// test exception in service -------------------------------------------------
+type
+  TExceptionComponent = class(TdjWebComponent)
+  public
+    procedure Service(Context: TdjServerContext; Request: TdjRequest;
+      Response: TdjResponse); override;
+  end;
+
+
+
+{ TExceptionComponent }
+
+procedure TExceptionComponent.Service(Context: TdjServerContext;
+  Request: TdjRequest; Response: TdjResponse);
+begin
+  raise EUnitTestException.Create('test');
+end;
+
 procedure TAPIConfigTests.TestExceptionInServiceReturns500;
 var
   Server: TdjServer;
@@ -524,6 +600,21 @@ begin
   finally
     Server.Free;
   end;
+end;
+
+// ---
+type
+  TGetComponent = class(TdjWebComponent)
+  public
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse);
+      override;
+  end;
+
+{ TGetComponent }
+
+procedure TGetComponent.OnGet(Request: TdjRequest; Response: TdjResponse);
+begin
+  Response.ContentText := 'Hello';
 end;
 
 procedure TAPIConfigTests.TestNoMatchingContextReturns404;
@@ -572,6 +663,22 @@ begin
   end;
 end;
 
+// this web component declares a POST handler --------------------------------
+
+type
+  TPostComponent = class(TdjWebComponent)
+  public
+    procedure OnPost(Request: TdjRequest; Response: TdjResponse);
+      override;
+  end;
+
+{ TPostComponent }
+
+procedure TPostComponent.OnPost(Request: TdjRequest; Response: TdjResponse);
+begin
+  Response.ContentText := 'posted.this';
+end;
+
 procedure TAPIConfigTests.TestPost;
 var
   Server: TdjServer;
@@ -590,6 +697,22 @@ begin
   finally
     Server.Free;
   end;
+end;
+
+// Service method is overriden -----------------------------------------------
+
+type
+  THello2WebComponent = class(TdjWebComponent)
+  public
+    procedure Service(Context: TdjServerContext; Request: TdjRequest; Response: TdjResponse); override;
+  end;
+
+{ THello2WebComponent }
+
+procedure THello2WebComponent.Service(Context: TdjServerContext;
+  Request: TdjRequest; Response: TdjResponse);
+begin
+  Response.ContentText := 'Hello universe!';
 end;
 
 procedure TAPIConfigTests.ConfigTwoContexts;
@@ -656,6 +779,29 @@ begin
   finally
     Server.Free;
   end;
+end;
+
+// this web component writes to the context log ----------
+type
+  TLogComponent = class(TdjWebComponent)
+  public
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse);
+      override;
+  end;
+
+{ TLogComponent }
+
+procedure TLogComponent.OnGet(Request: TdjRequest; Response: TdjResponse);
+var
+  Value: string;
+begin
+  Config.GetContext.Log('This is a log message sent from TLogComponent.OnGet ...');
+
+  Value := Config.GetContext.GetInitParameter('key');
+
+  Config.GetContext.Log('Value=' + Value);
+
+  Response.ContentText := 'TLogComponent';
 end;
 
 procedure TAPIConfigTests.TestConfigGetContextLog;
@@ -755,6 +901,23 @@ begin
   finally
     Server.Free;
   end;
+end;
+
+// test context init parameter
+
+type
+  TNoOpComponent = class(TdjWebComponent)
+  public
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse);
+      override;
+  end;
+
+{ TNoOpComponent }
+
+procedure TNoOpComponent.OnGet(Request: TdjRequest; Response: TdjResponse);
+begin
+  WriteLn('>>>> ' + GetWebComponentConfig.GetInitParameter('a'));
+  // TODO
 end;
 
 procedure TAPIConfigTests.TestContextConfig;

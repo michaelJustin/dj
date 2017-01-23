@@ -49,10 +49,24 @@ type
 implementation
 
 uses
-  TestComponents, djWebAppContext, djWebComponentHolder, djServer,
+  djWebAppContext, djWebComponentHolder, djServer, djTypes, djWebComponent,
   djDefaultWebComponent,
   IdHTTP, IdGlobal,
   SysUtils;
+
+type
+  TExamplePage = class(TdjWebComponent)
+  public
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse);
+      override;
+  end;
+
+{ TExamplePage }
+
+procedure TExamplePage.OnGet(Request: TdjRequest; Response: TdjResponse);
+begin
+  Response.ContentText := 'example';
+end;
 
 procedure TdjDefaultWebComponentTests.TestDefaultWebComponent;
 var

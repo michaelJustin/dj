@@ -42,20 +42,19 @@ uses
   djLogAPI, djLogOverSimpleLogger, SimpleLogger,
   Forms,
   Interfaces,
+  djGlobal,
   djPathMapTests,
   djWebAppContextTests,
   djWebComponentHolderTests,
   djWebComponentHandlerTests,
   djDefaultWebComponentTests,
   djTestConfigAPI,
-  TestComponents,
   TestSessions,
-  djGlobal,
   IdGlobal,
   testregistry,
   fpcunit,
   GuiTestRunner,
-  consoletestrunner, djTypes;
+  consoletestrunner;
 
 {$R *.res}
 
