@@ -54,9 +54,22 @@ type
 implementation
 
 uses
-  TestComponents,
-  djInterfaces, djWebAppContext, djWebComponentHolder,
+  djInterfaces, djWebAppContext, djWebComponentHolder, djTypes, djWebComponent,
   SysUtils, Classes;
+
+type
+  TExamplePage = class(TdjWebComponent)
+  public
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse);
+      override;
+  end;
+
+{ TExamplePage }
+
+procedure TExamplePage.OnGet(Request: TdjRequest; Response: TdjResponse);
+begin
+  Response.ContentText := 'example';
+end;
 
 { TdjWebAppContextTests }
 

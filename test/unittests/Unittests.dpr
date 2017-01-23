@@ -71,20 +71,19 @@ uses
   djStatisticsHandler in '..\..\source\optional\djStatisticsHandler.pas',
   djLogAPI,
   djLogOverSimpleLogger,
+  HTTPTestCase,
   djPathMapTests,
   djWebAppContextTests,
   djWebComponentHolderTests,
   djWebComponentHandlerTests,
   djDefaultWebComponentTests,
   djTestConfigAPI in 'djTestConfigAPI.pas',
-  TestComponents in 'TestComponents.pas',
   UnicodeText in 'UnicodeText.pas',
   TestSessions in 'TestSessions.pas',
   TestFramework,
   GUITestRunner,
   TextTestRunner,
-  SysUtils,
-  HTTPTestCase in 'HTTPTestCase.pas';
+  SysUtils;
 
 begin
   RegisterTests('', [TdjPathMapTests.Suite]);
