@@ -143,7 +143,7 @@ type
      * \param Host the connector host name
      * \param Port the connector port number
      *)
-    procedure AddConnector(Host: string; Port: Integer = DEFAULT_BINDING_PORT);
+    procedure AddConnector(const Host: string; Port: Integer = DEFAULT_BINDING_PORT);
       overload;
 
     (**
@@ -268,7 +268,7 @@ begin
   end;
 end;
 
-procedure TdjServer.AddConnector(Host: string; Port: Integer =
+procedure TdjServer.AddConnector(const Host: string; Port: Integer =
   DEFAULT_BINDING_PORT);
 var
   Connector: IConnector;

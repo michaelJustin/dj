@@ -62,7 +62,7 @@ type
      * a-z A-Z 0-9 . - _ ~ ! $ & ' ( ) * + , ; = : @
      * and percent-encoded characters
      *)
-    procedure ValidateContextPath(ContextPath: string);
+    procedure ValidateContextPath(const ContextPath: string);
 
   public
     (**
@@ -71,7 +71,7 @@ type
      * \throws EWebComponentException if the conext name contains invalid
      * characters
      *)
-    constructor Create(ContextPath: string);
+    constructor Create(const ContextPath: string);
 
     (**
      * Called by the container on start.
@@ -163,7 +163,7 @@ type
     (**
      * Create a ContextHandler.
      *)
-    constructor Create(ContextPath: string); reintroduce;
+    constructor Create(const ContextPath: string); reintroduce;
 
     (**
      * Destructor.
@@ -228,7 +228,7 @@ uses
 
 { TdjContext }
 
-constructor TdjContext.Create(ContextPath: string);
+constructor TdjContext.Create(const ContextPath: string);
 begin
   inherited Create;
 
@@ -262,7 +262,7 @@ begin
   Result := FContextConfig.GetInitParameterNames;
 end;
 
-procedure TdjContext.ValidateContextPath(ContextPath: string);
+procedure TdjContext.ValidateContextPath(const ContextPath: string);
 var
   Ch: Char;
 begin
@@ -319,7 +319,7 @@ end;
 
 { TdjContextHandler }
 
-constructor TdjContextHandler.Create(ContextPath: string);
+constructor TdjContextHandler.Create(const ContextPath: string);
 begin
   inherited Create;
 
