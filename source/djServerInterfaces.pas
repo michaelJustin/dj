@@ -50,7 +50,7 @@ type
     (**
      * Set the host.
      *)
-    procedure SetHost(Value: string);
+    procedure SetHost(const Value: string);
     (**
      * Get the port.
      *)

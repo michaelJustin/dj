@@ -62,7 +62,7 @@ type
      * \param Request HTTP request
      * \param Response HTTP response
      *)
-    procedure DoHandle(Target: string; Context: TdjServerContext;
+    procedure DoHandle(const Target: string; Context: TdjServerContext;
       Request: TdjRequest; Response: TdjResponse);
 
   public
@@ -72,7 +72,7 @@ type
      * \param ContextPath the context path
      * \param Sessions enable HTTP sessions
      *)
-    constructor Create(ContextPath: string; Sessions: Boolean = False);
+    constructor Create(const ContextPath: string; Sessions: Boolean = False);
       overload;
 
     (**
@@ -89,7 +89,7 @@ type
      * \throws EWebComponentException if the Web Component can not be added
      *)
     procedure AddWebComponent(const ComponentClass: TdjWebComponentClass;
-      PathSpec: string); overload;
+      const PathSpec: string); overload;
 
     (**
      * Convenience method to add a Web Component.
@@ -99,7 +99,7 @@ type
      *
      * \throws EWebComponentException if the Web Component can not be added
      *)
-    procedure Add(const ComponentClass: TdjWebComponentClass; PathSpec:
+    procedure Add(const ComponentClass: TdjWebComponentClass; const PathSpec:
       string);
 
     (**
@@ -110,8 +110,8 @@ type
      *
      * \throws EWebComponentException if the Web Component can not be added
      *)
-    procedure AddWebComponent(const Holder: TdjWebComponentHolder; PathSpec:
-      string); overload;
+    procedure AddWebComponent(const Holder: TdjWebComponentHolder;
+      const PathSpec: string); overload;
 
     // IHandler interface
 
@@ -150,7 +150,7 @@ uses
 
 { TdjWebComponentContextHandler }
 
-constructor TdjWebComponentContextHandler.Create(ContextPath: string;
+constructor TdjWebComponentContextHandler.Create(const ContextPath: string;
   Sessions: Boolean);
 begin
   inherited Create(ContextPath);
@@ -204,7 +204,7 @@ begin
 end;
 
 procedure TdjWebComponentContextHandler.Add(
-  const ComponentClass: TdjWebComponentClass; PathSpec: string);
+  const ComponentClass: TdjWebComponentClass; const PathSpec: string);
 var
   Holder: TdjWebComponentHolder;
 begin
@@ -227,7 +227,7 @@ begin
 end;
 
 procedure TdjWebComponentContextHandler.AddWebComponent(
-  const ComponentClass: TdjWebComponentClass; PathSpec: string);
+  const ComponentClass: TdjWebComponentClass; const PathSpec: string);
 var
   Holder: TdjWebComponentHolder;
 begin
@@ -245,7 +245,7 @@ begin
 end;
 
 procedure TdjWebComponentContextHandler.AddWebComponent(
-  const Holder: TdjWebComponentHolder; PathSpec: string);
+  const Holder: TdjWebComponentHolder; const PathSpec: string);
 begin
   // Holder can not be reused.
   // Create a new Holder if a Web Component should handle other PathSpecs.
@@ -263,7 +263,7 @@ begin
   WebComponentHandler.AddWithMapping(Holder, PathSpec);
 end;
 
-procedure TdjWebComponentContextHandler.DoHandle(Target: string;
+procedure TdjWebComponentContextHandler.DoHandle(const Target: string;
   Context: TdjServerContext; Request: TdjRequest; Response: TdjResponse);
 begin
   Trace('Context ' + ContextPath + ' handles ' + Target);

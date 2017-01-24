@@ -56,7 +56,7 @@ type
     procedure Trace(const S: string);
 
     procedure SetPort(Value: Integer);
-    procedure SetHost(Value: string);
+    procedure SetHost(const Value: string);
     function GetPort: Integer;
     function GetHost: string;
 
@@ -155,7 +155,7 @@ begin
   // Trace('Stopping connector');
 end;
 
-procedure TdjAbstractConnector.SetHost(Value: string);
+procedure TdjAbstractConnector.SetHost(const Value: string);
 begin
   FHost := Value;
 end;

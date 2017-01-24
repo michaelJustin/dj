@@ -72,13 +72,13 @@ type
 
     procedure CheckUniqueName(const Holder: TdjWebComponentHolder);
 
-    procedure CreateOrUpdateMapping(PathSpec: string; const Holder:
+    procedure CreateOrUpdateMapping(const PathSpec: string; const Holder:
       TdjWebComponentHolder);
 
-    procedure ValidateMappingPathSpec(PathSpec: string;
+    procedure ValidateMappingPathSpec(const PathSpec: string;
       const Holder: TdjWebComponentHolder);
 
-    function FindMapping(WebComponentName: string): TdjWebComponentMapping;
+    function FindMapping(const WebComponentName: string): TdjWebComponentMapping;
 
   protected
     (**
@@ -114,7 +114,7 @@ type
      * \param PathSpec a path spec
      *)
     procedure AddWithMapping(const Holder: TdjWebComponentHolder;
-      PathSpec: string);
+      const PathSpec: string);
 
     (**
      * Create a TdjWebComponentHolder for a WebComponentClass.
@@ -280,7 +280,7 @@ begin
   inherited;
 end;
 
-function TdjWebComponentHandler.FindMapping(WebComponentName: string):
+function TdjWebComponentHandler.FindMapping(const WebComponentName: string):
   TdjWebComponentMapping;
 var
   Mapping: TdjWebComponentMapping;
@@ -296,7 +296,7 @@ begin
   end;
 end;
 
-procedure TdjWebComponentHandler.CreateOrUpdateMapping(PathSpec: string; const
+procedure TdjWebComponentHandler.CreateOrUpdateMapping(const PathSpec: string; const
   Holder: TdjWebComponentHolder);
 var
   Mapping: TdjWebComponentMapping;
@@ -389,7 +389,7 @@ begin
 end;
 
 procedure TdjWebComponentHandler.AddWithMapping(
-  const Holder: TdjWebComponentHolder; PathSpec: string);
+  const Holder: TdjWebComponentHolder; const PathSpec: string);
 begin
   try
     PathMap.CheckExists(PathSpec);
@@ -444,7 +444,7 @@ begin
 {$ENDIF DARAJA_LOGGING}
 end;
 
-procedure TdjWebComponentHandler.ValidateMappingPathSpec(PathSpec: string;
+procedure TdjWebComponentHandler.ValidateMappingPathSpec(const PathSpec: string;
       const Holder: TdjWebComponentHolder);
 begin
   if TdjPathMap.GetSpecType(PathSpec) = stUnknown then

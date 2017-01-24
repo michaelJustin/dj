@@ -63,7 +63,7 @@ type
      * \param Spec the path specification (for example, '/*')
      * \return the path specification type
      *)
-    class function GetSpecType(Spec: string): TSpecType;
+    class function GetSpecType(const Spec: string): TSpecType;
 
     (**
      * Check if a mapping path exists.
@@ -72,7 +72,7 @@ type
      * \param PathSpec a single component mapping path (for example, '*.html' or '/*')
      * \throws EWebComponentException
      *)
-    procedure CheckExists(PathSpec: string);
+    procedure CheckExists(const PathSpec: string);
 
     (**
      * Add a web component mapping.
@@ -81,7 +81,7 @@ type
      * \param Value the mapped web component
      * \throws EWebComponentException
      *)
-    procedure AddPathSpec(PathSpec: string; Value: TObject); overload;
+    procedure AddPathSpec(const PathSpec: string; Value: TObject); overload;
 
     (**
      * Return all matching mappings for the given path.
@@ -90,7 +90,7 @@ type
      * \param Path the URL path (without context), for example 'test.html'
      * \result list of matching mappings
      *)
-    function GetMatches(Path: string): TStrings;
+    function GetMatches(const Path: string): TStrings;
   end;
 
 implementation
@@ -101,14 +101,14 @@ uses
 
 { TdjPathMap }
 
-procedure TdjPathMap.AddPathSpec(PathSpec: string; Value: TObject);
+procedure TdjPathMap.AddPathSpec(const PathSpec: string; Value: TObject);
 begin
   CheckExists(PathSpec);
 
   AddObject(PathSpec, Value);
 end;
 
-procedure TdjPathMap.CheckExists(PathSpec: string);
+procedure TdjPathMap.CheckExists(const PathSpec: string);
 begin
   if IndexOf(PathSpec) > -1 then
   begin
@@ -116,7 +116,7 @@ begin
   end;
 end;
 
-class function TdjPathMap.GetSpecType(Spec: string): TSpecType;
+class function TdjPathMap.GetSpecType(const Spec: string): TSpecType;
 begin
   if (Pos('/', Spec) = 1) and (Pos('/*', Spec) = Length(Spec) - 1)
     and (Length(Spec) > 1) then
@@ -170,7 +170,7 @@ begin
   end;
 end;
 
-function TdjPathMap.GetMatches(Path: string): TStrings;
+function TdjPathMap.GetMatches(const Path: string): TStrings;
 
   procedure FindExactMatch;
   var

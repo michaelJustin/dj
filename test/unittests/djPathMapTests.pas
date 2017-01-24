@@ -55,12 +55,12 @@ uses
 type
   TTestPathMap = class(TdjPathMap)
   public
-    class function GetSpecType(Spec: string): TSpecType;
+    class function GetSpecType(const Spec: string): TSpecType;
   end;
 
 { TTestPathMap }
 
-class function TTestPathMap.GetSpecType(Spec: string): TSpecType;
+class function TTestPathMap.GetSpecType(const Spec: string): TSpecType;
 begin
   Result := inherited;
 end;
