@@ -32,15 +32,26 @@ interface
 
 uses
   {$IFDEF FPC}fpcunit,testregistry{$ELSE}TestFramework{$ENDIF},
-  IdHTTP;
+  IdGlobal, IdHTTP;
 
 type
+
+  { THTTPTestCase }
+
   THTTPTestCase = class(TTestCase)
   private
+    {$IFDEF STRING_IS_ANSI}
+    FDestEncoding: IIdTextEncoding;
+    {$ENDIF}
     IdHTTP: TIdHTTP;
+
   protected
     procedure SetUp; override;
     procedure TearDown; override;
+
+    {$IFDEF STRING_IS_ANSI}
+    property DestEncoding: IIdTextEncoding read FDestEncoding write FDestEncoding;
+    {$ENDIF}
   public
     procedure CheckGETResponseEquals(Expected: string; URL: string = ''; msg: string = '');
 
@@ -71,12 +82,12 @@ var
 begin
   if Pos('http', URL) <> 1 then URL := 'http://127.0.0.1' + URL;
 
-  Actual := IdHTTP.Get(URL);
+  Actual := IdHTTP.Get(URL{$IFDEF STRING_IS_ANSI}, DestEncoding{$ENDIF});
 
   CheckEquals(Expected, Actual, msg);
 end;
 
-procedure THTTPTestCase.CheckGETResponse200(URL, msg: string);
+procedure THTTPTestCase.CheckGETResponse200(URL: string; msg: string);
 begin
   if Pos('http', URL) <> 1 then URL := 'http://127.0.0.1' + URL;
 
@@ -84,7 +95,7 @@ begin
   CheckEquals(200, IdHTTP.ResponseCode, msg);
 end;
 
-procedure THTTPTestCase.CheckGETResponse404(URL, msg: string);
+procedure THTTPTestCase.CheckGETResponse404(URL: string; msg: string);
 begin
   if Pos('http', URL) <> 1 then URL := 'http://127.0.0.1' + URL;
 
@@ -92,7 +103,7 @@ begin
   CheckEquals(404, IdHTTP.ResponseCode, msg);
 end;
 
-procedure THTTPTestCase.CheckGETResponse405(URL, msg: string);
+procedure THTTPTestCase.CheckGETResponse405(URL: string; msg: string);
 begin
   if Pos('http', URL) <> 1 then URL := 'http://127.0.0.1' + URL;
 
@@ -100,7 +111,7 @@ begin
   CheckEquals(405, IdHTTP.ResponseCode, msg);
 end;
 
-procedure THTTPTestCase.CheckGETResponse500(URL, msg: string);
+procedure THTTPTestCase.CheckGETResponse500(URL: string; msg: string);
 begin
   if Pos('http', URL) <> 1 then URL := 'http://127.0.0.1' + URL;
 
@@ -119,7 +130,8 @@ begin
   CheckTrue(Pos(Expected, Actual) > 0, msg);
 end;
 
-procedure THTTPTestCase.CheckPOSTResponseEquals(Expected, URL, msg: string);
+procedure THTTPTestCase.CheckPOSTResponseEquals(Expected: string; URL: string;
+  msg: string);
 var
   Strings: TStrings;
 begin
@@ -137,6 +149,10 @@ end;
 procedure THTTPTestCase.SetUp;
 begin
   inherited;
+
+  {$IFDEF FPC}
+  CheckEquals(65001, DefaultSystemCodePage);
+  {$ENDIF}
 
   IdHTTP := TIdHTTP.Create;
 end;
