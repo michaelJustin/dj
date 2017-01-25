@@ -30,6 +30,8 @@ unit HTTPTestCase;
 
 interface
 
+{$I IdCompilerDefines.inc}
+
 uses
   {$IFDEF FPC}fpcunit,testregistry{$ELSE}TestFramework{$ENDIF},
   IdGlobal, IdHTTP;

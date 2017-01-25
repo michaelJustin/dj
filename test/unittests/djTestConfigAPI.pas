@@ -30,6 +30,8 @@ unit djTestConfigAPI;
 
 interface
 
+{$I IdCompilerDefines.inc}
+
 uses
   HTTPTestCase,
   {$IFDEF FPC}fpcunit,testregistry{$ELSE}TestFramework{$ENDIF};
@@ -941,7 +943,7 @@ begin
     Server.Add(Context);
     Server.Start;
 
-    {$IFDEF FPC}
+    {$IFDEF STRING_IS_ANSI}
     DestEncoding := IndyTextEncoding_UTF8; // TODO document
     {$ENDIF}
 
