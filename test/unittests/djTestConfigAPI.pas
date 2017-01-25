@@ -849,7 +849,7 @@ procedure TNoOpComponent.OnGet(Request: TdjRequest; Response: TdjResponse);
 var
   InitParamValue: string;
 begin
-  InitParamValue := GetWebComponentConfig.GetInitParameter('a');
+  InitParamValue := GetWebComponentConfig.GetContext.GetInitParameter('a');
 
   WriteLn('>>>> a=' + InitParamValue);
   Response.ContentText := InitParamValue;
