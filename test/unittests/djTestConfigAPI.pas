@@ -70,7 +70,7 @@ type
     // web component tests
     procedure TestNoMethodReturns405;
 
-    procedure TestPost;
+    procedure TestPOSTMethodResponse;
 
     // Web Component init parameter
     procedure TestTdjWebComponentHolder_SetInitParameter;
@@ -84,7 +84,7 @@ type
 
     procedure TestContextWithConnectorName;
 
-    procedure TestIPv6;
+    procedure TestIPv6ConnectionToLoopback;
 
     procedure TestAddConnector;
     procedure TestThreadPool;
@@ -197,7 +197,7 @@ begin
 
     Server.Start;
 
-    CheckGETResponseContains('Daraja Framework', '');
+    CheckGETResponseContains('Daraja Framework');
   finally
     Server.Free;
   end;
@@ -249,7 +249,6 @@ begin
     CheckGETResponse404('/foo2/bar');
 
   finally
-    // Server.Stop;
     Server.Free;
   end;
 end;
@@ -275,7 +274,7 @@ begin
   end;
 end;
 
-procedure TAPIConfigTests.TestIPv6;
+procedure TAPIConfigTests.TestIPv6ConnectionToLoopback;
 var
   Server: TdjServer;
   Context: TdjWebAppContext;
@@ -283,14 +282,12 @@ begin
   Server := TdjServer.Create;
   try
     Server.AddConnector('::1');
-    Context := TdjWebAppContext.Create('foo');
-    Context.Add(TExamplePage, '/bar');
+    Context := TdjWebAppContext.Create('example');
+    Context.Add(TExamplePage, '/index.html');
     Server.Add(Context);
-
     Server.Start;
 
-    // Test the component
-    CheckGETResponseEquals('example', 'http://[::1]/foo/bar');
+    CheckGETResponseEquals('example', 'http://[::1]/example/index.html');
 
   finally
     Server.Free;
@@ -318,18 +315,12 @@ begin
   Server := TdjServer.Create;
   try
     Context := TdjWebAppContext.Create('context');
-
-    // create component and register it
     Holder := TdjWebComponentHolder.Create(TConfigTestWebComponent);
     Holder.SetInitParameter('test', 'success');
-
     Context.AddWebComponent(Holder, '/*');
-
     Server.Add(Context);
-
     Server.Start;
 
-    // Test the component
     CheckGETResponseEquals('success,ctx=context', '/context/');
 
   finally
@@ -567,8 +558,6 @@ type
       Response: TdjResponse); override;
   end;
 
-
-
 { TExceptionComponent }
 
 procedure TExceptionComponent.Service(Context: TdjServerContext;
@@ -624,17 +613,14 @@ var
 begin
   Server := TdjServer.Create;
   try
-    Context := TdjWebAppContext.Create('get');
-    Context.AddWebComponent(TGetComponent, '/hello');
-
+    Context := TdjWebAppContext.Create('example');
+    Context.AddWebComponent(TExamplePage, '*.html');
     Server.Add(Context);
-
     Server.Start;
 
-    // Test the component
-    CheckGETResponseEquals('Hello', '/get/hello');
-
-    CheckGETResponse404('/get2/hello');
+    CheckGETResponse404('/example2/a.html');
+    CheckGETResponse404('/Example/b.html');
+    CheckGETResponse200('/example/c.html');
 
   finally
     Server.Free;
@@ -676,24 +662,23 @@ type
 
 procedure TPostComponent.OnPost(Request: TdjRequest; Response: TdjResponse);
 begin
-  Response.ContentText := 'posted.this';
+  Response.ContentText := 'thank you for POSTing';
 end;
 
-procedure TAPIConfigTests.TestPost;
+procedure TAPIConfigTests.TestPOSTMethodResponse;
 var
   Server: TdjServer;
   Context: TdjWebAppContext;
 begin
   Server := TdjServer.Create;
   try
-    Context := TdjWebAppContext.Create('post');
-    Context.AddWebComponent(TPostComponent, '/this');
+    Context := TdjWebAppContext.Create('example');
+    Context.AddWebComponent(TPostComponent, '/index.html');
     Server.Add(Context);
-
     Server.Start;
 
-    CheckPOSTResponseEquals('posted.this', '/post/this');
-
+    CheckPOSTResponseEquals('thank you for POSTing', '/example/index.html');
+    CheckGETResponse405('/example/index.html');
   finally
     Server.Free;
   end;
