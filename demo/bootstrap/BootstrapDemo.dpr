@@ -26,7 +26,7 @@
 
 *)
 
-program KitchenSinkDemo;
+program BootstrapDemo;
 
 // note: this is unsupported example code
 

@@ -24,7 +24,7 @@
     
 *)
 
-program KitchenSinkDemo;
+program BootstrapDemo;
 
 // note: this is unsupported example code
 
@@ -44,6 +44,8 @@ uses
   djStatisticsHandler,
   djNCSALogHandler,
   djLogAPI, djLogOverSimpleLogger,
+  djFileUploadHelper in '..\common\djFileUploadHelper.pas',
+  GoogleQRCodeHelper in '..\common\GoogleQRCodeHelper.pas',
   AjaxCmp in 'AjaxCmp.pas',
   AjaxStatsCmp in 'AjaxStatsCmp.pas',
   FileUploadCmp in 'FileUploadCmp.pas',

@@ -7,7 +7,7 @@
     <meta name="description" content="Daraja Framework">
     <meta name="author" content="Michael Justin">
 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css" />
 
     <!-- Le styles -->
     <link href="#{bootstrap.home}/css/bootstrap.css" rel="stylesheet">
@@ -44,9 +44,9 @@
         <div class="container">
             <div class="navbar-header">
 
-                <a class="navbar-brand" href="#{webContext.requestContextPath}/index.html">
-                    <img title="Habarisoft" class="favicon" alt="Habarisoft" src="#{webContext.requestContextPath}/images/favicon.png" />                    Daraja Framework #{djf.version}
-                </a>
+                <!-- a class="navbar-brand" href="#{webContext.requestContextPath}/index.html">
+                    <img title="Habarisoft logo" class="favicon" alt="Habarisoft logo" src="#{webContext.requestContextPath}/images/favicon.png" />     Daraja Framework #{djf.version}
+                </a -->
             </div>
         </div>
     </div>
@@ -54,15 +54,13 @@
     <div class="container">
         <section>
 
-            <div class="jumbotron">
-                <h1>Create HTTP services with Delphi and Free Pascal.</h1>
-            </div>
+            <img title="Daraja logo" alt="Daraja logo" src="https://www.habarisoft.com/images/daraja_logo_landscape_2016_3.png" />
 
 
             <div class="row">
 
                 <!-- tile -->
-                <div class="col-md-4">
+                <!-- div class="col-md-4">
                     <h3>Hello World!</h3>
                     <hr class="soften" />
                     <p class="lead"><i class="icon-globe"></i> This example dynamically creates a simple HTML document.</p>
@@ -70,19 +68,17 @@
                         <a class="btn btn-primary" href="hello.html">Show</a>
                         <a class="btn" href="source.html?file=HelloWorldCmp.pas">Source</a>
                     </p>
-                </div>
+                </div -->
 
                 <!-- tile -->
                 <div class="col-md-4">
                     <h3>Forms</h3>
                     <hr class="soften" />
                     <p class="lead"><i class="icon-pencil"></i> This example shows a HTML form and uses the <a href="http://en.wikipedia.org/wiki/Post/Redirect/Get">Post/Redirect/Get (PRG)</a>                        web development design pattern.</p>
-
                     <p>
                         <a class="btn btn-primary" href="form.html">Show</a>
                         <a class="btn" href="source.html?file=FormCmp.pas">Source</a>
                     </p>
-
                 </div>
 
                 <!-- tile -->
@@ -91,20 +87,15 @@
                     <hr class="soften" />
                     <p class="lead"><i class="icon-upload"></i> This example returns a dynamic HTML page containing file upload forms. The
                         second form uses HTML5 multiple selection capabiliy.</p>
-
                     <p>
                         <a class="btn btn-primary" href="upload.html">Show</a>
                         <a class="btn" href="source.html?file=FileUploadCmp.pas">Source</a>
                     </p>
-
                 </div>
-
-
             </div>
             <!-- row -->
 
             <div class="row">
-
                 <!-- tile -->
                 <div class="col-md-4">
                     <h3>Ajax (jQuery)</h3>
@@ -115,7 +106,6 @@
                         <a class="btn btn-primary" href="ajax.html">Show</a>
                         <a class="btn" href="source.html?file=AjaxCmp.pas">Source</a>
                     </p>
-
                 </div>
 
                 <!-- tile -->
@@ -126,21 +116,15 @@
                         It uses the Google API to build the image data.</p>
 
                     <form method="GET" action="qr" class="form-inline">
-
                         <input class="form-control" name="t" value="Hello QR Code!" />
-
                         <input type="submit" class="btn btn-primary" />
-
                         <a class="btn" href="source.html?file=QrCodeCmp.pas">Source</a>
-
-
                     </form>
-
                 </div>
 
 
                 <!-- tile -->
-                <div class="col-md-4">
+                <!-- div class="col-md-4">
                     <h3>Live Statistics</h3>
                     <hr class="soften" />
                     <p class="lead"><i class="icon-signal"></i> This example uses jQuery and long polling to display request statistics.
@@ -149,22 +133,82 @@
                         <a class="btn btn-primary" href="ajaxstats.html">Show</a>
                         <a class="btn" href="source.html?file=AjaxStatsCmp.pas">Source</a>
                     </p>
-
-                </div>
+                </div -->
 
             </div>
             <!-- row -->
+			
+			
+<h2>Statistics Example</h2>
+
+        <div class="row">
+
+            <!-- tile -->
+            <div class="col-md-2">
+                <p>Requests</p>
+                <p>
+                    <button class="btn btn-large btn-primary requests" type="button">0</button>
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+            <!-- tile -->
+            <div class="col-md-2">
+                <p>Active</p>
+                <p>
+                    <button class="btn btn-large btn-primary active" type="button">0</button>
+                </p>
+            </div>
+            <!-- tile -->
+            <div class="col-md-2">
+                <p>Responses (1xx)</p>
+                <p>
+                    <button class="btn btn-large responses1xx" type="button">0</button>
+                </p>
+            </div>
+            <!-- tile -->
+            <div class="col-md-2">
+                <p>Responses (2xx)</p>
+                <p>
+                    <button class="btn btn-large responses2xx" type="button">0</button>
+                </p>
+            </div>
+            <!-- tile -->
+            <div class="col-md-2">
+                <p>Responses (3xx)</p>
+                <p>
+                    <button class="btn btn-large responses3xx" type="button">0</button>
+                </p>
+            </div>
+            <!-- tile -->
+            <div class="col-md-2">
+                <p>Responses (4xx)</p>
+                <p>
+                    <button class="btn btn-large responses4xx" type="button">0</button>
+                </p>
+            </div>
+            <!-- tile -->
+            <div class="col-md-2">
+                <p>Responses (5xx)</p>
+                <p>
+                    <button class="btn btn-large responses5xx" type="button">0</button>
+                </p>
+            </div>
+
+        </div>			
 
         </section>
+		
         <!-- demo directory -->
 
         <footer class="footer" id="contact">
             <div class="row">
                 <div class="col-md-12">
-                    <p>Copyright 2016 <a href="https://habarisoft.com/">Habarisoft</a>.
-
-                        <a href="http://getbootstrap.com/">Bootstrap</a> licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>.
-
+                        <a href="http://getbootstrap.com/">Bootstrap</a> (C) 2015 Twitter, licensed under MIT License. Open Sans licensed under Apache License, version 2.0
                     </p>
                 </div>
             </div>
@@ -177,6 +221,22 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="#{jquery.min.js}"></script>
     <script src="#{bootstrap.home}/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript">
+        $(document).ready(function() {
+                (function poll() {
+                    $.ajax({url: "ajaxstats.json", success: function(data) {
+                            $("button.requests").empty().append(data.requests);
+                            $("button.active").empty().append(data.active);
+                            $("button.responses1xx").empty().append(data.responses1xx);
+                            $("button.responses2xx").empty().append(data.responses2xx);
+                            $("button.responses3xx").empty().append(data.responses3xx);
+                            $("button.responses4xx").empty().append(data.responses4xx);
+                            $("button.responses5xx").empty().append(data.responses5xx);
+                        }, dataType: "json", complete: poll, timeout: 30000, cache: false});
+                })();
+            });
+    </script>
 
 </body>
 
