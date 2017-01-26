@@ -44,7 +44,7 @@
     </RequiredPackages>
     <Units Count="3">
       <Unit0>
-        <Filename Value="KitchenSinkDemo.lpr"/>
+        <Filename Value="BootstrapDemo.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
@@ -61,11 +61,11 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="KitchenSinkDemo"/>
+      <Filename Value="BootstrapDemo"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir);..\..\..\indy-10.6\Lib\Core;C:\Delphi\indy-10.6\Lib\Core\"/>
-      <OtherUnitFiles Value="..\..\source;..\..\source\optional;..\common;..\..\..\slf4p\src\main;..\..\..\indy-10.6\Lib\Core;..\..\..\indy-10.6\Lib\Protocols;..\..\..\indy-10.6\Lib\System;C:\Delphi\indy-10.6\Lib\Core\;C:\Delphi\indy-10.6\Lib\Protocols\;C:\Delphi\indy-10.6\Lib\System\"/>
+      <OtherUnitFiles Value="..\..\source;..\..\source\optional;..\..\..\slf4p\src\main;..\..\..\indy-10.6\Lib\Core;..\..\..\indy-10.6\Lib\Protocols;..\..\..\indy-10.6\Lib\System;C:\Delphi\indy-10.6\Lib\Core\;C:\Delphi\indy-10.6\Lib\Protocols\;C:\Delphi\indy-10.6\Lib\System\"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>

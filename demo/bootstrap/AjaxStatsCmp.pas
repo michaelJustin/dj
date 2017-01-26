@@ -65,8 +65,6 @@ uses
 
 procedure TAjaxStatsJson.OnGet(Request: TIdHTTPRequestInfo;
   Response: TIdHTTPResponseInfo);
-var
-  Tmp: string;
 
   function AddJson(const AKey: string; const AValue: int64): string;
   begin

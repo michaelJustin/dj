@@ -24,7 +24,7 @@
     
 *)
 
-program KitchenSinkDemo;
+program BootstrapDemo;
 
 // note: this is unsupported example code
 
@@ -43,9 +43,9 @@ uses
   djInterfaces,
   djStatisticsHandler,
   djNCSALogHandler,
-  {$IFDEF DARAJA_LOGGING}
   djLogAPI, djLogOverSimpleLogger,
-  {$ENDIF}
+  djFileUploadHelper in '..\common\djFileUploadHelper.pas',
+  GoogleQRCodeHelper in '..\common\GoogleQRCodeHelper.pas',
   AjaxCmp in 'AjaxCmp.pas',
   AjaxStatsCmp in 'AjaxStatsCmp.pas',
   FileUploadCmp in 'FileUploadCmp.pas',
@@ -111,8 +111,8 @@ uses
       LogHandler := TdjNCSALogHandler.Create;
       Server.AddHandler(LogHandler);
 
-      // use a connector on port 8081
-      Server.AddConnector('0.0.0.0', 8081);
+      // use a connector on port 8080
+      Server.AddConnector('0.0.0.0', 8080);
 
       try
         // start the server
