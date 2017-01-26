@@ -69,31 +69,25 @@ uses
   djWebComponentHolders in '..\..\source\djWebComponentHolders.pas',
   djWebComponentMapping in '..\..\source\djWebComponentMapping.pas',
   djWebComponentMappings in '..\..\source\djWebComponentMappings.pas',
+  ConfigAPITests in 'ConfigAPITests.pas',
   djDefaultWebComponentTests in 'djDefaultWebComponentTests.pas',
   djPathMapTests in 'djPathMapTests.pas',
-  djTestConfigAPI in 'djTestConfigAPI.pas',
   djWebAppContextTests in 'djWebAppContextTests.pas',
   djWebComponentHandlerTests in 'djWebComponentHandlerTests.pas',
   djWebComponentHolderTests in 'djWebComponentHolderTests.pas',
   HTTPTestCase in 'HTTPTestCase.pas',
   TestSessions in 'TestSessions.pas',
   UnicodeText in 'UnicodeText.pas',
-  djLogAPI,
-  djLogOverSimpleLogger,
+  TestHelper in 'TestHelper.pas',
   TestFramework,
   GUITestRunner,
   TextTestRunner,
   SysUtils;
 
 begin
-  RegisterTests('', [TdjPathMapTests.Suite]);
-  RegisterTests('', [TdjWebComponentHolderTests.Suite]);
-  RegisterTests('', [TdjWebComponentHandlerTests.Suite]);
-  RegisterTests('', [TdjWebAppContextTests.Suite]);
-  RegisterTests('', [TdjDefaultWebComponentTests.Suite]);
-  
-  RegisterTests('', [TSessionTests.Suite]);
-  RegisterTests('', [TAPIConfigTests.Suite]);
+  ConfigureLogging;
+
+  RegisterUnitTests;
 
   if FindCmdLineSwitch('text-mode', ['-', '/'], true) then
     TextTestRunner.RunRegisteredTests(rxbContinue)
