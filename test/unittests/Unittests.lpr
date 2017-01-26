@@ -48,7 +48,7 @@ uses
   djWebComponentHolderTests,
   djWebComponentHandlerTests,
   djDefaultWebComponentTests,
-  djTestConfigAPI,
+  ConfigAPITests,
   TestSessions,
   IdGlobal,
   testregistry,

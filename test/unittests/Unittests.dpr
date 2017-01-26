@@ -71,7 +71,7 @@ uses
   djWebComponentMappings in '..\..\source\djWebComponentMappings.pas',
   djDefaultWebComponentTests in 'djDefaultWebComponentTests.pas',
   djPathMapTests in 'djPathMapTests.pas',
-  djTestConfigAPI in 'djTestConfigAPI.pas',
+  ConfigAPITests in 'ConfigAPITests.pas',
   djWebAppContextTests in 'djWebAppContextTests.pas',
   djWebComponentHandlerTests in 'djWebComponentHandlerTests.pas',
   djWebComponentHolderTests in 'djWebComponentHolderTests.pas',
@@ -92,8 +92,8 @@ begin
   RegisterTests('', [TdjWebAppContextTests.Suite]);
   RegisterTests('', [TdjDefaultWebComponentTests.Suite]);
   
-  RegisterTests('', [TSessionTests.Suite]);
   RegisterTests('', [TAPIConfigTests.Suite]);
+  RegisterTests('', [TSessionTests.Suite]);
 
   if FindCmdLineSwitch('text-mode', ['-', '/'], true) then
     TextTestRunner.RunRegisteredTests(rxbContinue)

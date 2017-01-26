@@ -26,7 +26,7 @@
 
 *)
 
-unit djTestConfigAPI;
+unit ConfigAPITests;
 
 interface
 
