@@ -31,7 +31,6 @@ program BootstrapDemo;
 uses
   Interfaces, // ! fixes UTF-8 ContentLength bug
   djFileUploadHelper in '..\common\djFileUploadHelper.pas',
-  GoogleQRCodeHelper in '..\common\GoogleQRCodeHelper.pas',
   ShutdownHelper in '..\common\ShutdownHelper.pas',
   BootstrapDemoMain;
 
