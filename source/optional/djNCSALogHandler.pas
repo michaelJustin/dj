@@ -37,7 +37,7 @@ uses
 {$IFDEF DARAJA_LOGGING}
   djLogAPI, djLoggerFactory,
 {$ENDIF DARAJA_LOGGING}
-  IdCustomHTTPServer,
+  IdCustomHTTPServer, djTypes,
   SysUtils;
 
 type
@@ -72,7 +72,7 @@ type
      *
      *)
     procedure Handle(Target: string; Context: TdjServerContext; Request:
-      TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo); override;
+      TdjRequest; Response: TdjResponse); override;
   end;
 
 implementation
@@ -131,7 +131,7 @@ begin
 end;
 
 procedure TdjNCSALogHandler.Handle(Target: string; Context: TdjServerContext;
-  Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+  Request: TdjRequest; Response: TdjResponse);
 
   function IfEmpty(const AParam: string): string;
   begin

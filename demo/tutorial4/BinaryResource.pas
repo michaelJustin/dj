@@ -30,19 +30,19 @@ unit BinaryResource;
 
 interface
 
-uses djWebComponent, IdCustomHTTPServer;
+uses djWebComponent, djTypes;
 
 type
   TBinaryResource = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo); override;
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
 implementation
 
 uses Classes, SysUtils;
 
-procedure TBinaryResource.OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+procedure TBinaryResource.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ContentStream := TFileStream.Create('example.pdf', fmOpenRead or fmShareDenyWrite);
   Response.ContentType := 'application/pdf';

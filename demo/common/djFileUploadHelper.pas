@@ -23,14 +23,14 @@ interface
 {$i IdCompilerDefines.inc}
 
 uses
-  IdMessageCoder, IdCustomHTTPServer;
+  IdMessageCoder, djTypes;
 
 type
   TMimeHandler = procedure(var VDecoder: TIdMessageDecoder;
-    var VMsgEnd: Boolean; const Response: TIdHTTPResponseInfo) of object;
+    var VMsgEnd: Boolean; const Response: TdjResponse) of object;
 
-procedure HandleMultipartUpload(Request: TIdHTTPRequestInfo; Response:
-  TIdHTTPResponseInfo; MimeHandler: TMimeHandler);
+procedure HandleMultipartUpload(Request: TdjRequest; Response:
+  TdjResponse; MimeHandler: TMimeHandler);
 
 implementation
 
@@ -39,8 +39,8 @@ uses
   IdMessageCoderMIME,
   Classes, SysUtils;
 
-procedure HandleMultipartUpload(Request: TIdHTTPRequestInfo; Response:
-  TIdHTTPResponseInfo; MimeHandler: TMimeHandler);
+procedure HandleMultipartUpload(Request: TdjRequest; Response:
+  TdjResponse; MimeHandler: TMimeHandler);
 var
   LBoundary, LBoundaryStart, LBoundaryEnd: string;
   LDecoder: TIdMessageDecoder;

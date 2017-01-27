@@ -21,7 +21,7 @@
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the Daraja framework without
     disclosing the source code of your own applications. These activities
-    include: offering paid services to customers as an ASP, shipping Daraja 
+    include: offering paid services to customers as an ASP, shipping Daraja
     with a closed source product.
 
 *)
@@ -35,17 +35,16 @@ interface
 {$i IdCompilerDefines.inc}
 
 uses
-  djWebComponent,
-  IdCustomHTTPServer;
+  djWebComponent, djTypes;
 
 type
   TFormPage = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); override;
+    procedure OnGet(Request: TdjRequest; Response:
+      TdjResponse); override;
 
-    procedure OnPost(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); override;
+    procedure OnPost(Request: TdjRequest; Response:
+      TdjResponse); override;
   end;
 
 implementation
@@ -55,16 +54,16 @@ uses
 
 { TFormPage }
 
-procedure TFormPage.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TFormPage.OnGet(Request: TdjRequest;
+  Response: TdjResponse);
 begin
   Response.ContentText := Bind(Config.GetContext.GetContextPath, 'form.html');
   Response.ContentType := 'text/html';
   Response.CharSet := 'utf-8';
 end;
 
-procedure TFormPage.OnPost(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TFormPage.OnPost(Request: TdjRequest;
+  Response: TdjResponse);
 var
   Text: string;
   Checkbox: string;

@@ -30,19 +30,19 @@ unit SessionDemoResource;
 
 interface
 
-uses djWebComponent, IdCustomHTTPServer;
+uses djWebComponent, djTypes;
 
 type
   TSessionDemoResource = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo); override;
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
 implementation
 
 uses SysUtils;
 
-procedure TSessionDemoResource.OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+procedure TSessionDemoResource.OnGet(Request: TdjRequest; Response: TdjResponse);
 var
   RequestCountForSession: string;
 begin
