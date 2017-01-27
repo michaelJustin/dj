@@ -32,8 +32,6 @@ unit SourceCmp;
 
 interface
 
-{$i IdCompilerDefines.inc}
-
 uses
   djWebComponent, djTypes;
 

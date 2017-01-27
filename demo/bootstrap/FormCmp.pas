@@ -32,19 +32,14 @@ unit FormCmp;
 
 interface
 
-{$i IdCompilerDefines.inc}
-
 uses
   djWebComponent, djTypes;
 
 type
   TFormPage = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TdjRequest; Response:
-      TdjResponse); override;
-
-    procedure OnPost(Request: TdjRequest; Response:
-      TdjResponse); override;
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
+    procedure OnPost(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
 implementation

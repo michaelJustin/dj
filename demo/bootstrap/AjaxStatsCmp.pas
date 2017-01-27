@@ -44,8 +44,7 @@ type
 implementation
 
 uses
-  StatsCmp, BindingFramework,
-  SysUtils;
+  StatsCmp, SysUtils;
 
 function AddJson(const AKey: string; const AValue: int64): string;
 begin

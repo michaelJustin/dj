@@ -32,16 +32,11 @@ unit FileUploadCmp;
 
 interface
 
-{$i IdCompilerDefines.inc}
-
 uses
   djWebComponent, djTypes,
   IdMessageCoder;
 
 type
-  (**
-   * A web component which shows and handles a file upload form.
-   *)
   TUploadPage = class(TdjWebComponent)
   private
     procedure ProcessMimePart(var ADecoder: TIdMessageDecoder;
