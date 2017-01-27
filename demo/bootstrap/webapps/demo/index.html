@@ -38,40 +38,38 @@
 
 </head>
 
-<body data-spy="scroll">
+<body>
 
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-
-                <!-- a class="navbar-brand" href="#{webContext.requestContextPath}/index.html">
-                    <img title="Habarisoft logo" class="favicon" alt="Habarisoft logo" src="#{webContext.requestContextPath}/images/favicon.png" />     Daraja Framework #{djf.version}
-                </a -->
+		<!-- Topbar ================================================== -->
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/index.html">
+                        <img title="Habarisoft" class="favicon" alt="Habarisoft" src="#{webContext.requestContextPath}/images/favicon.png" />                      
+                    </a>   
+                </div> 
+				
+				<!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="#">Daraja Framework</a>
+                        </li>                        
+                    </ul>
+                </div><!-- /.navbar-collapse -->
             </div>
         </div>
-    </div>
 
     <div class="container">
         <section>
 
             <img title="Daraja logo" alt="Daraja logo" src="https://www.habarisoft.com/images/daraja_logo_landscape_2016_3.png" />
 
-
             <div class="row">
 
                 <!-- tile -->
-                <!-- div class="col-md-4">
-                    <h3>Hello World!</h3>
-                    <hr class="soften" />
-                    <p class="lead"><i class="icon-globe"></i> This example dynamically creates a simple HTML document.</p>
-                    <p>
-                        <a class="btn btn-primary" href="hello.html">Show</a>
-                        <a class="btn" href="source.html?file=HelloWorldCmp.pas">Source</a>
-                    </p>
-                </div -->
-
-                <!-- tile -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <h3>Forms</h3>
                     <hr class="soften" />
                     <p class="lead"><i class="icon-pencil"></i> This example shows a HTML form and uses the <a href="http://en.wikipedia.org/wiki/Post/Redirect/Get">Post/Redirect/Get (PRG)</a>                        web development design pattern.</p>
@@ -80,7 +78,7 @@
                         <a class="btn" href="source.html?file=FormCmp.pas">Source</a>
                     </p>
                 </div>
-
+				
                 <!-- tile -->
                 <div class="col-md-4">
                     <h3>File upload</h3>
@@ -91,13 +89,15 @@
                         <a class="btn btn-primary" href="upload.html">Show</a>
                         <a class="btn" href="source.html?file=FileUploadCmp.pas">Source</a>
                     </p>
-                </div>
+				</div>	
+            
+				
             </div>
             <!-- row -->
 
             <div class="row">
                 <!-- tile -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <h3>Ajax (jQuery)</h3>
                     <hr class="soften" />
                     <p class="lead"><i class="icon-refresh"></i> This example uses jQuery to perform a partial update of the dynamic HTML
@@ -109,7 +109,7 @@
                 </div>
 
                 <!-- tile -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <h3>QR Code</h3>
                     <hr class="soften" />
                     <p class="lead"><i class="icon-qrcode"></i> This example dynamically creates a QR Code image for text entered below.
@@ -122,24 +122,13 @@
                     </form>
                 </div>
 
-
-                <!-- tile -->
-                <!-- div class="col-md-4">
-                    <h3>Live Statistics</h3>
-                    <hr class="soften" />
-                    <p class="lead"><i class="icon-signal"></i> This example uses jQuery and long polling to display request statistics.
-                        Best viewed with multiple browser windows.</p>
-                    <p>
-                        <a class="btn btn-primary" href="ajaxstats.html">Show</a>
-                        <a class="btn" href="source.html?file=AjaxStatsCmp.pas">Source</a>
-                    </p>
-                </div -->
-
             </div>
             <!-- row -->
 			
 			
-<h2>Statistics Example</h2>
+			<hr class="soften" />
+			
+		<h2>Live Request Statistics</h2>
 
         <div class="row">
 
@@ -202,17 +191,8 @@
         </div>			
 
         </section>
-		
-        <!-- demo directory -->
 
-        <footer class="footer" id="contact">
-            <div class="row">
-                <div class="col-md-12">
-                        <a href="http://getbootstrap.com/">Bootstrap</a> (C) 2015 Twitter, licensed under MIT License. Open Sans licensed under Apache License, version 2.0
-                    </p>
-                </div>
-            </div>
-        </footer>
+        <bs:footer />
 
     </div>
     <!-- /container -->

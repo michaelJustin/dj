@@ -21,7 +21,7 @@
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the Daraja framework without
     disclosing the source code of your own applications. These activities
-    include: offering paid services to customers as an ASP, shipping Daraja 
+    include: offering paid services to customers as an ASP, shipping Daraja
     with a closed source product.
 
 *)
@@ -35,8 +35,8 @@ interface
 {$i IdCompilerDefines.inc}
 
 uses
-  djWebComponent,
-  IdMessageCoder, IdCustomHTTPServer;
+  djWebComponent, djTypes,
+  IdMessageCoder;
 
 type
   (**
@@ -45,13 +45,13 @@ type
   TUploadPage = class(TdjWebComponent)
   private
     procedure ProcessMimePart(var ADecoder: TIdMessageDecoder;
-      var AMsgEnd: Boolean; const Response: TIdHTTPResponseInfo);
+      var AMsgEnd: Boolean; const Response: TdjResponse);
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse);
       override;
 
-    procedure OnPost(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); override;
+    procedure OnPost(Request: TdjRequest; Response:
+      TdjResponse); override;
   end;
 
 implementation
@@ -63,8 +63,8 @@ uses
 
 { TUploadPage }
 
-procedure TUploadPage.OnGet(Request: TIdHTTPRequestInfo; Response:
-  TIdHTTPResponseInfo);
+procedure TUploadPage.OnGet(Request: TdjRequest; Response:
+  TdjResponse);
 begin
   Response.ContentText := Bind(Config.GetContext.GetContextPath, 'upload.html');
   Response.ContentType := 'text/html';
@@ -78,7 +78,7 @@ begin
 end;
 
 procedure TUploadPage.ProcessMimePart(var ADecoder: TIdMessageDecoder;
-  var AMsgEnd: Boolean; const Response: TIdHTTPResponseInfo);
+  var AMsgEnd: Boolean; const Response: TdjResponse);
 var
   Stream: TMemoryStream;
   NewDecoder: TIdMessageDecoder;
@@ -119,8 +119,8 @@ begin
   end;
 end;
 
-procedure TUploadPage.OnPost(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TUploadPage.OnPost(Request: TdjRequest;
+  Response: TdjResponse);
 begin
   if IsHeaderMediaType(Request.ContentType, 'multipart/form-data') then
   begin
