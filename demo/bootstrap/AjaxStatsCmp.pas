@@ -32,27 +32,13 @@ unit AjaxStatsCmp;
 
 interface
 
-{$i IdCompilerDefines.inc}
-
 uses
-  djWebComponent,
-  IdCustomHTTPServer;
+  djWebComponent, djTypes;
 
 type
-  { TAjaxStatsPage }
-
-  TAjaxStatsPage = class(TdjWebComponent)
-  public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
-      override;
-  end;
-
-  { TAjaxStatsJson }
-
   TAjaxStatsJson = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
-      override;
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
 implementation
@@ -61,18 +47,16 @@ uses
   StatsCmp, BindingFramework,
   SysUtils;
 
+function AddJson(const AKey: string; const AValue: int64): string;
+begin
+  Result := Format('"%s":"%d"', [AKey, AValue]);
+end;
+
 { TAjaxStatsJson }
 
-procedure TAjaxStatsJson.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
-
-  function AddJson(const AKey: string; const AValue: int64): string;
-  begin
-    Result := Format('"%s":"%d"', [AKey, AValue]);
-  end;
-
+procedure TAjaxStatsJson.OnGet;
 begin
-  Sleep(1000); // limit refresh rate
+  Sleep(2000); // limit refresh rate
 
   Response.ContentText := '{' + AddJson('requests', StatsWrapper.Requests) +
     ',' + AddJson('active', StatsWrapper.RequestsActive) + ',' +
@@ -83,20 +67,6 @@ begin
     AddJson('responses5xx', StatsWrapper.Responses5xx) + '}';
 
   Response.ContentType := 'application/json';
-  Response.CharSet := 'utf-8';
-end;
-
-{ TAjaxStatsPage }
-
-procedure TAjaxStatsPage.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
-var
-  Tmp: string;
-begin
-  Tmp := Bind(Config.GetContext.GetContextPath, 'ajaxstats.html');
-
-  Response.ContentText := Tmp;
-  Response.ContentType := 'text/html';
   Response.CharSet := 'utf-8';
 end;
 

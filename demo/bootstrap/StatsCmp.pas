@@ -35,9 +35,7 @@ interface
 {$i IdCompilerDefines.inc}
 
 uses
-  djWebComponent,
-  djStatisticsHandler,
-  IdCustomHTTPServer;
+  djWebComponent, djStatisticsHandler, djTypes;
 
 var
   StatsWrapper: TdjStatisticsHandler;
@@ -45,8 +43,7 @@ var
 type
   TStatsPage = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); override;
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
 implementation
@@ -57,8 +54,8 @@ uses
 
 { TStatsPage }
 
-procedure TStatsPage.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TStatsPage.OnGet(Request: TdjRequest;
+  Response: TdjResponse);
 var
   Tmp: string;
 begin

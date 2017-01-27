@@ -35,14 +35,12 @@ interface
 {$i IdCompilerDefines.inc}
 
 uses
-  djWebComponent,
-  IdCustomHTTPServer;
+  djWebComponent, djTypes;
 
 type
   TIndexPage = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); override;
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
 implementation
@@ -53,8 +51,8 @@ uses
 
 { TIndexPage }
 
-procedure TIndexPage.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TIndexPage.OnGet(Request: TdjRequest;
+  Response: TdjResponse);
 begin
   Response.ContentText := Bind(Config.GetContext.GetContextPath, 'index.html');
   Response.ContentText := StringReplace(Response.ContentText,

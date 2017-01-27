@@ -35,14 +35,12 @@ interface
 {$i IdCompilerDefines.inc}
 
 uses
-  djWebComponent,
-  IdCustomHTTPServer;
+  djWebComponent, djTypes;
 
 type
   TQRCodePage = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); override;
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
 implementation
@@ -53,8 +51,8 @@ uses
 
 { TQRCodePage }
 
-procedure TQRCodePage.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TQRCodePage.OnGet(Request: TdjRequest;
+  Response: TdjResponse);
 var
   AText: string;
 begin
