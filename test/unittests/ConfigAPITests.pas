@@ -118,8 +118,7 @@ type
 type
   TExamplePage = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TdjRequest; Response: TdjResponse);
-      override;
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
 { TExamplePage }
@@ -284,16 +283,16 @@ begin
   end;
 end;
 
-// --------------------------------------------------- TestWebComponentContext
+// TCmpReturnsInitParams -----------------------------------------------------
 type
-  TConfigTestWebComponent = class(TdjWebComponent)
+  TCmpReturnsInitParams = class(TdjWebComponent)
+  public
     procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
-procedure TConfigTestWebComponent.OnGet(Request: TdjRequest; Response: TdjResponse);
+procedure TCmpReturnsInitParams.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
-  Response.ContentText := GetWebComponentConfig.GetInitParameter('test')
-    + ',ctx=' + GetWebComponentConfig.GetContext.GetContextPath;
+  Response.ContentText := GetWebComponentConfig.GetInitParameter('test');
 end;
 
 procedure TAPIConfigTests.TestTdjWebComponentHolder_SetInitParameter;
@@ -305,13 +304,13 @@ begin
   Server := TdjServer.Create;
   try
     Context := TdjWebAppContext.Create('context');
-    Holder := TdjWebComponentHolder.Create(TConfigTestWebComponent);
+    Holder := TdjWebComponentHolder.Create(TCmpReturnsInitParams);
     Holder.SetInitParameter('test', 'success');
     Context.AddWebComponent(Holder, '/*');
     Server.Add(Context);
     Server.Start;
 
-    CheckGETResponseEquals('success,ctx=context', '/context/');
+    CheckGETResponseEquals('success', '/context/');
 
   finally
     Server.Free;
@@ -655,7 +654,8 @@ end;
 type
   THello2WebComponent = class(TdjWebComponent)
   public
-    procedure Service(Context: TdjServerContext; Request: TdjRequest; Response: TdjResponse); override;
+    procedure Service(Context: TdjServerContext; Request: TdjRequest;
+      Response: TdjResponse); override;
   end;
 
 { THello2WebComponent }
@@ -838,18 +838,18 @@ end;
 // test context init parameter
 
 type
-  TNoOpComponent = class(TdjWebComponent)
+  TContextInitParamComponent = class(TdjWebComponent)
   public
     procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
-{ TNoOpComponent }
+{ TContextInitParamComponent }
 
-procedure TNoOpComponent.OnGet(Request: TdjRequest; Response: TdjResponse);
+procedure TContextInitParamComponent.OnGet(Request: TdjRequest; Response: TdjResponse);
 var
   InitParamValue: string;
 begin
-  InitParamValue := GetWebComponentConfig.GetContext.GetInitParameter('a');
+  InitParamValue := Config.GetContext.GetInitParameter('a');
 
   WriteLn('>>>> a=' + InitParamValue);
   Response.ContentText := InitParamValue;
@@ -863,13 +863,12 @@ begin
   Server := TdjServer.Create;
   try
     Context := TdjWebAppContext.Create('example');
-    Context.Add(TNoOpComponent, '/index.html');
+    Context.Add(TContextInitParamComponent, '/index.html');
     Context.SetInitParameter('a', 'myValue');
     Server.Add(Context);
     Server.Start;
 
-    CheckEquals('myValue', Context.GetCurrentContext.GetInitParameter('a'), 'wrong init parameter');
-    CheckGETResponseEquals('myValue', '/example/index.html', 'wrong response content');
+    CheckGETResponseEquals('myValue', '/example/index.html');
 
   finally
     Server.Free;
