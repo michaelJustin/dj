@@ -34,12 +34,10 @@ program BootstrapDemo;
 
 uses
   djFileUploadHelper in '..\common\djFileUploadHelper.pas',
-  GoogleQRCodeHelper in '..\common\GoogleQRCodeHelper.pas',
   ShutdownHelper in '..\common\ShutdownHelper.pas',
   BootstrapDemoMain in 'BootstrapDemoMain.pas';
 
 begin
-
   ReportMemoryLeaksOnShutdown := True;
 
   Demo;
