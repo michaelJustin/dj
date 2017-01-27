@@ -45,7 +45,7 @@
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/index.html">
+                    <a class="navbar-brand" href="/demo/index.html">
                         <img title="Habarisoft" class="favicon" alt="Habarisoft" src="#{webContext.requestContextPath}/images/favicon.png" />                      
                     </a>   
                 </div> 
@@ -54,7 +54,7 @@
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="#">Daraja Framework</a>
+                            <a href="/demo/index.html">Daraja Framework</a>
                         </li>                        
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -80,7 +80,7 @@
                 </div>
 				
                 <!-- tile -->
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <h3>File upload</h3>
                     <hr class="soften" />
                     <p class="lead"><i class="icon-upload"></i> This example returns a dynamic HTML page containing file upload forms. The
@@ -98,18 +98,6 @@
             <div class="row">
                 <!-- tile -->
                 <div class="col-md-6">
-                    <h3>Ajax (jQuery)</h3>
-                    <hr class="soften" />
-                    <p class="lead"><i class="icon-refresh"></i> This example uses jQuery to perform a partial update of the dynamic HTML
-                        document. Pressing the button will get a server response which will be inserted in the HTML.</p>
-                    <p>
-                        <a class="btn btn-primary" href="ajax.html">Show</a>
-                        <a class="btn" href="source.html?file=AjaxCmp.pas">Source</a>
-                    </p>
-                </div>
-
-                <!-- tile -->
-                <div class="col-md-6">
                     <h3>QR Code</h3>
                     <hr class="soften" />
                     <p class="lead"><i class="icon-qrcode"></i> This example dynamically creates a QR Code image for text entered below.
@@ -125,29 +113,19 @@
             </div>
             <!-- row -->
 			
-			
-			<hr class="soften" />
-			
-		<h2>Live Request Statistics</h2>
 
-        <div class="row">
-
+		<div class="row">
             <!-- tile -->
-            <div class="col-md-2">
-                <p>Requests</p>
-                <p>
-                    <button class="btn btn-large btn-primary requests" type="button">0</button>
-                </p>
+            <div class="col-md-12">
+				<hr class="soften" />
+				<h2>Live Request Statistics <button class="btn btn-large btn-success requests" type="button">0</button></h2>			
             </div>
-
-        </div>
-
-
+		</div><!-- row -->
+			
         <div class="row">
-
             <!-- tile -->
             <div class="col-md-2">
-                <p>Active</p>
+                <p>Active Requests</p>
                 <p>
                     <button class="btn btn-large btn-primary active" type="button">0</button>
                 </p>
@@ -206,7 +184,7 @@
         $(document).ready(function() {
                 (function poll() {
                     $.ajax({url: "ajaxstats.json", success: function(data) {
-                            $("button.requests").empty().append(data.requests);
+                            $("button.requests").empty().append(data.requests + " total requests");
                             $("button.active").empty().append(data.active);
                             $("button.responses1xx").empty().append(data.responses1xx);
                             $("button.responses2xx").empty().append(data.responses2xx);
