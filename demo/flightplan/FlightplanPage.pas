@@ -34,34 +34,34 @@ interface
 
 uses
   AirportUnit, djWebComponent, djInterfaces,
-  IdCustomHTTPServer, IdURI, Generics.Collections, Classes;
+  djTypes, IdURI, Generics.Collections, Classes;
 
 type
   TFlightplanPage = class(TdjWebComponent)
   private
     AirportManager: IAirportManager;
 
-    procedure ChooseDestination(Response: TIdHTTPResponseInfo; const ID:
+    procedure ChooseDestination(Response: TdjResponse; const ID:
       string);
 
     function GetDepartures(const ID1: string): string;
 
     function GetFlightsHtml(const ID1, ID2: string; const ADate: TDateTime): string;
 
-    procedure ChooseDate(var Response: TIdHTTPResponseInfo; const
+    procedure ChooseDate(var Response: TdjResponse; const
       ID1: string; const ID2: string);
 
-    procedure ChooseFlight(var Response: TIdHTTPResponseInfo; const
+    procedure ChooseFlight(var Response: TdjResponse; const
       ID1: string; const ID2: string; Dat: string);
 
   public
     procedure Init(const Config: IWebComponentConfig); override;
 
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); override;
+    procedure OnGet(Request: TdjRequest; Response:
+      TdjResponse); override;
 
-    procedure OnPost(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); override;
+    procedure OnPost(Request: TdjRequest; Response:
+      TdjResponse); override;
   end;
 
 implementation
@@ -158,8 +158,8 @@ begin
   AirportManager := TAirportManager.Create;
 end;
 
-procedure TFlightplanPage.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TFlightplanPage.OnGet(Request: TdjRequest;
+  Response: TdjResponse);
 var
   ID1, ID2, Dat: string;
   Tmp: string;
@@ -187,8 +187,8 @@ begin
   end;
 end;
 
-procedure TFlightplanPage.OnPost(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TFlightplanPage.OnPost(Request: TdjRequest;
+  Response: TdjResponse);
 var
   Month, Day, Year: string;
   ID1, ID2: string;
@@ -209,7 +209,7 @@ begin
   Response.Redirect(Target);
 end;
 
-procedure TFlightplanPage.ChooseFlight(var Response: TIdHTTPResponseInfo; const
+procedure TFlightplanPage.ChooseFlight(var Response: TdjResponse; const
       ID1: string; const ID2: string; Dat: string);
 var
   Tmp: string;
@@ -232,7 +232,7 @@ begin
   Response.ContentText := Tmp;
 end;
 
-procedure TFlightplanPage.ChooseDestination(Response: TIdHTTPResponseInfo; const
+procedure TFlightplanPage.ChooseDestination(Response: TdjResponse; const
   ID: string);
 var
   Tmp: string;
@@ -246,7 +246,7 @@ begin
   Response.ContentText := Tmp;
 end;
 
-procedure TFlightplanPage.ChooseDate(var Response: TIdHTTPResponseInfo; const
+procedure TFlightplanPage.ChooseDate(var Response: TdjResponse; const
   ID1: string; const ID2: string);
 var
   Tmp: string;

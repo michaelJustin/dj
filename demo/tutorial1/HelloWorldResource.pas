@@ -30,17 +30,17 @@ unit HelloWorldResource;
 
 interface
 
-uses djWebComponent, IdCustomHTTPServer;
+uses djWebComponent, djTypes;
 
 type
   THelloWorldResource = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo); override;
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
 implementation
 
-procedure THelloWorldResource.OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+procedure THelloWorldResource.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ContentText := 'Hello world!';
   Response.ContentType := 'text/plain';

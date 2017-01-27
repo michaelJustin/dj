@@ -30,12 +30,12 @@ unit FibonacciResource;
 
 interface
 
-uses djWebComponent, IdCustomHTTPServer;
+uses djWebComponent, djTypes;
 
 type
   TFibonacciResource = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo); override;
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
 implementation
@@ -49,7 +49,7 @@ begin
   Result := fib(n-1) + fib(n-2);
 end;
 
-procedure TFibonacciResource.OnGet(Request: TIdHTTPRequestInfo; Response: TIdHTTPResponseInfo);
+procedure TFibonacciResource.OnGet(Request: TdjRequest; Response: TdjResponse);
 const
   INVALID_ARGUMENT_VALUE = -1;
 var
