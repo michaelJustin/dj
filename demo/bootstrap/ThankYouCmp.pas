@@ -32,8 +32,6 @@ unit ThankYouCmp;
 
 interface
 
-{$i IdCompilerDefines.inc}
-
 uses
   djWebComponent, djTypes;
 

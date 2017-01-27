@@ -32,8 +32,6 @@ unit IndexCmp;
 
 interface
 
-{$i IdCompilerDefines.inc}
-
 uses
   djWebComponent, djTypes;
 
@@ -55,8 +53,6 @@ procedure TIndexPage.OnGet(Request: TdjRequest;
   Response: TdjResponse);
 begin
   Response.ContentText := Bind(Config.GetContext.GetContextPath, 'index.html');
-  Response.ContentText := StringReplace(Response.ContentText,
-    '#{request.uri}', 'http://' + Request.Host + Request.URI, [rfReplaceAll]);
   Response.ContentType := 'text/html';
   Response.CharSet := 'utf-8';
 end;
