@@ -39,35 +39,31 @@
 </head>
 
 <body>
-
-		<!-- Topbar ================================================== -->
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/demo/index.html">
-                        <img title="Habarisoft" class="favicon" alt="Habarisoft" src="#{webContext.requestContextPath}/images/favicon.png" />                      
-                    </a>   
-                </div> 
-				
-				<!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse navbar-ex1-collapse">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="/demo/index.html">Daraja Framework</a>
-                        </li>                        
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div>
-        </div>
+	<!-- Topbar ================================================== -->
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/demo/index.html">
+					<img title="Habarisoft" class="favicon" alt="Habarisoft" src="#{webContext.requestContextPath}/images/favicon.png" />                      
+				</a>   
+			</div> 
+			
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="/demo/index.html">Daraja Framework</a>
+					</li>                        
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div>
+	</div>
 
     <div class="container">
         <section>
-
             <img title="Daraja logo" alt="Daraja logo" src="https://www.habarisoft.com/images/daraja_logo_landscape_2016_3.png" />
-
             <div class="row">
-
                 <!-- tile -->
                 <div class="col-md-6">
                     <h3>Forms</h3>
@@ -78,7 +74,6 @@
                         <a class="btn" href="source.html?file=FormCmp.pas">Source</a>
                     </p>
                 </div>
-				
                 <!-- tile -->
                 <div class="col-md-6">
                     <h3>File upload</h3>
@@ -89,85 +84,62 @@
                         <a class="btn btn-primary" href="upload.html">Show</a>
                         <a class="btn" href="source.html?file=FileUploadCmp.pas">Source</a>
                     </p>
-				</div>	
-            
-				
+				</div>
             </div>
             <!-- row -->
 
-            <div class="row">
-                <!-- tile -->
-                <div class="col-md-6">
-                    <h3>QR Code</h3>
-                    <hr class="soften" />
-                    <p class="lead"><i class="icon-qrcode"></i> This example dynamically creates a QR Code image for text entered below.
-                        It uses the Google API to build the image data.</p>
-
-                    <form method="GET" action="qr" class="form-inline">
-                        <input class="form-control" name="t" value="Hello QR Code!" />
-                        <input type="submit" class="btn btn-primary" />
-                        <a class="btn" href="source.html?file=QrCodeCmp.pas">Source</a>
-                    </form>
-                </div>
-
-            </div>
-            <!-- row -->
+			<div class="row">
+				<!-- tile -->
+				<div class="col-md-12">
+					<hr class="soften" />
+					<h2>Live Request Statistics <button class="btn btn-large btn-success requests" type="button">0</button></h2>			
+				</div>
+			</div><!-- row -->
 			
-
-		<div class="row">
-            <!-- tile -->
-            <div class="col-md-12">
-				<hr class="soften" />
-				<h2>Live Request Statistics <button class="btn btn-large btn-success requests" type="button">0</button></h2>			
-            </div>
-		</div><!-- row -->
-			
-        <div class="row">
-            <!-- tile -->
-            <div class="col-md-2">
-                <p>Active Requests</p>
-                <p>
-                    <button class="btn btn-large btn-primary active" type="button">0</button>
-                </p>
-            </div>
-            <!-- tile -->
-            <div class="col-md-2">
-                <p>Responses (1xx)</p>
-                <p>
-                    <button class="btn btn-large responses1xx" type="button">0</button>
-                </p>
-            </div>
-            <!-- tile -->
-            <div class="col-md-2">
-                <p>Responses (2xx)</p>
-                <p>
-                    <button class="btn btn-large responses2xx" type="button">0</button>
-                </p>
-            </div>
-            <!-- tile -->
-            <div class="col-md-2">
-                <p>Responses (3xx)</p>
-                <p>
-                    <button class="btn btn-large responses3xx" type="button">0</button>
-                </p>
-            </div>
-            <!-- tile -->
-            <div class="col-md-2">
-                <p>Responses (4xx)</p>
-                <p>
-                    <button class="btn btn-large responses4xx" type="button">0</button>
-                </p>
-            </div>
-            <!-- tile -->
-            <div class="col-md-2">
-                <p>Responses (5xx)</p>
-                <p>
-                    <button class="btn btn-large responses5xx" type="button">0</button>
-                </p>
-            </div>
-
-        </div>			
-
+			<div class="row">
+				<!-- tile -->
+				<div class="col-md-2">
+					<p>Active Requests</p>
+					<p>
+						<button class="btn btn-large btn-primary active" type="button">0</button>
+					</p>
+				</div>
+				<!-- tile -->
+				<div class="col-md-2">
+					<p>Responses (1xx)</p>
+					<p>
+						<button class="btn btn-large responses1xx" type="button">0</button>
+					</p>
+				</div>
+				<!-- tile -->
+				<div class="col-md-2">
+					<p>Responses (2xx)</p>
+					<p>
+						<button class="btn btn-large responses2xx" type="button">0</button>
+					</p>
+				</div>
+				<!-- tile -->
+				<div class="col-md-2">
+					<p>Responses (3xx)</p>
+					<p>
+						<button class="btn btn-large responses3xx" type="button">0</button>
+					</p>
+				</div>
+				<!-- tile -->
+				<div class="col-md-2">
+					<p>Responses (4xx)</p>
+					<p>
+						<button class="btn btn-large responses4xx" type="button">0</button>
+					</p>
+				</div>
+				<!-- tile -->
+				<div class="col-md-2">
+					<p>Responses (5xx)</p>
+					<p>
+						<button class="btn btn-large responses5xx" type="button">0</button>
+					</p>
+				</div>
+			</div>
         </section>
 
         <bs:footer />

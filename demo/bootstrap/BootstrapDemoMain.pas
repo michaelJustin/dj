@@ -51,10 +51,8 @@ uses
   djStatisticsHandler,
   djWebAppContext,
   FileUploadCmp,
-  GoogleQRCodeHelper,
   IdGlobal,
   IndexCmp,
-  QrCodeCmp,
   ShellAPI,
   ShutdownHelper,
   SourceCmp,
@@ -93,7 +91,6 @@ begin
     Context.Add(TIndexPage, '/index.html');
     Context.Add(TFormPage, '/form.html');
     Context.Add(TThankYouPage, '/thankyou.html');
-    Context.Add(TQRCodePage, '/qr');
     Context.Add(TUploadPage, '/upload.html');
     Context.Add(TAjaxStatsJson, '/ajaxstats.json');
     Context.Add(TSourcePage, '/source.html');
