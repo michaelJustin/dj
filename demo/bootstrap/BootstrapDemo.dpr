@@ -21,7 +21,7 @@
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the Daraja framework without
     disclosing the source code of your own applications. These activities
-    include: offering paid services to customers as an ASP, shipping Daraja 
+    include: offering paid services to customers as an ASP, shipping Daraja
     with a closed source product.
 
 *)
@@ -33,111 +33,12 @@ program BootstrapDemo;
 {$APPTYPE CONSOLE}
 
 uses
-  AjaxCmp in 'AjaxCmp.pas',
-  AjaxStatsCmp in 'AjaxStatsCmp.pas',
-  BindingFramework in 'BindingFramework.pas',
-  djDefaultHandler,
-  djDefaultWebComponent,
   djFileUploadHelper in '..\common\djFileUploadHelper.pas',
-  djHandlerList,
-  djInterfaces,
-  djLogAPI,
-  djLogOverSimpleLogger,
-  djNCSALogHandler,
-  djServer,
-  djStatisticsHandler,
-  djWebAppContext,
-  FileUploadCmp in 'FileUploadCmp.pas',
-  FormCmp in 'FormCmp.pas',
   GoogleQRCodeHelper in '..\common\GoogleQRCodeHelper.pas',
-  HelloWorldCmp in 'HelloWorldCmp.pas',
-  IndexCmp in 'IndexCmp.pas',
-  LoggingCmp in 'LoggingCmp.pas',
-  QrCodeCmp in 'QrCodeCmp.pas',
   ShutdownHelper in '..\common\ShutdownHelper.pas',
-  SourceCmp in 'SourceCmp.pas',
-  StatsCmp in 'StatsCmp.pas',
-  ThankYouCmp in 'ThankYouCmp.pas',
-  IdGlobal,
-  Windows,
-  SysUtils,
-  ShellAPI;
-
-var
-  Server: TdjServer;
-
-  // the main demo method ------------------------------------------------------
-
-procedure Demo;
-var
-  HandlerList: IHandlerContainer;
-  DefaultHandler: IHandler;
-  LogHandler: IHandler;
-  Context: TdjWebAppContext;
-begin
-  Server := TdjServer.Create(8080);
-
-  try
-    // add statistics handler
-    StatsWrapper := TdjStatisticsHandler.Create;
-    Server.AddHandler(StatsWrapper);
-
-    // add a handlerlist with a TdjDefaultHandler
-    DefaultHandler := TdjDefaultHandler.Create;
-    HandlerList := TdjHandlerList.Create;
-    HandlerList.AddHandler(DefaultHandler);
-    Server.AddHandler(HandlerList);
-
-    // get a context handler for the 'demo' context
-    // the last parameter enables HTTP sessions in this context
-    Context := TdjWebAppContext.Create('demo', True);
-
-    // -----------------------------------------------------------------------
-    // register the Web Components
-    Context.Add(TdjDefaultWebComponent, '/');
-    Context.Add(TFormPage, '/form.html');
-    Context.Add(THelloWorldPage, '/hello.html');
-    Context.Add(TIndexPage, '/index.html');
-    Context.Add(TSourcePage, '/source.html');
-    Context.Add(TThankYouPage, '/thankyou.html');
-    Context.Add(TLoggingPage, '/logging.html');
-    Context.Add(TQRCodePage, '/qr');
-    Context.Add(TUploadPage, '/upload.html');
-    Context.Add(TAjaxPage, '/ajax.html');
-    Context.Add(TAjaxStatsPage, '/ajaxstats.html');
-    Context.Add(TAjaxStatsJson, '/ajaxstats.json');
-    // -----------------------------------------------------------------------
-
-    // add the "demo" context
-    Server.Add(Context);
-
-    // add NCSA logger handler (at the end to log all handlers) --------------
-    LogHandler := TdjNCSALogHandler.Create;
-    Server.AddHandler(LogHandler);
-
-    // allow Ctrl+C
-    SetShutdownHook(Server);
-
-    // start the server
-    Server.Start;
-
-    // launch browser
-    ShellExecute(0, 'open', PChar('http://127.0.0.1:8080/demo/index.html'), '',
-      '', 0);
-
-    // terminate
-    WriteLn('Hit any key to terminate.');
-    ReadLn;
-
-  finally
-    Server.Free;
-  end;
-end;
+  BootstrapDemoMain in 'BootstrapDemoMain.pas';
 
 begin
-  {$IFDEF USE_ICONV}
-  IdGlobal.GIdIconvUseTransliteration := True;
-  {$ENDIF}
 
   ReportMemoryLeaksOnShutdown := True;
 

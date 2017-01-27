@@ -35,14 +35,12 @@ interface
 {$i IdCompilerDefines.inc}
 
 uses
-  djWebComponent,
-  IdCustomHTTPServer;
+  djWebComponent, djTypes;
 
 type
   TSourcePage = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TIdHTTPRequestInfo; Response:
-      TIdHTTPResponseInfo); override;
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
 implementation
@@ -81,8 +79,8 @@ end;
 
 { TSourcePage }
 
-procedure TSourcePage.OnGet(Request: TIdHTTPRequestInfo;
-  Response: TIdHTTPResponseInfo);
+procedure TSourcePage.OnGet(Request: TdjRequest;
+  Response: TdjResponse);
 var
   FileName: string;
   AbsolutePath: string;

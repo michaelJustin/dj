@@ -53,9 +53,8 @@ var
 begin
   SL := TStringList.Create;
     try
-      SL.LoadFromFile(
-        ExtractFilePath(ParamStr(0)) + 'webapps/' + Context + '/'
-       + FileName);
+      SL.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'webapps/'
+       + Context + '/' + FileName);
       Result := SL.Text;
     finally
       SL.Free;
@@ -78,13 +77,25 @@ begin
 
   Result := StringReplace(Result,
       '#{bootstrap.home}',
-      'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0',
+      'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6',
       [rfReplaceAll]);
 
   Result := StringReplace(Result,
       '#{jquery.min.js}',
       'https://code.jquery.com/jquery-1.10.2.min.js',
       [rfReplaceAll]);
+
+  Result := StringReplace(Result,
+      '<bs:footer />',
+      '<footer class="footer" id="contact">'
+      + '      <div class="row">'
+      + '          <div class="col-md-12">'
+      + '                  <a href="http://getbootstrap.com/">Bootstrap</a> (C) 2015 Twitter, licensed under MIT License. Open Sans licensed under Apache License, version 2.0'
+      + '              </p>'
+      + '          </div>'
+      + '      </div>'
+      + '  </footer>',
+      []);
 
 end;
 

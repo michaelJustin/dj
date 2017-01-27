@@ -38,19 +38,28 @@
 
 </head>
 
-<body data-spy="scroll">
-
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-
-                <a class="navbar-brand" href="#{webContext.requestContextPath}/index.html">
-                    <img title="Habarisoft" class="favicon" alt="Habarisoft" src="#{webContext.requestContextPath}/images/favicon.png" />                    Daraja Framework #{djf.version}
-                </a>
+<body>
+		<!-- Topbar ================================================== -->
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/demo/index.html">
+                        <img title="Habarisoft" class="favicon" alt="Habarisoft" src="#{webContext.requestContextPath}/images/favicon.png" />                      
+                    </a>   
+                </div> 
+				
+				<!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="/demo/index.html">Daraja Framework</a>
+                        </li>                        
+                    </ul>
+                </div><!-- /.navbar-collapse -->
             </div>
         </div>
-    </div>
-
+		
     <div class="container">
 
         <h2>Form Example</h2>
@@ -81,17 +90,7 @@
 
         <hr class="soften">
 
-        <footer class="footer" id="contact">
-            <div class="row">
-                <div class="col-md-12">
-                    <p>Copyright 2016 <a href="https://habarisoft.com/">Habarisoft</a>.
-
-                        <a href="http://getbootstrap.com/">Bootstrap</a> licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>.
-
-                    </p>
-                </div>
-            </div>
-        </footer>
+        <bs:footer />
 
     </div>
     <!-- /container -->
