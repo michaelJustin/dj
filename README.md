@@ -26,7 +26,7 @@ You can find this project at https://github.com/michaelJustin/daraja-framework
 
 ### Getting Started PDF
 
-A Getting Started document (PDF) is available at https://www.habarisoft.com/daraja_framework/1.1/docs/DarajaFrameworkGettingStarted.pdf
+A Getting Started document (PDF) is available at https://www.habarisoft.com/daraja_framework/1.2/docs/DarajaFrameworkGettingStarted.pdf
 
 ### Project home page
 
