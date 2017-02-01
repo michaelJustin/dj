@@ -61,14 +61,17 @@ procedure TFormPage.OnPost(Request: TdjRequest;
   Response: TdjResponse);
 var
   Text: string;
+  Pass: string;
   Checkbox: string;
 begin
   // read form data
   Text := Utf8Decode(Request.Params.Values['textfield1']);
+  Pass := Utf8Decode(Request.Params.Values['exampleInputPassword1']);
   Checkbox := Request.Params.Values['checkbox1'];
 
   // store data in session
   Request.Session.Content.Values['form:textfield1'] := Text;
+  Request.Session.Content.Values['form:exampleInputPassword1'] := Pass;
   Request.Session.Content.Values['form:checkbox1'] := Checkbox;
 
   // redirect to thankyou page
