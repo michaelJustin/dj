@@ -59,6 +59,9 @@ begin
   Tmp := StringReplace(Tmp, '${textfield1}',
     Request.Session.Content.Values['form:textfield1'], []);
 
+  Tmp := StringReplace(Tmp, '${exampleInputPassword1}',
+    Request.Session.Content.Values['form:exampleInputPassword1'], []);
+
   Tmp := StringReplace(Tmp, '${checkbox1}',
     Request.Session.Content.Values['form:checkbox1'], []);
 
