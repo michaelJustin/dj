@@ -51,13 +51,13 @@ uses
   djStatisticsHandler,
   djWebAppContext,
   FileUploadCmp,
+  FormCmp,
   IdGlobal,
   IndexCmp,
   ShellAPI,
   ShutdownHelper,
   SourceCmp,
   StatsCmp,
-  FormCmp,
   ThankYouCmp;
 
 procedure Demo;
@@ -81,19 +81,18 @@ begin
     HandlerList.AddHandler(DefaultHandler);
     Server.AddHandler(HandlerList);
 
-    // get a context handler for the 'demo' context
-    // the last parameter enables HTTP sessions in this context
+    // get a context handler for the root context, with session support
     Context := TdjWebAppContext.Create('demo', True);
 
     // -----------------------------------------------------------------------
     // register the Web Components
-    Context.Add(TdjDefaultWebComponent, '/');
-    Context.Add(TIndexPage, '/index.html');
-    Context.Add(TFormPage, '/form.html');
-    Context.Add(TThankYouPage, '/thankyou.html');
-    Context.Add(TUploadPage, '/upload.html');
-    Context.Add(TAjaxStatsJson, '/ajaxstats.json');
-    Context.Add(TSourcePage, '/source.html');
+    Context.Add(TdjDefaultWebComponent, '/'); // for static contant
+    Context.Add(TIndexPage, '/index.html'); // home page
+    Context.Add(TFormPage, '/form.html');  // form demo
+    Context.Add(TThankYouPage, '/thankyou.html'); // form demo
+    Context.Add(TUploadPage, '/upload.html'); // file upload demo
+    Context.Add(TAjaxStatsJson, '/ajaxstats.json'); // live statistics demo
+    Context.Add(TSourcePage, '/source.html'); // view source
     // -----------------------------------------------------------------------
 
     // add the "demo" context
