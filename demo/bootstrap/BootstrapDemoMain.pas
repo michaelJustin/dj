@@ -57,7 +57,6 @@ uses
   ShellAPI,
   ShutdownHelper,
   SourceCmp,
-  StatsCmp,
   ThankYouCmp;
 
 procedure Demo;

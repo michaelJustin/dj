@@ -33,7 +33,10 @@ unit AjaxStatsCmp;
 interface
 
 uses
-  djWebComponent, djTypes;
+  djWebComponent, djStatisticsHandler, djTypes;
+
+var
+  StatsWrapper: TdjStatisticsHandler;
 
 type
   TAjaxStatsJson = class(TdjWebComponent)
@@ -44,7 +47,7 @@ type
 implementation
 
 uses
-  StatsCmp, SysUtils;
+  SysUtils;
 
 function AddJson(const AKey: string; const AValue: int64): string;
 begin
