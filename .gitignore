@@ -93,3 +93,4 @@ source/backup/
 *.pem
 *.or
 test/unittests/backup/
+demo/common/backup/
