@@ -23,7 +23,7 @@ interface
 uses
   djServer;
 
-procedure SetShutdownHook(const Server: TdjServer);
+procedure SetShutdownHook(const AServer: TdjServer);
 
 implementation
 
@@ -47,28 +47,35 @@ begin
     CTRL_LOGOFF_EVENT,
     CTRL_SHUTDOWN_EVENT,
     CTRL_CLOSE_EVENT:
-  begin
-    Log('Shutting down.');
-
-    if Assigned(Server) then
     begin
-      Log('Stopping server.');
-      Server.Stop;
-    end;
-	
-	  Result := True;
-  end
-  else
-    Result := False;
+      Log('Shutting down.');
+
+      if Assigned(Server) then
+      begin
+        Log('Stopping server.');
+        Server.Stop;
+      end;
+
+      Result := True;
+    end
+    else
+      Result := False;
   end;
 end;
 
-procedure SetShutdownHook(const Server: TdjServer);
+procedure SetShutdownHook(const AServer: TdjServer);
 begin
   // intercept control events
   SetConsoleCtrlHandler(@ConsoleHandler, True);
 
+  Server := AServer;
+
+  {$IFDEF FPC}
+  // CTRL+C causes SIGINT error
+  Log('Shutdown handler enabled');
+  {$ELSE}
   Log('Shutdown with Ctrl-C and Ctrl-Close enabled');
+  {$ENDIF}
 end;
 
 end.
