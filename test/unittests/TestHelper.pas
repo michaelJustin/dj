@@ -39,7 +39,7 @@ procedure RegisterUnitTests;
 implementation
 
 uses
-  ConfigAPITests,
+  ConfigAPITests, HttpsTests,
   djDefaultWebComponentTests,
   djPathMapTests,
   djWebAppContextTests,
@@ -79,6 +79,9 @@ begin
   if not UseConsoleTestRunner then
   begin
     Tests.AddTest(TTestSuite.Create(TSessionTests));
+    {$IFDEF DARAJA_TEST_HTTPS}
+    Tests.AddTest(TTestSuite.Create(THttpsTests));
+    {$ENDIF DARAJA_TEST_HTTPS}
     Tests.AddTest(TTestSuite.Create(TAPIConfigTests));
   end;
 
@@ -96,6 +99,9 @@ begin
   if not UseConsoleTestRunner then
   begin
     RegisterTests('', [TAPIConfigTests.Suite]);
+    {$IFDEF DARAJA_TEST_HTTPS}
+    RegisterTests('', [THttpsTests.Suite]);
+    {$ENDIF DARAJA_TEST_HTTPS}
     RegisterTests('', [TSessionTests.Suite]);
   end;
 end;

@@ -70,6 +70,7 @@ uses
   djWebComponentMapping in '..\..\source\djWebComponentMapping.pas',
   djWebComponentMappings in '..\..\source\djWebComponentMappings.pas',
   ConfigAPITests in 'ConfigAPITests.pas',
+  HttpsTests in 'HttpsTests.pas',
   djDefaultWebComponentTests in 'djDefaultWebComponentTests.pas',
   djPathMapTests in 'djPathMapTests.pas',
   djWebAppContextTests in 'djWebAppContextTests.pas',
