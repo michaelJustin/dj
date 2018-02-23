@@ -40,7 +40,6 @@ uses
   {$IFDEF DARAJA_LOGGING}
   djLogAPI,
   djLogOverSimpleLogger,
-  SimpleLogger,
   {$ENDIF DARAJA_LOGGING}
   AjaxStatsCmp,
   djDefaultHandler,
