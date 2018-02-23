@@ -49,6 +49,7 @@ uses
   djWebComponentHandlerTests,
   djDefaultWebComponentTests,
   ConfigAPITests,
+  HttpsTests,
   TestHelper,
   TestSessions,
   IdGlobal,
