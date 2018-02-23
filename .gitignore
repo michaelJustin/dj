@@ -90,3 +90,6 @@ target/
 doc/DarajaFrameworkGettingStarted.pdf
 *.res
 source/backup/
+*.pem
+*.or
+test/unittests/backup/
