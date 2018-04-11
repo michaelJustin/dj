@@ -21,43 +21,30 @@
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the Daraja framework without
     disclosing the source code of your own applications. These activities
-    include: offering paid services to customers as an ASP, shipping Daraja 
+    include: offering paid services to customers as an ASP, shipping Daraja
     with a closed source product.
 
 *)
 
-program FormBasedLoginServer;
+unit LogoutResource;
 
-{$APPTYPE CONSOLE}
+interface
 
 uses
-  djServer,
-  djWebAppContext,
-  LoginResource in 'LoginResource.pas',
-  LogoutResource in 'LogoutResource.pas',
-  Bcrypt in '..\..\..\bcrypt-for-delphi\Bcrypt.pas';
+  djWebComponent, djTypes;
 
-procedure Demo;
-var
-  Server: TdjServer;
-  Context: TdjWebAppContext;
-begin
-  Server := TdjServer.Create(80);
-  try
-    Context := TdjWebAppContext.Create('', True);
-    Context.Add(TLoginResource, '/index.html');
-    Context.Add(TLogoutResource, '/logout');
-    Server.Add(Context);
-    Server.Start;
-	  WriteLn('Server is running, please open http://localhost/tutorial/index.html');
-    WriteLn('Hit any key to terminate.');
-    ReadLn;
-  finally
-    Server.Free;
+type
+  TLogoutResource = class(TdjWebComponent)
+  public
+    procedure OnPost(Request: TdjRequest; Response: TdjResponse); override;
   end;
+
+implementation
+
+procedure TLogoutResource.OnPost(Request: TdjRequest; Response: TdjResponse);
+begin
+  Request.Session.Free;
+  Response.Redirect(Request.Referer);
 end;
 
-begin
-  Demo;
 end.
-

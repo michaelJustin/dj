@@ -49,17 +49,17 @@ uses
 
 procedure TLoginResource.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
-  if Request.Session.Content.Values['form:username'] <> '' then
+  if Request.Session.Content.Values['auth:username'] <> '' then
   begin
     Response.ContentText := '<!DOCTYPE html>' + #13
-    + '<html>' + #13
+    + '<html lang="en">' + #13
     + '  <head>' + #13
     + '    <title>Form based login example</title>' + #13
     + '  </head>' + #13
     + '  <body>' + #13
     + '    <p>you are logged in</p>' + #13
-    + '    <form method="post">' + #13
-    + '     <input type="submit" name="submit" value="Logout">' + #13
+    + '    <form method="post" action="logout">' + #13
+    + '     <input type="submit" value="Logout">' + #13
     + '    </form>' + #13
     + '  </body>' + #13
     + '</html>';
@@ -67,7 +67,7 @@ begin
   else
   begin
     Response.ContentText := '<!DOCTYPE html>' + #13
-    + '<html>' + #13
+    + '<html lang="en">' + #13
     + '  <head>' + #13
     + '    <title>Form based login example</title>' + #13
     + '  </head>' + #13
@@ -90,13 +90,6 @@ var
   Username: string;
   Password: string;
 begin
-  if Request.Params.Values['submit'] = 'Logout' then
-  begin
-    Request.Session.Free;
-    Response.Redirect(Request.Document);
-    Exit;
-  end;
-
   // read form data
   Username := Utf8ToString(RawByteString(Request.Params.Values['username']));
   Password := Utf8ToString(RawByteString(Request.Params.Values['password']));
@@ -104,7 +97,7 @@ begin
   if CheckPwd(Username, Password) then
   begin
     // store username in session
-    Request.Session.Content.Values['form:username'] := Username;
+    Request.Session.Content.Values['auth:username'] := Username;
     // success: redirect to home page
     Response.Redirect(Request.Document);
   end else begin
@@ -119,8 +112,6 @@ const
 var
   PasswordRehashNeeded: Boolean;
 begin
-  // ExpectedHash := TBCrypt.HashPassword(Password);
-
   Result := False;
 
   if Username = 'guest' then
