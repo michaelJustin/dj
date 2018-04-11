@@ -43,8 +43,8 @@ var
 begin
   Server := TdjServer.Create(80);
   try
-    Context := TdjWebAppContext.Create('tutorial', True);
-    Context.Add(TLoginResource, '/login');
+    Context := TdjWebAppContext.Create('', True);
+    Context.Add(TLoginResource, '/index.html');
     Server.Add(Context);
     Server.Start;
 	  WriteLn('Server is running, please open http://localhost/tutorial/login');
