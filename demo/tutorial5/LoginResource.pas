@@ -58,7 +58,7 @@ begin
     + '  </head>' + #13
     + '  <body>' + #13
     + '    <p>you are logged in</p>' + #13
-    + '    <form method="post" action="/logout">' + #13
+    + '    <form method="post" action="logout">' + #13
     + '     <input type="submit" value="Logout">' + #13
     + '    </form>' + #13
     + '  </body>' + #13
