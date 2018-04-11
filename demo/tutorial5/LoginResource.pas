@@ -58,7 +58,7 @@ begin
     + '  </head>' + #13
     + '  <body>' + #13
     + '    <p>you are logged in</p>' + #13
-    + '     <form method="post">' + #13
+    + '    <form method="post">' + #13
     + '     <input type="submit" name="submit" value="Logout">' + #13
     + '    </form>' + #13
     + '  </body>' + #13
@@ -72,7 +72,7 @@ begin
     + '    <title>Form based login example</title>' + #13
     + '  </head>' + #13
     + '  <body>' + #13
-    + '    <form method="post" action="login">' + #13
+    + '    <form method="post">' + #13
     + '     <input type="text" name="username" required>' +#13
     + '     <input type="password" name="password" required>' + #13
     + '     <input type="submit" name="submit" value="Login">' + #13
@@ -93,7 +93,7 @@ begin
   if Request.Params.Values['submit'] = 'Logout' then
   begin
     Request.Session.Free;
-    Response.Redirect('login');
+    Response.Redirect(Request.Document);
     Exit;
   end;
 
@@ -103,11 +103,10 @@ begin
 
   if CheckPwd(Username, Password) then
   begin
-    // store data in session
+    // store username in session
     Request.Session.Content.Values['form:username'] := Username;
-    Request.Session.Content.Values['form:password'] := Password;
-    // success: redirect to same page
-    Response.Redirect('login');
+    // success: redirect to home page
+    Response.Redirect(Request.Document);
   end else begin
     // bad user/password: return authentication error
     Response.ResponseNo := 401;
