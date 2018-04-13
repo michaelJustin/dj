@@ -46,23 +46,9 @@ implementation
 
 procedure TLoginResource.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
-  if Request.Session.Content.Values['auth:username'] <> '' then
+  if Request.Session.Content.Values['auth:username'] = '' then
   begin
-    Response.ContentText := '<!DOCTYPE html>' + #13
-    + '<html lang="en">' + #13
-    + '  <head>' + #13
-    + '    <title>Form based login example</title>' + #13
-    + '  </head>' + #13
-    + '  <body>' + #13
-    + '    <p>you are logged in</p>' + #13
-    + '    <form method="post" action="logout">' + #13
-    + '     <input type="submit" value="Logout">' + #13
-    + '    </form>' + #13
-    + '  </body>' + #13
-    + '</html>';
-  end
-  else
-  begin
+    // respond with login form
     Response.ContentText := '<!DOCTYPE html>' + #13
     + '<html lang="en">' + #13
     + '  <head>' + #13
@@ -73,6 +59,22 @@ begin
     + '     <input type="text" name="username" required>' +#13
     + '     <input type="password" name="password" required>' + #13
     + '     <input type="submit" name="submit" value="Login">' + #13
+    + '    </form>' + #13
+    + '  </body>' + #13
+    + '</html>';
+  end
+  else
+  begin
+    // respond with logout form
+    Response.ContentText := '<!DOCTYPE html>' + #13
+    + '<html lang="en">' + #13
+    + '  <head>' + #13
+    + '    <title>Form based login example</title>' + #13
+    + '  </head>' + #13
+    + '  <body>' + #13
+    + '    <p>you are logged in</p>' + #13
+    + '    <form method="post" action="logout">' + #13
+    + '     <input type="submit" value="Logout">' + #13
     + '    </form>' + #13
     + '  </body>' + #13
     + '</html>';
