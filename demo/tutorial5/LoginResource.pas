@@ -44,9 +44,6 @@ type
 
 implementation
 
-uses
-  Bcrypt;
-
 procedure TLoginResource.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
   if Request.Session.Content.Values['auth:username'] <> '' then
@@ -107,16 +104,12 @@ begin
 end;
 
 function TLoginResource.CheckPwd(const Username, Password: string): Boolean;
-const
-  HASH_GUEST = '$2a$11$tDOG9GRbsg8IusbCeKd4muN1dGpuQDwDR4rdWfnFb3GoE6IuZeyaS';
-var
-  PasswordRehashNeeded: Boolean;
 begin
   Result := False;
 
   if Username = 'guest' then
   begin
-    Result := TBCrypt.CheckPassword(Password, HASH_GUEST, PasswordRehashNeeded);
+    Result := Password = 'guest';
   end;
 end;
 
