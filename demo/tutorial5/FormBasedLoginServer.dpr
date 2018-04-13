@@ -34,8 +34,7 @@ uses
   djServer,
   djWebAppContext,
   LoginResource in 'LoginResource.pas',
-  LogoutResource in 'LogoutResource.pas',
-  Bcrypt in '..\..\..\bcrypt-for-delphi\Bcrypt.pas';
+  LogoutResource in 'LogoutResource.pas';
 
 procedure Demo;
 var
@@ -49,7 +48,7 @@ begin
     Context.Add(TLogoutResource, '/logout');
     Server.Add(Context);
     Server.Start;
-	  WriteLn('Server is running, please open http://localhost/tutorial/index.html');
+    WriteLn('Server is running, please open http://localhost/index.html');
     WriteLn('Hit any key to terminate.');
     ReadLn;
   finally
