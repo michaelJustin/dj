@@ -133,6 +133,9 @@ end;
 procedure TdjNCSALogHandler.Handle(Target: string; Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
 
+var
+  LogMsg: string;
+
   function IfEmpty(const AParam: string): string;
   begin
     if Trim(AParam) = '' then
@@ -163,22 +166,22 @@ begin
     inherited;
 
   finally
-{$IFDEF DARAJA_LOGGING}
-
     // todo leave here or move to djHTTPConnector?
     if not Response.HeaderHasBeenWritten then
       Response.WriteHeader;
 
-    Logger.Info(
-      Request.RemoteIP + ' '
+    LogMsg := Request.RemoteIP + ' '
       + '- '
       + IfEmpty(Request.AuthUsername) + ' '
       + '[' + DateTimeToNCSATime(Now, FS) + '] '
       + '"' + Request.Command + ' ' + Request.URI + ' ' + Request.Version + '" '
       + IntToStr(Response.ResponseNo) + ' '
-      + IfNegative(Response.ContentLength)
-      );
+      + IfNegative(Response.ContentLength);
 
+{$IFDEF DARAJA_LOGGING}
+    Logger.Info(LogMsg);
+{$ELSE}
+    System.Writeln(LogMsg);
 {$ENDIF DARAJA_LOGGING}
   end;
 end;
