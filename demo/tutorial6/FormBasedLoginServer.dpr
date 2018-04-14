@@ -34,6 +34,7 @@ uses
   djServer,
   djWebAppContext,
   djInterfaces,
+  djNCSALogHandler,
   PublicResource in 'PublicResource.pas',
   SecuredResource in 'SecuredResource.pas',
   LoginResource in 'LoginResource.pas',
@@ -47,6 +48,7 @@ var
   Server: TdjServer;
   Context: TdjWebAppContext;
   Handler: IHandler;
+  LogHandler: IHandler;
 begin
   Server := TdjServer.Create(80);
   try
@@ -61,6 +63,10 @@ begin
     // add the security handler
     Handler := TFormAuthHandler.Create;
     Server.AddHandler(Handler);
+
+    // add NCSA logger handler (at the end to log all handlers)
+    LogHandler := TdjNCSALogHandler.Create;
+    Server.AddHandler(LogHandler);
 
     Server.Start;
     WriteLn('Server is running, please open http://localhost/index.html');
