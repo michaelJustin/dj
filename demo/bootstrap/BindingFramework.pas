@@ -76,27 +76,44 @@ begin
       [rfReplaceAll]);
 
   Result := StringReplace(Result,
-      '#{bootstrap.home}',
-      'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6',
+      '<bs:bootstrap_css />',
+      '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">',
       [rfReplaceAll]);
 
   Result := StringReplace(Result,
-      '#{jquery.min.js}',
-      'https://code.jquery.com/jquery-1.10.2.min.js',
+      '<bs:styles />',
+      '<style>' + #13
+		+ 'body, p {font-family: ''Open Sans'', sans-serif; }' + #13
+	  + 'section > .row {margin-bottom: 10px;}' + #13
+    + '</style>' + #13,
+      []);
+
+  Result := StringReplace(Result,
+      '<bs:bootstrap_js />',
+      '<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>' + #13
+    + '<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>' + #13
+    + '<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>' + #13,
       [rfReplaceAll]);
+
+  Result := StringReplace(Result,
+      '<bs:navbar />',
+      '<nav class="navbar navbar-light bg-light">' + #13
+		+ '    <a class="navbar-brand" href="/demo/index.html">' + #13
+		+ '		     <img title="Daraja logo" alt="" src="https://www.habarisoft.com/images/daraja_logo_landscape_2016_3.png" />' + #13
+		+ '    </a>' + #13
+		+ '</nav>' + #13,
+    []);
 
   Result := StringReplace(Result,
       '<bs:footer />',
-      '<footer class="footer" id="contact">'
-      + '      <div class="row">'
-      + '          <div class="col-md-12">'
-      + '                  <a href="http://getbootstrap.com/">Bootstrap</a> (C) 2015 Twitter, licensed under MIT License. Open Sans licensed under Apache License, version 2.0'
-      + '              </p>'
-      + '          </div>'
-      + '      </div>'
-      + '  </footer>',
+      '<footer class="footer" id="contact">'  + #13
+    + '    <div class="row">' + #13
+    + '        <div class="col-md-12">' + #13
+    + '            <a href="http://getbootstrap.com/">Bootstrap</a> Copyright (c) 2011-2018 Twitter, Inc., Copyright (c) 2011-2018 The Bootstrap Authors, licensed under MIT License. Open Sans licensed under Apache License, version 2.0' + #13
+    + '        </div>' + #13
+    + '    </div>' + #13
+    + '</footer>' + #13,
       []);
-
 end;
 
 end.
