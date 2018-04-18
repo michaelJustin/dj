@@ -5,57 +5,13 @@
 		<title>Daraja Framework</title>
 		<meta name="description" content="Daraja Framework">
 		<meta name="author" content="Michael Justin">
-
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,700" rel="stylesheet" type="text/css" />
-
 		<bs:bootstrap_css />
-
-		<style>
-			body,
-			p,
-			h1,
-			h3 {
-				font-family: 'Open Sans', sans-serif;
-			}
-			
-			body {
-				padding-top: 60px;
-				/* 60px to make the container go all the way to the bottom of the topbar */
-			}
-			
-			section {
-				padding-top: 0px;
-			}
-			
-			section > .row {
-				margin-bottom: 10px;
-			}
-		</style>
-
-		<!-- Le fav and touch icons -->
+		<bs:styles />
 		<link rel="shortcut icon" href="#{webContext.requestContextPath}/images/favicon.png">
 	</head>
 	<body>
-		<!-- Topbar ================================================== -->
-		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-			<div class="container">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<a class="navbar-brand" href="/demo/index.html">
-						<img title="Habarisoft" class="favicon" alt="Habarisoft" src="#{webContext.requestContextPath}/images/favicon.png" />                      
-					</a>   
-				</div> 
-				
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse navbar-ex1-collapse">
-					<ul class="nav navbar-nav">
-						<li>
-							<a href="/demo/index.html">Daraja Framework</a>
-						</li>                        
-					</ul>
-				</div><!-- /.navbar-collapse -->
-			</div>
-		</div>
+		<bs:navbar />
 
 		<div class="container">
 			<h2>Upload Example</h2>
