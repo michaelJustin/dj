@@ -94,7 +94,7 @@
         <ShowNotes Value="False"/>
         <ShowHints Value="False"/>
       </Verbosity>
-      <CustomOptions Value="-dDARAJA_LOGGINGx"/>
+      <CustomOptions Value="-dDARAJA_LOGGING"/>
     </Other>
   </CompilerOptions>
   <Debugging>
