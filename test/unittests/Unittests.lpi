@@ -183,7 +183,7 @@
     </Linking>
     <Other>
       <CustomOptions Value="-dDARAJA_LOGGING
--dDARAJA_TEST_HTTPS"/>
+-dDARAJA_TEST_HTTPS_"/>
     </Other>
   </CompilerOptions>
   <Debugging>
