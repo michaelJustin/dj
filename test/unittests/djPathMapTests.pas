@@ -26,6 +26,8 @@
 
 unit djPathMapTests;
 
+{$IFDEF FPC}{$MODE DELPHI}{$ENDIF}
+
 interface
 
 uses

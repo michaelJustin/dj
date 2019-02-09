@@ -26,6 +26,8 @@
 
 unit djWebAppContextTests;
 
+{$IFDEF FPC}{$MODE DELPHI}{$ENDIF}
+
 interface
 
 uses

@@ -26,6 +26,8 @@
 
 unit djWebComponentHandlerTests;
 
+{$IFDEF FPC}{$MODE DELPHI}{$ENDIF}
+
 interface
 
 uses
