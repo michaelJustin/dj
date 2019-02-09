@@ -26,6 +26,8 @@
 
 unit TestSessions;
 
+{$IFDEF FPC}{$MODE DELPHI}{$ENDIF}
+
 interface
 
 uses

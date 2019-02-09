@@ -26,6 +26,8 @@
 
 unit TestHelper;
 
+{$IFDEF FPC}{$MODE DELPHI}{$ENDIF}
+
 interface
 
 const LOG_LEVEL = 'info';
