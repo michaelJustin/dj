@@ -41,7 +41,10 @@ procedure RegisterUnitTests;
 implementation
 
 uses
-  ConfigAPITests, HttpsTests,
+  ConfigAPITests,
+  {$IFDEF DARAJA_TEST_HTTPS}
+  HttpsTests,
+  {$ENDIF DARAJA_TEST_HTTPS}
   djDefaultWebComponentTests,
   djPathMapTests,
   djWebAppContextTests,
