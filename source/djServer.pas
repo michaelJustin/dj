@@ -39,6 +39,7 @@ uses
   djLogAPI, djLoggerFactory,
 {$ENDIF DARAJA_LOGGING}
 {$IFDEF FPC}
+  LazUTF8,
   fgl
 {$ELSE}
   Generics.Collections
