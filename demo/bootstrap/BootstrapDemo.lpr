@@ -29,7 +29,6 @@ program BootstrapDemo;
 // note: this is unsupported example code
 
 uses
-  Interfaces, // ! fixes UTF-8 ContentLength bug
   djFileUploadHelper in '..\common\djFileUploadHelper.pas',
   ShutdownHelper in '..\common\ShutdownHelper.pas',
   BootstrapDemoMain;
