@@ -45,9 +45,9 @@ type
 implementation
 
 uses
-  {.$IFDEF FPC}
+  {$IFDEF FPC}
   IdCustomHTTPServer, IdGlobal, IdURI, IdGlobalProtocols,
-  {.$ENDIF}
+  {$ENDIF}
   BindingFramework;
 
 { TFormPage }
@@ -60,7 +60,7 @@ begin
   Response.CharSet := 'utf-8';
 end;
 
-{.$IFDEF FPC}
+{$IFDEF FPC}
 // based on https://stackoverflow.com/questions/24861793
 // using Indy IdCustomHTTPServer rev 5498
 procedure MyDecodeAndSetParams(ARequestInfo: TIdHTTPRequestInfo);
@@ -99,7 +99,7 @@ begin
     ARequestInfo.Params.EndUpdate;
   end;
 end;
-{.$ENDIF}
+{$ENDIF}
 
 procedure TFormPage.OnPost(Request: TdjRequest;
   Response: TdjResponse);
