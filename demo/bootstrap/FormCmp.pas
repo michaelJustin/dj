@@ -65,8 +65,8 @@ var
   Checkbox: string;
 begin
   // read form data
-  Text := {$IFNDEF FPC}Utf8Decode{$ENDIF}(Request.Params.Values['textfield1']);
-  Pass := {$IFNDEF FPC}Utf8Decode{$ENDIF}(Request.Params.Values['exampleInputPassword1']);
+  Text := Request.Params.Values['textfield1'];
+  Pass := Request.Params.Values['exampleInputPassword1'];
   Checkbox := Request.Params.Values['checkbox1'];
 
   // store data in session
