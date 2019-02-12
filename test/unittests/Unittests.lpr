@@ -27,14 +27,6 @@
 
 program Unittests;
 
-{$IFOPT Q-}
-{.$MESSAGE ERROR 'Switch on overflow check'}
-{$ENDIF}
-
-{$IFOPT R-}
-{.$MESSAGE ERROR 'Switch on range check'}
-{$ENDIF}
-
 uses
 {$IFDEF LINUX}
   cthreads,

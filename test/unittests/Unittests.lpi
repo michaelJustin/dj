@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="10"/>
+    <Version Value="11"/>
     <PathDelim Value="\"/>
     <General>
       <SessionStorage Value="InProjectDir"/>
@@ -18,13 +18,12 @@
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
-      <IncludeFileFilter Value="*.(pas|pp|inc|lfm|lpr|lrs|lpi|lpk|sh|xml)"/>
-      <ExcludeFileFilter Value="*.(bak|ppu|o|so);*~;backup"/>
     </PublishOptions>
     <RunParams>
-      <local>
-        <FormatVersion Value="1"/>
-      </local>
+      <FormatVersion Value="2"/>
+      <Modes Count="1">
+        <Mode0 Name="default"/>
+      </Modes>
     </RunParams>
     <RequiredPackages Count="3">
       <Item1>
@@ -161,7 +160,7 @@
     <PathDelim Value="\"/>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir);C:\Delphi\indy-10.6\Lib\Core\;..\..\indy-10.6\Lib\Core"/>
-      <OtherUnitFiles Value="..\..\source;..\..\source\optional;..\..\..\slf4p\src\main;C:\Delphi\indy-10.6\Lib\Protocols\;C:\Delphi\indy-10.6\Lib\Core\;C:\Delphi\indy-10.6\Lib\System\;..\..\indy-10.6\Lib\Core;..\..\indy-10.6\Lib\Protocols;..\..\indy-10.6\Lib\System"/>
+      <OtherUnitFiles Value="..\..\source;..\..\source\optional;..\..\..\slf4p\src\main;..\..\..\Indy10\Lib\Core;..\..\..\Indy10\Lib\Protocols;..\..\..\Indy10\Lib\System"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
