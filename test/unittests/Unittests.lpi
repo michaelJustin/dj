@@ -159,7 +159,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir);C:\Delphi\indy-10.6\Lib\Core\;..\..\indy-10.6\Lib\Core"/>
+      <IncludeFiles Value="$(ProjOutDir);..\..\..\Indy10\Lib\Core"/>
       <OtherUnitFiles Value="..\..\source;..\..\source\optional;..\..\..\slf4p\src\main;..\..\..\Indy10\Lib\Core;..\..\..\Indy10\Lib\Protocols;..\..\..\Indy10\Lib\System"/>
     </SearchPaths>
     <Parsing>
