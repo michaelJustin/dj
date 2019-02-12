@@ -45,6 +45,9 @@ type
 implementation
 
 uses
+  {.$IFDEF FPC}
+  IdCustomHTTPServer, IdGlobal, IdURI, IdGlobalProtocols,
+  {.$ENDIF}
   BindingFramework;
 
 { TFormPage }
@@ -57,6 +60,47 @@ begin
   Response.CharSet := 'utf-8';
 end;
 
+{.$IFDEF FPC}
+// based on https://stackoverflow.com/questions/24861793
+// using Indy IdCustomHTTPServer rev 5498
+procedure MyDecodeAndSetParams(ARequestInfo: TIdHTTPRequestInfo);
+var
+  i, j : Integer;
+  AValue, s: string;
+  LEncoding: IIdTextEncoding;
+begin
+  AValue := ARequestInfo.UnparsedParams;
+  // Convert special characters
+  // ampersand '&' separates values    {Do not Localize}
+  ARequestInfo.Params.BeginUpdate;
+  try
+    ARequestInfo.Params.Clear;
+    // TODO: provide an event or property that lets the user specify
+    // which charset to use for decoding query string parameters.  We
+    // should not be using the 'Content-Type' charset for that.  For
+    // 'application/x-www-form-urlencoded' forms, we should be, though...
+    // LEncoding := CharsetToEncoding(ARequestInfo.CharSet);
+    LEncoding := IndyTextEncoding_UTF8;
+    i := 1;
+    while i <= Length(AValue) do
+    begin
+      j := i;
+      while (j <= Length(AValue)) and (AValue[j] <> '&') do {do not localize}
+      begin
+        Inc(j);
+      end;
+      s := Copy(AValue, i, j-i);
+      // See RFC 1866 section 8.2.1. TP
+      s := ReplaceAll(s, '+', ' ');  {do not localize}
+      ARequestInfo.Params.Add(TIdURI.URLDecode(s, LEncoding));
+      i := j + 1;
+    end;
+  finally
+    ARequestInfo.Params.EndUpdate;
+  end;
+end;
+{.$ENDIF}
+
 procedure TFormPage.OnPost(Request: TdjRequest;
   Response: TdjResponse);
 var
@@ -64,6 +108,10 @@ var
   Pass: string;
   Checkbox: string;
 begin
+  {$IFDEF FPC}
+  MyDecodeAndSetParams(Request);
+  {$ENDIF}
+
   // read form data
   Text := Request.Params.Values['textfield1'];
   Pass := Request.Params.Values['exampleInputPassword1'];
