@@ -39,6 +39,7 @@ uses
 {$IFDEF LINUX}
   cthreads,
 {$ENDIF}
+  LazUTF8,
   djLogAPI, djLogOverSimpleLogger, SimpleLogger,
   Forms,
   Interfaces,
