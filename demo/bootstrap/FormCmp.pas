@@ -45,9 +45,6 @@ type
 implementation
 
 uses
-  {$IFDEF FPC}
-  IdCustomHTTPServer, IdGlobal, IdURI, IdGlobalProtocols,
-  {$ENDIF}
   BindingFramework;
 
 { TFormPage }
