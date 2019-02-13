@@ -28,6 +28,9 @@
 
 unit FormCmp;
 
+// Free Pascal note: to support UTF-8 form parameters, a patch is required in
+// the Indy TIdCustomHTTPServer.pas
+
 // note: this is unsupported example code
 
 interface
@@ -45,9 +48,6 @@ type
 implementation
 
 uses
-  {$IFDEF FPC}
-  IdCustomHTTPServer, IdGlobal, IdURI, IdGlobalProtocols,
-  {$ENDIF}
   BindingFramework;
 
 { TFormPage }
