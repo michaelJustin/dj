@@ -1,6 +1,6 @@
 ![](https://www.habarisoft.com/images/daraja_logo_landscape_2016_2.png)
 
-# Daraja Framework
+# Daraja HTTP Framework
 
 Daraja is a flexible HTTP server framework for Object Pascal, based on the stand-alone HTTP server in the free open source library Internet Direct (Indy).
 
