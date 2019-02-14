@@ -1,4 +1,4 @@
-(*
+﻿(*
 
     Daraja Framework
     Copyright (C) 2016  Michael Justin
@@ -71,8 +71,8 @@ var
   Password: string;
 begin
   // read form data
-  Username := Utf8ToString(RawByteString(Request.Params.Values['username']));
-  Password := Utf8ToString(RawByteString(Request.Params.Values['password']));
+  Username := Request.Params.Values['username'];
+  Password := Request.Params.Values['password'];
 
   if CheckPwd(Username, Password) then
   begin
@@ -90,9 +90,9 @@ function TLoginResource.CheckPwd(const Username, Password: string): Boolean;
 begin
   Result := False;
 
-  if Username = 'guest' then
+  if Username = '汉语' then
   begin
-    Result := Password = 'guest';
+    Result := Password = 'admin';
   end;
 end;
 
