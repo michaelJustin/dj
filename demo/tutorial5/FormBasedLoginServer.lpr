@@ -1,7 +1,6 @@
 (*
-
-    Daraja Framework
-    Copyright (C) 2016  Michael Justin
+    Daraja Web Framework
+    Copyright (C) 2016 Michael Justin
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
@@ -16,58 +15,45 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the Daraja framework without
     disclosing the source code of your own applications. These activities
-    include: offering paid services to customers as an ASP, shipping Daraja 
+    include: offering paid services to customers as an ASP, shipping Daraja
     with a closed source product.
-
+    
 *)
 
-unit djGlobal;
+program FormBasedLoginServer;
 
-interface
+// note: this is unsupported example code
 
-{$i IdCompilerDefines.inc}
+uses
+  djServer,
+  djWebAppContext,
+  LoginResource in 'LoginResource.pas',
+  LogoutResource in 'LogoutResource.pas';
 
-const
-  DWF_SERVER_VERSION = '1.2.6.rc3';
-  DWF_SERVER_FULL_NAME = 'Daraja Framework ' + DWF_SERVER_VERSION;
-  DWF_SERVER_COPYRIGHT = 'Copyright (C) 2016 Michael Justin';
-
-function HTMLEncode(const AData: string): string;
-
-implementation
-
-// http://stackoverflow.com/a/2971923/80901
-function HTMLEncode(const AData: string): string;
+procedure Demo;
 var
-  Pos, I: Integer;
-
-  procedure Encode(const AStr: string);
-  begin
-    Move(AStr[1], Result[Pos], Length(AStr) * SizeOf(Char));
-    Inc(Pos, Length(AStr));
-  end;
-
+  Server: TdjServer;
+  Context: TdjWebAppContext;
 begin
-  SetLength(Result, Length(AData) * 6);
-  Pos := 1;
-  for I := 1 to length(AData) do
-  begin
-    case AData[I] of
-      '<': Encode('&lt;');
-      '>': Encode('&gt;');
-      '&': Encode('&amp;');
-      '"': Encode('&quot;');
-    else
-      Result[Pos] := AData[I];
-      Inc(Pos);
-    end;
+  Server := TdjServer.Create(80);
+  try
+    Context := TdjWebAppContext.Create('', True);
+    Context.Add(TLoginResource, '/index.html');
+    Context.Add(TLogoutResource, '/logout');
+    Server.Add(Context);
+    Server.Start;
+    WriteLn('Server is running, please open http://localhost/index.html');
+    WriteLn('Hit any key to terminate.');
+    ReadLn;
+  finally
+    Server.Free;
   end;
-  SetLength(Result, Pos - 1);
 end;
 
+begin
+  Demo;
 end.

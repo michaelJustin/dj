@@ -1,4 +1,4 @@
-(*
+﻿(*
 
     Daraja Framework
     Copyright (C) 2016  Michael Justin
@@ -30,8 +30,7 @@ unit LoginResource;
 
 interface
 
-uses
-  djWebComponent, djTypes;
+uses djWebComponent, djTypes;
 
 type
   TLoginResource = class(TdjWebComponent)
@@ -44,14 +43,21 @@ type
 
 implementation
 
+uses SysUtils;
+
 procedure TLoginResource.OnGet(Request: TdjRequest; Response: TdjResponse);
+var
+  User: string;
 begin
-  if Request.Session.Content.Values['auth:username'] = '' then
+  User := Request.Session.Content.Values['auth:username'];
+  if User = '' then
   begin
     // respond with login form
-    Response.ContentText := '<!DOCTYPE html>' + #13
+    Response.ContentText :=
+      '<!DOCTYPE html>' + #13
     + '<html lang="en">' + #13
     + '  <head>' + #13
+    + '    <meta charset="utf-8">' + #13
     + '    <title>Form based login example</title>' + #13
     + '  </head>' + #13
     + '  <body>' + #13
@@ -66,18 +72,20 @@ begin
   else
   begin
     // respond with logout form
-    Response.ContentText := '<!DOCTYPE html>' + #13
+    Response.ContentText := Format(
+      '<!DOCTYPE html>' + #13
     + '<html lang="en">' + #13
     + '  <head>' + #13
+    + '    <meta charset="utf-8">' + #13
     + '    <title>Form based login example</title>' + #13
     + '  </head>' + #13
     + '  <body>' + #13
-    + '    <p>you are logged in</p>' + #13
+    + '    <p>Hello %s, you are logged in</p>' + #13
     + '    <form method="post" action="logout">' + #13
     + '     <input type="submit" value="Logout">' + #13
     + '    </form>' + #13
     + '  </body>' + #13
-    + '</html>';
+    + '</html>', [User]);
   end;
 
   Response.ContentType := 'text/html';
@@ -90,8 +98,8 @@ var
   Password: string;
 begin
   // read form data
-  Username := Utf8ToString(RawByteString(Request.Params.Values['username']));
-  Password := Utf8ToString(RawByteString(Request.Params.Values['password']));
+  Username := Request.Params.Values['username'];
+  Password := Request.Params.Values['password'];
 
   if CheckPwd(Username, Password) then
   begin
@@ -109,9 +117,9 @@ function TLoginResource.CheckPwd(const Username, Password: string): Boolean;
 begin
   Result := False;
 
-  if Username = 'guest' then
+  if Username = '汉语' then
   begin
-    Result := Password = 'guest';
+    Result := Password = 'hello';
   end;
 end;
 
