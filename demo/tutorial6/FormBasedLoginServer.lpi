@@ -5,97 +5,56 @@
     <PathDelim Value="\"/>
     <General>
       <Flags>
-        <SaveClosedFiles Value="False"/>
         <MainUnitHasCreateFormStatements Value="False"/>
         <MainUnitHasTitleStatement Value="False"/>
-        <SaveJumpHistory Value="False"/>
-        <SaveFoldState Value="False"/>
+        <MainUnitHasScaledStatement Value="False"/>
+        <UseDefaultCompilerOptions Value="True"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <UseXPManifest Value="True"/>
+      <Title Value="FormBasedLoginServer"/>
+      <UseAppBundle Value="False"/>
+      <ResourceType Value="res"/>
     </General>
-    <i18n>
-      <EnableI18N LFM="False"/>
-    </i18n>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
+      <UseFileFilters Value="True"/>
     </PublishOptions>
     <RunParams>
       <FormatVersion Value="2"/>
-      <Modes Count="1">
-        <Mode0 Name="default"/>
-      </Modes>
+      <Modes Count="0"/>
     </RunParams>
     <RequiredPackages Count="1">
       <Item1>
         <PackageName Value="LazUtils"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="6">
+    <Units Count="1">
       <Unit0>
-        <Filename Value="BootstrapDemo.lpr"/>
+        <Filename Value="FormBasedLoginServer.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
-      <Unit1>
-        <Filename Value="..\..\source\djPlatform.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit1>
-      <Unit2>
-        <Filename Value="AjaxStatsCmp.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit2>
-      <Unit3>
-        <Filename Value="..\common\djFileUploadHelper.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit3>
-      <Unit4>
-        <Filename Value="..\common\ShutdownHelper.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit4>
-      <Unit5>
-        <Filename Value="..\common\lazutf8helper.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit5>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="BootstrapDemo"/>
+      <Filename Value="FormBasedLoginServer"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir);..\..\..\Indy10\Lib\Core"/>
-      <OtherUnitFiles Value="..\..\source;..\..\source\optional;..\..\..\slf4p\src\main;..\..\..\Indy10\Lib\Core;..\..\..\Indy10\Lib\Protocols;..\..\..\Indy10\Lib\System;..\common"/>
+      <IncludeFiles Value="..\..\..\Indy10\Lib\Core;$(ProjOutDir)"/>
+      <OtherUnitFiles Value="..\..\..\Indy10\Lib\Core;..\..\..\Indy10\Lib\Protocols;..\..\..\Indy10\Lib\System;..\..\source;..\..\source\optional;..\common"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
       <SyntaxOptions>
         <SyntaxMode Value="Delphi"/>
-        <AllowLabel Value="False"/>
       </SyntaxOptions>
     </Parsing>
-    <CodeGeneration>
-      <Optimizations>
-        <OptimizationLevel Value="2"/>
-      </Optimizations>
-    </CodeGeneration>
-    <Linking>
-      <Debugging>
-        <UseHeaptrc Value="True"/>
-      </Debugging>
-    </Linking>
-    <Other>
-      <Verbosity>
-        <ShowNotes Value="False"/>
-        <ShowHints Value="False"/>
-      </Verbosity>
-      <CustomOptions Value="-dDARAJA_LOGGING"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="12">

@@ -26,11 +26,7 @@
 
 program BootstrapDemo;
 
-// note: this is unsupported example code
-
 uses
-  djFileUploadHelper in '..\common\djFileUploadHelper.pas',
-  ShutdownHelper in '..\common\ShutdownHelper.pas',
   BootstrapDemoMain;
 
 begin
