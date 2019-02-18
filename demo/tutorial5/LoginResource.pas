@@ -28,6 +28,8 @@
 
 unit LoginResource;
 
+// note: this is unsupported example code
+
 interface
 
 uses djWebComponent, djTypes;
@@ -43,7 +45,11 @@ type
 
 implementation
 
-uses SysUtils;
+uses
+  // Free Pascal note: to support UTF-8 form parameters, a patched version
+  // of Indy TIdCustomHTTPServer.DecodeAndSetParams is required
+  {$IFDEF FPC}lazutf8helper,{$ENDIF}
+  SysUtils;
 
 procedure TLoginResource.OnGet(Request: TdjRequest; Response: TdjResponse);
 var
@@ -97,6 +103,10 @@ var
   Username: string;
   Password: string;
 begin
+  {$IFDEF FPC}
+  MyDecodeAndSetParams(Request);
+  {$ENDIF}
+
   // read form data
   Username := Request.Params.Values['username'];
   Password := Request.Params.Values['password'];

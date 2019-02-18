@@ -28,9 +28,6 @@
 
 unit FormCmp;
 
-// Free Pascal note: to support UTF-8 form parameters, a patch is required in
-// the Indy TIdCustomHTTPServer.pas
-
 // note: this is unsupported example code
 
 interface
@@ -48,6 +45,9 @@ type
 implementation
 
 uses
+  // Free Pascal note: to support UTF-8 form parameters, a patched version
+  // of Indy TIdCustomHTTPServer.DecodeAndSetParams is required
+  {$IFDEF FPC}lazutf8helper,{$ENDIF}
   BindingFramework;
 
 { TFormPage }
@@ -67,6 +67,10 @@ var
   Pass: string;
   Checkbox: string;
 begin
+  {$IFDEF FPC}
+  MyDecodeAndSetParams(Request);
+  {$ENDIF}
+
   // read form data
   Text := Request.Params.Values['textfield1'];
   Pass := Request.Params.Values['exampleInputPassword1'];
