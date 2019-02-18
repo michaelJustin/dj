@@ -46,9 +46,9 @@ type
 implementation
 
 uses
-  // Free Pascal note: to support UTF-8 form parameters, a patched version
+  // to support UTF-8 form parameters, a patched version
   // of Indy TIdCustomHTTPServer.DecodeAndSetParams is required
-  {$IFDEF FPC}lazutf8helper,{$ENDIF}
+  lazutf8helper,
   SysUtils;
 
 procedure TLoginResource.OnGet(Request: TdjRequest; Response: TdjResponse);
@@ -103,9 +103,7 @@ var
   Username: string;
   Password: string;
 begin
-  {$IFDEF FPC}
   MyDecodeAndSetParams(Request);
-  {$ENDIF}
 
   // read form data
   Username := Request.Params.Values['username'];

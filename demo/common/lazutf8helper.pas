@@ -75,7 +75,7 @@ begin
       {$IFDEF FPC}
       ARequestInfo.Params.Add(TIdURI.URLDecode(s,{$IFDEF FPC_UNICODESTRINGS}LEncoding{$ELSE}IndyTextEncoding_UTF8, IndyTextEncoding(DefaultSystemCodePage){$ENDIF}));
       {$ELSE}
-      Request.Params.Add(TIdURI.URLDecode(s,IndyTextEncoding_UTF8));
+      ARequestInfo.Params.Add(TIdURI.URLDecode(s,IndyTextEncoding_UTF8));
       {$ENDIF}
       i := j + 1;
     end;

@@ -45,9 +45,9 @@ type
 implementation
 
 uses
-  // Free Pascal note: to support UTF-8 form parameters, a patched version
+  // to support UTF-8 form parameters, a patched version
   // of Indy TIdCustomHTTPServer.DecodeAndSetParams is required
-  {$IFDEF FPC}lazutf8helper,{$ENDIF}
+  lazutf8helper,
   BindingFramework;
 
 { TFormPage }
@@ -67,9 +67,7 @@ var
   Pass: string;
   Checkbox: string;
 begin
-  {$IFDEF FPC}
   MyDecodeAndSetParams(Request);
-  {$ENDIF}
 
   // read form data
   Text := Request.Params.Values['textfield1'];

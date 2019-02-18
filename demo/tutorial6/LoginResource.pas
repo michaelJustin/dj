@@ -21,7 +21,7 @@
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the Daraja framework without
     disclosing the source code of your own applications. These activities
-    include: offering paid services to customers as an ASP, shipping Daraja 
+    include: offering paid services to customers as an ASP, shipping Daraja
     with a closed source product.
 
 *)
@@ -45,9 +45,9 @@ type
 implementation
 
 uses
-  // Free Pascal note: to support UTF-8 form parameters, a patched version
+  // to support UTF-8 form parameters, a patched version
   // of Indy TIdCustomHTTPServer.DecodeAndSetParams is required
-  {$IFDEF FPC}lazutf8helper;{$ENDIF}
+  lazutf8helper;
 
 procedure TLoginResource.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
@@ -75,9 +75,7 @@ var
   Username: string;
   Password: string;
 begin
-  {$IFDEF FPC}
   MyDecodeAndSetParams(Request);
-  {$ENDIF}
 
   // read form data
   Username := Request.Params.Values['username'];
