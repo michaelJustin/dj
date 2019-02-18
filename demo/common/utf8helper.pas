@@ -26,7 +26,7 @@
 
 *)
 
-unit lazutf8helper;
+unit utf8helper;
 
 // note: this is unsupported example code
 

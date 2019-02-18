@@ -48,7 +48,7 @@ implementation
 uses
   // to support UTF-8 form parameters, a patched version
   // of Indy TIdCustomHTTPServer.DecodeAndSetParams is required
-  lazutf8helper,
+  utf8helper,
   SysUtils;
 
 procedure TLoginResource.OnGet(Request: TdjRequest; Response: TdjResponse);
