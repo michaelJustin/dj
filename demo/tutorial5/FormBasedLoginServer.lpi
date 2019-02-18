@@ -54,7 +54,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="..\..\..\Indy10\Lib\Core;$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\source;..\..\..\Indy10\Lib\Core;..\..\..\Indy10\Lib\Protocols;..\..\..\Indy10\Lib\System"/>
+      <OtherUnitFiles Value="..\..\source;..\..\..\Indy10\Lib\Core;..\..\..\Indy10\Lib\Protocols;..\..\..\Indy10\Lib\System;..\common"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
