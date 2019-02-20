@@ -24,6 +24,11 @@ You can find this project at https://github.com/michaelJustin/daraja-framework
 
 ## Documentation
 
+### API generated with doxygen
+
+http://michaeljustin.github.io/daraja-framework/
+
+
 ### Getting Started PDF
 
 A Getting Started document (PDF) is available at https://www.habarisoft.com/daraja_framework/1.2/docs/DarajaFrameworkGettingStarted.pdf
@@ -70,14 +75,16 @@ This example uses 'news', 'files' and 'admin' contexts:
 ### Code
 In the Daraja Framework, creating a context only requires the context name as the parameter of the TdjWebAppContext constructor: 
 
-      Server := TdjServer.Create;
-      try
-        Context1 := TdjWebAppContext.Create('context1');
-        Server.AddContext(Context1); 
-        Context2 := TdjWebAppContext.Create('context2');
-        Server.AddContext(Context2); 
-        Server.Start;
-        ... 
+```pascal
+  Server := TdjServer.Create;
+  try
+    Context1 := TdjWebAppContext.Create('context1');
+    Server.AddContext(Context1); 
+    Context2 := TdjWebAppContext.Create('context2');
+    Server.AddContext(Context2); 
+    Server.Start;
+    ... 
+```        
 
 ## Dynamic resource handlers
 
@@ -87,11 +94,15 @@ However, the routing between the actual HTTP request and the resource handler is
 
 For example, a resource handler which returns a HTML document could be mapped to the `/context1/index.html` resource path with this **absolute path** resource handler mapping:
 
-    Context1.Add(TIndexPageResource, '/index.html');
+```pascal
+  Context1.Add(TIndexPageResource, '/index.html');
+```
 
 Alternatively, a more general **suffix mapping** resource handler may be used, which should handle requests to any resources with the extension `*.html`:
 
-    Context1.Add(TCatchAllHtmlResource, '*.html');
+```pascal
+  Context1.Add(TCatchAllHtmlResource, '*.html');
+```
 
 This resource handler will be invoked for all requests for *.html resources - independent of their actual document name, and also for resources in sub-paths like `/context1/this/works/with_any_page.html`. (But note: the resource handler will _not_ receive requests for other context, such as `/context2/index.html`!)
 
