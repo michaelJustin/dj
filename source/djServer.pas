@@ -60,7 +60,7 @@ const
    * \li a \link TdjWebComponent Web Component base class \endlink which provides HTTP method handlers (OnGet, OnPost, OnPut etc.)
    * \li a HTTP server run time environment, based on <a target="_blank" href="http://www.indyproject.org/">Internet Direct (Indy)</a>
    *
-   * Copyright (C) 2016 Michael Justin
+   * Copyright (C) Michael Justin
    * https://www.habarisoft.com/
    * Mail: mailto:info@habarisoft.com
    *
