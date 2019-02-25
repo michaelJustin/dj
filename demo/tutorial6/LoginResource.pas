@@ -63,6 +63,7 @@ begin
     + '     Password: <input type="password" name="password" required>' + #13
     + '     <input type="submit" name="submit" value="Login">' + #13
     + '    </form>' + #13
+    + '    <p>Your Session ID is: ' + Request.Session.SessionID + '</p>'
     + '  </body>' + #13
     + '</html>';
 

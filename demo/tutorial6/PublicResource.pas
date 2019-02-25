@@ -57,6 +57,7 @@ begin
     + '    <h1>Main page</h1>' + #13
     + '    <p>This is content which is visible for everyone</p>' + #13
     + GetFooterHtml(Request)
+    + '    <p>Your Session ID is: ' + Request.Session.SessionID + '</p>'
     + '  </body>' + #13
     + '</html>';
 
