@@ -47,7 +47,7 @@ implementation
 procedure TLogoutResource.OnHandleRequest(Request: TdjRequest;
   Response: TdjResponse);
 begin
-  Request.Session.Free;
+  Request.Session.Content.Values['auth:username'] := '';
   Response.Redirect('/index.html');
 end;
 
