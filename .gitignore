@@ -97,3 +97,5 @@ test/unittests/Unittests.fpcunit.ini
 test/unittests/Unittests.res
 test/unittests/dunit.ini
 demo/tutorial6/backup/
+demo/tutorial7/backup/
+demo/tutorial7/GoogleAuthBackend.ico
