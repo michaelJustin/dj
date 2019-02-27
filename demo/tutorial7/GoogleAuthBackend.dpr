@@ -31,18 +31,11 @@ program GoogleAuthBackend;
 {$APPTYPE CONSOLE}
 
 uses
-  djServer,
-  djWebAppContext,
-  djInterfaces,
-  djNCSALogHandler,
-  BindingHelper,
+  DashboardResource in 'DashboardResource.pas',
+  LoginResource in 'LoginResource.pas',
   PublicResource in 'PublicResource.pas',
   TokenSigninResource in 'TokenSigninResource.pas',
-  LoginResource in 'LoginResource.pas',
-  DashboardResource in 'DashboardResource.pas',
-  MainUnit in 'MainUnit.pas',
-  ShellAPI,
-  SysUtils;
+  MainUnit in 'MainUnit.pas';
 
 begin
   Demo;

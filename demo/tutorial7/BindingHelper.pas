@@ -70,6 +70,21 @@ begin
       [rfReplaceAll]);
 
   Result := StringReplace(Result,
+      '<dj:header/>',
+      '<header>' +
+      '<p>Navigation</p>' +
+      '</header>'
+      ,
+      [rfReplaceAll]);
+  Result := StringReplace(Result,
+      '<dj:footer/>',
+      '<footer>' +
+      '<p>Logged in as <strong>#{email}</strong></p>' +
+      '</footer>'
+      ,
+      [rfReplaceAll]);
+
+  Result := StringReplace(Result,
       '#{name}',
       SessionParams.Values['name'],
       [rfReplaceAll]);
@@ -88,6 +103,8 @@ begin
       '#{picture}',
       SessionParams.Values['picture'],
       [rfReplaceAll]);
+
+
 end;
 
 end.

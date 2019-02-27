@@ -43,7 +43,7 @@ implementation
 
 uses
   BindingHelper,
-  IdHTTP,
+  IdHTTP, SysUtils,
   {$IFDEF FPC}
   fpjson, jsonparser;
   {$ELSE}
@@ -102,14 +102,19 @@ var
   ValidationResponse: string;
   Claims: TClaims;
 begin
-  // sent via XMLHttpRequest from script
-  IdToken := Request.Params.Values['idtoken'];
+  Response.ResponseNo := 500; // 'pessimistic'
+
+  IdToken := Request.Params.Values['idtoken']; // sent via XMLHttpRequest from script
 
   IdHTTP := TIdHTTP.Create;
   try
-    ValidationResponse := IdHTTP.Get(VALIDATION_URL + '?id_token=' + IdToken);
-
-    Config.GetContext.Log('Response text ' + IdHTTP.ResponseText);
+    try
+      ValidationResponse := IdHTTP.Get(VALIDATION_URL + '?id_token=' + IdToken);
+    except
+      on E: Exception do begin
+        Exit;
+      end;
+    end;
 
     if IdHTTP.ResponseCode = 200 then begin
       Claims := ToClaims(ValidationResponse);
@@ -119,19 +124,15 @@ begin
       // both valid and intended for your client, and you can safely retrieve
       // and use the user's unique Google ID from the sub claim."
       // - https://developers.google.com/identity/sign-in/web/backend-auth
-
       if Claims.aud = GOOGLE_SIGNIN_CLIENT_ID then begin
-         // ok -> store user information
+         // ok -> set response to OK and store user information in session
+         Response.ResponseNo := 200;
+
          Request.Session.Content.Values['name'] := Claims.name;
          Request.Session.Content.Values['email'] := Claims.email;
          Request.Session.Content.Values['email_verified'] := Claims.email_verified;
          Request.Session.Content.Values['picture'] := Claims.picture;
-         // Config.GetContext.Log(Request.Session.Content.Text);
-      end else begin
-        Response.ResponseNo := 500;
       end;
-    end else begin
-      Response.ResponseNo := 500;
     end;
   finally
     IdHTTP.Free;
