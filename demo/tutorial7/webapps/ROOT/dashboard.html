@@ -1,7 +1,6 @@
 <html lang="en">
   <head>
 	<title>Welcome</title>
-    <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="#{google-signin-client_id}">	
 	<script src="https://apis.google.com/js/platform.js" async defer></script>
   </head>
@@ -15,17 +14,6 @@
 	<p>Email: #{email}</p>
 	<p>Email verified: #{email_verified}</p>
 	<p>Picture: <img src="#{picture}"></img></p>
-	
-	<a href="/logout.html" onclick="signOut();">Sign out of the app</a>
-	<script>
-	  function signOut() {
-		var auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut().then(function () {
-		  console.log('User signed out.');
-		});
-	  }
-	</script>
-	<p>See <a href="https://developers.google.com/identity/sign-in/web/sign-in#sign_out_a_user">"Sign out a user"</a> on the Google Sign-In for Websites page</p>
 	
 	<p>App client ID: #{google-signin-client_id}</p>
   </body>
