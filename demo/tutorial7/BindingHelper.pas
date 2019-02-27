@@ -76,13 +76,26 @@ begin
       '</header>'
       ,
       [rfReplaceAll]);
-  Result := StringReplace(Result,
-      '<dj:footer/>',
-      '<footer>' +
-      '<p>Logged in as <strong>#{email}</strong></p>' +
-      '</footer>'
-      ,
-      [rfReplaceAll]);
+
+  if SessionParams.Values['name'] <> '' then
+  begin
+    Result := StringReplace(Result,
+        '<dj:footer/>',
+        '<footer>' +
+        '<p>Logged in as <strong>#{email}</strong></p>' +
+        '</footer>'
+        ,
+        [rfReplaceAll]);
+  end else begin
+    Result := StringReplace(Result,
+        '<dj:footer/>',
+        '<footer>' +
+        '<p>Not logged in</p>' +
+        '</footer>'
+        ,
+        [rfReplaceAll]);
+
+  end;
 
   Result := StringReplace(Result,
       '#{name}',
