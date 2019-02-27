@@ -31,6 +31,7 @@ program GoogleAuthBackend;
 {$APPTYPE CONSOLE}
 
 uses
+  BindingHelper in 'BindingHelper.pas',
   DashboardResource in 'DashboardResource.pas',
   LoginResource in 'LoginResource.pas',
   PublicResource in 'PublicResource.pas',

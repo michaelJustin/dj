@@ -125,7 +125,6 @@ begin
       SessionParams.Values['picture'],
       [rfReplaceAll]);
 
-
 end;
 
 end.
