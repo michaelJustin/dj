@@ -1,10 +1,13 @@
 <html lang="en">
   <head>
+    <title>Login page</title>
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id" content="#{google-signin-client_id}">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
   </head>
   <body>
+    <p>This is the login page.</p>
+	
     <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
     <script> 
       function onSignIn(googleUser) {
@@ -31,11 +34,5 @@
 		xhr.send('idtoken=' + id_token);
       }
     </script>
-	
-	<p>Name: #{name}</p>
-	<p>Email: #{email}</p>
-	<p>Email verified: #{email_verified}</p>
-	<p>Picture: <img src="#{picture}"></img></p>
-
   </body>
 </html>
