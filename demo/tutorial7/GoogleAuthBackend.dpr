@@ -36,7 +36,9 @@ uses
   djInterfaces,
   djNCSALogHandler,
   PublicResource in 'PublicResource.pas',
-  LoginResource in 'LoginResource.pas';
+  LoginResource in 'LoginResource.pas',
+  ShellAPI,
+  BindingHelper in 'BindingHelper.pas';
 
 procedure Demo;
 var
@@ -59,7 +61,10 @@ begin
 
     Server.Start;
 
-    WriteLn('Server is running, please open http://localhost/index.html');
+    // launch browser
+    ShellExecute(0, 'open', PChar('http://localhost/index.html'), '', '', 0);
+
+    WriteLn('Server is running, launching http://localhost/index.html ...');
     WriteLn('Hit any key to terminate.');
     ReadLn;
   finally
