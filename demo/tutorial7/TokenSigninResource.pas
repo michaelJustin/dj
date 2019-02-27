@@ -45,6 +45,8 @@ uses
   BindingHelper,
   IdHTTP, superobject;
 
+{ TTokenSigninResource }
+
 // see https://developers.google.com/identity/sign-in/web/backend-auth
 // requires OpenSSL libraries in application folder
 

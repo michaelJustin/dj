@@ -42,8 +42,9 @@ type
 implementation
 
 uses
-  BindingHelper,
-  IdHTTP, superobject;
+  BindingHelper;
+
+{ TLoginResource }
 
 procedure TLoginResource.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
