@@ -82,7 +82,8 @@ begin
   Claims := SO(JSON);
 
   Result.aud := Claims.S['aud'];
-  Result.email := Claims.S['name'];
+  Result.name := Claims.S['name'];
+  Result.email := Claims.S['email'];
   Result.email_verified := Claims.S['email_verified'];
   Result.picture := Claims.S['picture'];
 end;
