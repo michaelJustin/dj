@@ -1,7 +1,7 @@
 <html lang="en">
   <head>
     <meta name="google-signin-scope" content="profile email">
-    <meta name="google-signin-client_id" content="235205874120-cfbi689k9opeaq9g028i0e9s59hkqqbm.apps.googleusercontent.com">
+    <meta name="google-signin-client_id" content="#{google-signin-client_id}">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
   </head>
   <body>
@@ -30,6 +30,11 @@
 		xhr.send('idtoken=' + id_token);
       }
     </script>
+	
+	<p>Name: #{name}</p>
+	<p>Email: #{email}</p>
+	<p>Email verified: #{email_verified}</p>
+	<p>Picture: <img src="#{picture}"></img></p>
 
   </body>
 </html>

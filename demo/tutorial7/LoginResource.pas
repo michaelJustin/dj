@@ -42,33 +42,52 @@ type
 implementation
 
 uses
-  IdHTTP, SysUtils;
+  BindingHelper,
+  IdHTTP, superobject;
 
 // see https://developers.google.com/identity/sign-in/web/backend-auth
 // requires OpenSSL libraries in application folder
 
 procedure TLoginResource.OnPost(Request: TdjRequest; Response: TdjResponse);
 const
-  VALIDATION_URL = 'https://oauth2.googleapis.com/tokeninfo?id_token=%s';
+  VALIDATION_URL = 'https://oauth2.googleapis.com/tokeninfo';
 var
   IdToken: string;
   IdHTTP: TIdHTTP;
-  URL: string;
   ValidationResponse: string;
+  Claims: ISuperObject;
 begin
   inherited;
 
+  // sent via XMLHttpRequest from script
   IdToken := Request.Params.Values['idtoken'];
 
-  URL := Format(VALIDATION_URL, [IdToken]);
   IdHTTP := TIdHTTP.Create;
   try
-    ValidationResponse := IdHTTP.Get(URL);
+    ValidationResponse := IdHTTP.Get(VALIDATION_URL + '?id_token=' + IdToken);
+
+    if IdHTTP.ResponseCode = 200 then begin
+      Claims := SO(ValidationResponse);
+
+      // "Once you get these claims, you still need to check that the aud claim
+      // contains one of your app's client IDs. If it does, then the token is
+      // both valid and intended for your client, and you can safely retrieve
+      // and use the user's unique Google ID from the sub claim."
+      // - https://developers.google.com/identity/sign-in/web/backend-auth
+
+      if Claims.S['aud'] = GOOGLE_SIGNIN_CLIENT_ID then begin
+         // ok -> store user information
+         Request.Session.Content.Values['name'] := Claims.S['name'];
+         Request.Session.Content.Values['email'] := Claims.S['email'];
+         Request.Session.Content.Values['email_verified'] := Claims.S['email_verified'];
+         Request.Session.Content.Values['picture'] := Claims.S['picture'];
+
+         Response.Redirect(Request.Referer);
+      end;
+    end;
   finally
     IdHTTP.Free;
   end;
-
-  Response.Redirect(Request.Referer);
 end;
 
 end.

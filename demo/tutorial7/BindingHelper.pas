@@ -21,7 +21,7 @@
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the Daraja framework without
     disclosing the source code of your own applications. These activities
-    include: offering paid services to customers as an ASP, shipping Daraja 
+    include: offering paid services to customers as an ASP, shipping Daraja
     with a closed source product.
 
 *)
@@ -34,14 +34,21 @@ interface
 
 {$i IdCompilerDefines.inc}
 
-function Bind(Context, FileName: string): string;
+uses
+  Classes;
+
+const
+ // GOOGLE_SIGNIN_CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
+ GOOGLE_SIGNIN_CLIENT_ID = '235205874120-cfbi689k9opeaq9g028i0e9s59hkqqbm.apps.googleusercontent.com';
+
+function Bind(Context, FileName: string; SessionParams: TStrings): string;
 
 implementation
 
 uses
-  SysUtils, Classes;
+  SysUtils;
 
-function Bind(Context, FileName: string): string;
+function Bind(Context, FileName: string; SessionParams: TStrings): string;
 var
   SL : TStrings;
   Folder: string;
@@ -58,10 +65,29 @@ begin
     end;
 
   Result := StringReplace(Result,
-      '#{webContext.requestContextPath}',
-      '/' + Context,
+      '#{google-signin-client_id}',
+      GOOGLE_SIGNIN_CLIENT_ID,
       [rfReplaceAll]);
 
+  Result := StringReplace(Result,
+      '#{name}',
+      SessionParams.Values['name'],
+      [rfReplaceAll]);
+
+  Result := StringReplace(Result,
+      '#{email}',
+      SessionParams.Values['email'],
+      [rfReplaceAll]);
+
+  Result := StringReplace(Result,
+      '#{email_verified}',
+      SessionParams.Values['email_verified'],
+      [rfReplaceAll]);
+
+  Result := StringReplace(Result,
+      '#{picture}',
+      SessionParams.Values['picture'],
+      [rfReplaceAll]);
 end;
 
 end.

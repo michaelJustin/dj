@@ -49,7 +49,7 @@ uses
 procedure TPublicResource.OnGet(Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ContentText := BindingHelper.Bind(Config.GetContext.GetContextPath,
-    'index.html');
+    'index.html', Request.Session.Content);
 
   Response.ContentType := 'text/html';
   Response.CharSet := 'utf-8';
