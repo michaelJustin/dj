@@ -43,12 +43,55 @@ implementation
 
 uses
   BindingHelper,
-  IdHTTP, superobject;
+  IdHTTP,
+  {$IFDEF FPC}
+  fpjson, jsonparser;
+  {$ELSE}
+  superobject;
+  {$ENDIF}
+
+type
+  TClaims = record
+    aud: string;
+    name: string;
+    email: string;
+    email_verified: string;
+    picture: string;
+  end;
+
+{$IFDEF FPC}
+function ToClaims(const JSON: string): TClaims;
+var
+  Data: TJSONData;
+  Claims : TJSONObject;
+begin
+  Data := GetJSON(JSON);
+  Claims := TJSONObject(Data);
+
+  Result.aud := Claims.Get('aud');
+  Result.name := Claims.Get('name');
+  Result.email := Claims.Get('email');
+  Result.email_verified := Claims.Get('email_verified');
+  Result.picture := Claims.Get('picture');
+end;
+{$ELSE}
+function ToClaims(const JSON: string): TClaims;
+var
+  Claims: ISuperObject;
+begin
+  Claims := SO(JSON);
+
+  Result.aud := Claims.S['aud'];
+  Result.email := Claims.S['name'];
+  Result.email_verified := Claims.S['email_verified'];
+  Result.picture := Claims.S['picture'];
+end;
+{$ENDIF}
 
 { TTokenSigninResource }
 
 // see https://developers.google.com/identity/sign-in/web/backend-auth
-// requires OpenSSL libraries in application folder
+// requires OpenSSL libraries in application folder (32 bit or 64 bit!)
 
 procedure TTokenSigninResource.OnPost(Request: TdjRequest; Response: TdjResponse);
 const
@@ -57,7 +100,7 @@ var
   IdToken: string;
   IdHTTP: TIdHTTP;
   ValidationResponse: string;
-  Claims: ISuperObject;
+  Claims: TClaims;
 begin
   // sent via XMLHttpRequest from script
   IdToken := Request.Params.Values['idtoken'];
@@ -69,7 +112,7 @@ begin
     Config.GetContext.Log('Response text ' + IdHTTP.ResponseText);
 
     if IdHTTP.ResponseCode = 200 then begin
-      Claims := SO(ValidationResponse);
+      Claims := ToClaims(ValidationResponse);
 
       // "Once you get these claims, you still need to check that the aud claim
       // contains one of your app's client IDs. If it does, then the token is
@@ -77,12 +120,12 @@ begin
       // and use the user's unique Google ID from the sub claim."
       // - https://developers.google.com/identity/sign-in/web/backend-auth
 
-      if Claims.S['aud'] = GOOGLE_SIGNIN_CLIENT_ID then begin
+      if Claims.aud = GOOGLE_SIGNIN_CLIENT_ID then begin
          // ok -> store user information
-         Request.Session.Content.Values['name'] := Claims.S['name'];
-         Request.Session.Content.Values['email'] := Claims.S['email'];
-         Request.Session.Content.Values['email_verified'] := Claims.S['email_verified'];
-         Request.Session.Content.Values['picture'] := Claims.S['picture'];
+         Request.Session.Content.Values['name'] := Claims.name;
+         Request.Session.Content.Values['email'] := Claims.email;
+         Request.Session.Content.Values['email_verified'] := Claims.email_verified;
+         Request.Session.Content.Values['picture'] := Claims.picture;
          // Config.GetContext.Log(Request.Session.Content.Text);
       end else begin
         Response.ResponseNo := 500;

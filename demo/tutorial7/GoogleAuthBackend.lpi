@@ -54,7 +54,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="..\..\..\Indy10\Lib\Core;$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\..\Indy10\Lib\Core;..\..\..\Indy10\Lib\Protocols;..\..\..\Indy10\Lib\System;..\..\source;..\..\source\optional;..\common"/>
+      <OtherUnitFiles Value="..\..\..\Indy10\Lib\Core;..\..\..\Indy10\Lib\Protocols;..\..\..\Indy10\Lib\System;..\..\source;..\..\source\optional;..\common;F:\Sandbox_Delphi\TimeShuttleD7\TimeShuttleCommon\"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

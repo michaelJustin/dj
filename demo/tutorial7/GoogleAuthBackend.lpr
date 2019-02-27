@@ -31,41 +31,7 @@ program GoogleAuthBackend;
 {$APPTYPE CONSOLE}
 
 uses
-  djServer,
-  djWebAppContext,
-  djInterfaces,
-  djNCSALogHandler,
-  PublicResource in 'PublicResource.pas',
-  LoginResource in 'LoginResource.pas';
-
-procedure Demo;
-var
-  Server: TdjServer;
-  Context: TdjWebAppContext;
-  LogHandler: IHandler;
-begin
-  Server := TdjServer.Create(80);
-  try
-    Context := TdjWebAppContext.Create('', True);
-
-    Context.Add(TPublicResource, '/index.html');
-    Context.Add(TLoginResource, '/signin');
-
-    Server.Add(Context);
-
-    // add NCSA logger handler (at the end to log all handlers)
-    LogHandler := TdjNCSALogHandler.Create;
-    Server.AddHandler(LogHandler);
-
-    Server.Start;
-
-    WriteLn('Server is running, please open http://localhost/index.html');
-    WriteLn('Hit any key to terminate.');
-    ReadLn;
-  finally
-    Server.Free;
-  end;
-end;
+  MainUnit;
 
 begin
   Demo;

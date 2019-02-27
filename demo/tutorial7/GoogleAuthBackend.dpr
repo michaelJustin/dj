@@ -40,46 +40,9 @@ uses
   TokenSigninResource in 'TokenSigninResource.pas',
   LoginResource in 'LoginResource.pas',
   DashboardResource in 'DashboardResource.pas',
+  MainUnit in 'MainUnit.pas',
   ShellAPI,
   SysUtils;
-
-procedure Demo;
-var
-  Server: TdjServer;
-  Context: TdjWebAppContext;
-  LogHandler: IHandler;
-begin
-  Server := TdjServer.Create(80);
-  try
-    try
-      Context := TdjWebAppContext.Create('', True);
-
-      Context.Add(TPublicResource, '/index.html');
-      Context.Add(TLoginResource, '/login.html');
-      Context.Add(TTokenSigninResource, '/tokensignin');
-      Context.Add(TDashboardResource, '/dashboard.html');
-
-      Server.Add(Context);
-
-      // add NCSA logger handler (at the end to log all handlers)
-      LogHandler := TdjNCSALogHandler.Create;
-      Server.AddHandler(LogHandler);
-
-      Server.Start;
-
-      // launch browser
-      ShellExecute(0, 'open', PChar('http://localhost/index.html'), '', '', 0);
-
-      WriteLn('Server is running, launching http://localhost/index.html ...');
-      WriteLn('Hit any key to terminate.');
-    except
-      on E: Exception do WriteLn(E.Message);
-    end;
-    ReadLn;
-  finally
-    Server.Free;
-  end;
-end;
 
 begin
   Demo;
