@@ -23,8 +23,8 @@ for the JavaScript code in this file
 */
 var NAVTREE =
 [
-  [ "Daraja Framework", "index.html", [
-    [ "Welcome to Daraja Framework!", "index.html", [
+  [ "Daraja HTTP Framework", "index.html", [
+    [ "Welcome to Daraja HTTP Framework!", "index.html", [
       [ "Introduction", "index.html#intro", null ],
       [ "Trademarks", "index.html#trademarks", null ]
     ] ],

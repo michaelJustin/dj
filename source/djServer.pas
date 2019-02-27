@@ -1,7 +1,7 @@
 (*
 
-    Daraja Framework
-    Copyright (C) 2016  Michael Justin
+    Daraja HTTP Framework
+    Copyright (C) Michael Justin
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
@@ -50,11 +50,13 @@ const
   DEFAULT_BINDING_IP = '127.0.0.1'; // instead of '0.0.0.0';
 
   (**
-   * \mainpage Welcome to Daraja Framework!
+   * \mainpage Welcome to Daraja HTTP Framework!
    *
    * \section intro Introduction
    *
-   * Daraja Framework is a HTTP server framework for Object Pascal.
+   * Daraja is a flexible HTTP server framework for Object Pascal, based on the stand-alone HTTP server in the free open source library Internet Direct (Indy).
+   * Daraja provides the core foundation for serving HTTP resources of all content-types such as HTML pages, images, scripts, web service responses etc. by mapping resource paths to your own code. Your code then can create the response content, or let the framework serve a static file.
+   *
    * It allows to compose web applications with these building blocks:
    *
    * \li a \link TdjWebComponent Web Component base class \endlink which provides HTTP method handlers (OnGet, OnPost, OnPut etc.)

@@ -1,7 +1,7 @@
 (*
 
-    Daraja Framework
-    Copyright (C) 2016  Michael Justin
+    Daraja HTTP Framework
+    Copyright (C) Michael Justin
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
@@ -33,7 +33,7 @@ interface
 {$i IdCompilerDefines.inc}
 
 const
-  DWF_SERVER_VERSION = '1.2.6';
+  DWF_SERVER_VERSION = '1.2.7';
   DWF_SERVER_FULL_NAME = 'Daraja Framework ' + DWF_SERVER_VERSION;
   DWF_SERVER_COPYRIGHT = 'Copyright (C) Michael Justin';
 

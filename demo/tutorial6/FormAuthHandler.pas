@@ -53,15 +53,14 @@ procedure TFormAuthHandler.Handle(Target: string; Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
 var
   IsLoggedIn: Boolean;
-  Session: TIdHTTPSession;
 begin
-  Session := GetSession(Context, Request, Response, True);
+  inherited;
 
-  IsLoggedIn := Session.Content.Values['auth:username'] <> '';
+  IsLoggedIn := Request.Session.Content.Values['auth:username'] <> '';
 
   if not IsLoggedIn and (Target = '/admin') then
   begin
-    Session.Content.Values['auth:target'] := Request.Document;
+    Request.Session.Content.Values['auth:target'] := Request.Document;
     Response.Redirect('/login');
   end
   else

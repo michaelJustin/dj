@@ -57,6 +57,7 @@ begin
     + '    <h1>Admin page</h1>' + #13
     + '    <p>This is content which is visible only after a successful login</p>' + #13
     + GetFooterHtml(Request)
+    + '    <p>Your Session ID is: ' + Request.Session.SessionID + '</p>'
     + '  </body>' + #13
     + '</html>';
 

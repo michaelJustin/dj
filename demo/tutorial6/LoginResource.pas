@@ -63,6 +63,7 @@ begin
     + '     Password: <input type="password" name="password" required>' + #13
     + '     <input type="submit" name="submit" value="Login">' + #13
     + '    </form>' + #13
+    + '    <p>Your Session ID is: ' + Request.Session.SessionID + '</p>'
     + '  </body>' + #13
     + '</html>';
 
@@ -74,6 +75,7 @@ procedure TLoginResource.OnPost(Request: TdjRequest; Response: TdjResponse);
 var
   Username: string;
   Password: string;
+  Target: string;
 begin
   MyDecodeAndSetParams(Request);
 
@@ -83,10 +85,13 @@ begin
 
   if CheckPwd(Username, Password) then
   begin
+    // success: redirect to target page
+    Target := Request.Session.Content.Values['auth:target'];
+
     // store username in session
     Request.Session.Content.Values['auth:username'] := Username;
-    // success: redirect to target page
-    Response.Redirect(Request.Session.Content.Values['auth:target']);
+
+    Response.Redirect(Target);
   end else begin
     // bad user/password: return authentication error
     Response.Redirect('/loginError');

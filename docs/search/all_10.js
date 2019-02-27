@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['welcome_20to_20daraja_20framework_21',['Welcome to Daraja Framework!',['../index.html',1,'']]],
+  ['welcome_20to_20daraja_20http_20framework_21',['Welcome to Daraja HTTP Framework!',['../index.html',1,'']]],
   ['webcomponent',['WebComponent',['../classTdjWebComponentHolder.html#ae711dad1900fc4040c639e104c9741cc',1,'TdjWebComponentHolder']]],
   ['webcomponentclass',['WebComponentClass',['../classTdjWebComponentHolder.html#ae5ff82e4d846607d67ba8ee863fa0581',1,'TdjWebComponentHolder']]],
   ['webcomponentcontext',['WebComponentContext',['../classTdjWebComponentHandler.html#aa4dcbaf246842425c9c16519f9cc82b0',1,'TdjWebComponentHandler']]],
