@@ -39,7 +39,7 @@ uses
 
 const
  DEFAULT_GOOGLE_SIGNIN_CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
- GOOGLE_SIGNIN_CLIENT_ID = '235205874120-cfbi689k9opeaq9g028i0e9s59hkqqbm.apps.googleusercontent.com';
+ MY_GOOGLE_SIGNIN_CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
 
 function Bind(Context, FileName: string; SessionParams: TStrings): string;
 
@@ -53,6 +53,9 @@ var
   SL : TStrings;
   Folder: string;
 begin
+  if MY_GOOGLE_SIGNIN_CLIENT_ID = DEFAULT_GOOGLE_SIGNIN_CLIENT_ID then
+    raise Exception.Create('Please configure the Google Sign-In client ID in BindingHelper.pas');
+
   if Context = '' then Folder := 'ROOT' else Folder := Context;
 
   SL := TStringList.Create;
@@ -66,7 +69,7 @@ begin
 
   Result := StringReplace(Result,
       '#{google-signin-client_id}',
-      GOOGLE_SIGNIN_CLIENT_ID,
+      MY_GOOGLE_SIGNIN_CLIENT_ID,
       [rfReplaceAll]);
 
   Result := StringReplace(Result,

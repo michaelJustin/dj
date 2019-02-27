@@ -125,7 +125,7 @@ begin
       // both valid and intended for your client, and you can safely retrieve
       // and use the user's unique Google ID from the sub claim."
       // - https://developers.google.com/identity/sign-in/web/backend-auth
-      if Claims.aud = GOOGLE_SIGNIN_CLIENT_ID then begin
+      if Claims.aud = MY_GOOGLE_SIGNIN_CLIENT_ID then begin
          // ok -> set response to OK and store user information in session
          Response.ResponseNo := 200;
 
