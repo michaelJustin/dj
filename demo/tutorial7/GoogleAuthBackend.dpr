@@ -36,9 +36,10 @@ uses
   djInterfaces,
   djNCSALogHandler,
   PublicResource in 'PublicResource.pas',
-  LoginResource in 'LoginResource.pas',
+  TokenSigninResource in 'TokenSigninResource.pas',
   BindingHelper in 'BindingHelper.pas',
-  ShellAPI;
+  LoginResource in 'LoginResource.pas',
+  ShellAPI, SysUtils;
 
 procedure Demo;
 var
@@ -48,10 +49,12 @@ var
 begin
   Server := TdjServer.Create(80);
   try
+    try
     Context := TdjWebAppContext.Create('', True);
 
-    Context.Add(TPublicResource, '/index.html');
-    Context.Add(TLoginResource, '/tokensignin');
+    Context.Add(TPublicResource, '*.html');
+    Context.Add(TLoginResource, '/login.html');
+    Context.Add(TTokenSigninResource, '/tokensignin');
 
     Server.Add(Context);
 
@@ -66,6 +69,9 @@ begin
 
     WriteLn('Server is running, launching http://localhost/index.html ...');
     WriteLn('Hit any key to terminate.');
+    except
+      on E: Exception do WriteLn(E.Message);
+    end;
     ReadLn;
   finally
     Server.Free;

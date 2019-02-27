@@ -38,7 +38,7 @@ uses
   Classes;
 
 const
- // GOOGLE_SIGNIN_CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
+ DEFAULT_GOOGLE_SIGNIN_CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
  GOOGLE_SIGNIN_CLIENT_ID = '235205874120-cfbi689k9opeaq9g028i0e9s59hkqqbm.apps.googleusercontent.com';
 
 function Bind(Context, FileName: string; SessionParams: TStrings): string;
