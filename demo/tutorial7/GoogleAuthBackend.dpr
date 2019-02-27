@@ -37,8 +37,8 @@ uses
   djNCSALogHandler,
   PublicResource in 'PublicResource.pas',
   LoginResource in 'LoginResource.pas',
-  ShellAPI,
-  BindingHelper in 'BindingHelper.pas';
+  BindingHelper in 'BindingHelper.pas',
+  ShellAPI;
 
 procedure Demo;
 var
@@ -51,7 +51,7 @@ begin
     Context := TdjWebAppContext.Create('', True);
 
     Context.Add(TPublicResource, '/index.html');
-    Context.Add(TLoginResource, '/signin');
+    Context.Add(TLoginResource, '/tokensignin');
 
     Server.Add(Context);
 
