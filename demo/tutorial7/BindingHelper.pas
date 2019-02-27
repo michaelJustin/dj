@@ -38,8 +38,13 @@ uses
   Classes;
 
 const
- DEFAULT_GOOGLE_SIGNIN_CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
- MY_GOOGLE_SIGNIN_CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
+  DEFAULT_GOOGLE_SIGNIN_CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
+  MY_GOOGLE_SIGNIN_CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
+  
+  // Before you can integrate Google Sign-In into your website, you must create 
+  // a client ID, which you need to call the sign-in API. For details 
+  // see "Integrating Google Sign-In into your web app" 
+  // https://developers.google.com/identity/sign-in/web/sign-in
 
 function Bind(Context, FileName: string; SessionParams: TStrings): string;
 
