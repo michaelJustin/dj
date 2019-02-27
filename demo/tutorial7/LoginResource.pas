@@ -36,33 +36,40 @@ uses
 type
   TLoginResource = class(TdjWebComponent)
   public
-    procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
+    procedure OnPost(Request: TdjRequest; Response: TdjResponse); override;
   end;
 
 implementation
 
-procedure TLoginResource.OnGet(Request: TdjRequest; Response: TdjResponse);
+uses
+  IdHTTP, SysUtils;
+
+// see https://developers.google.com/identity/sign-in/web/backend-auth
+// requires OpenSSL libraries in application folder
+
+procedure TLoginResource.OnPost(Request: TdjRequest; Response: TdjResponse);
+const
+  VALIDATION_URL = 'https://oauth2.googleapis.com/tokeninfo?id_token=%s';
+var
+  IdToken: string;
+  IdHTTP: TIdHTTP;
+  URL: string;
+  ValidationResponse: string;
 begin
-  Response.ContentText := '<!DOCTYPE html>' + #13
-    + '<html lang="en">' + #13
-    + '  <head>' + #13
-    + '    <title>Login form</title>' + #13
-    + '  </head>' + #13
-    + '  <body>' + #13
-    + '    <h1>Login</h1>' + #13
-    + '    <form method="post">' + #13
-    + '     Username: <input type="text" name="username" required>' +#13
-    + '     Password: <input type="password" name="password" required>' + #13
-    + '     <input type="submit" name="submit" value="Login">' + #13
-    + '    </form>' + #13
-    + '    <p>Your Session ID is: ' + Request.Session.SessionID + '</p>'
-    + '  </body>' + #13
-    + '</html>';
+  inherited;
 
-  Response.ContentType := 'text/html';
-  Response.CharSet := 'utf-8';
+  IdToken := Request.Params.Values['idtoken'];
+
+  URL := Format(VALIDATION_URL, [IdToken]);
+  IdHTTP := TIdHTTP.Create;
+  try
+    ValidationResponse := IdHTTP.Get(URL);
+  finally
+    IdHTTP.Free;
+  end;
+
+  Response.Redirect(Request.Referer);
 end;
-
 
 end.
 
