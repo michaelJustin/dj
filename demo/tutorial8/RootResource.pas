@@ -26,7 +26,7 @@
 
 *)
 
-unit PublicResource;
+unit RootResource;
 
 interface
 

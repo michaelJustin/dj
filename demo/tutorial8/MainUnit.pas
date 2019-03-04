@@ -40,7 +40,7 @@ uses
   djInterfaces,
   djNCSALogHandler,
   OAuthHelper,
-  PublicResource,
+  RootResource,
   OAuth2CallbackResource,
   ShellAPI,
   SysUtils;
