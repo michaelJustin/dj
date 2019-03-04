@@ -112,18 +112,39 @@ begin
   Result.access_token := C.Get('access_token');
   Result.expires_in := C.Get('expires_in');
 end;
+
 {$ELSE}
+
+procedure LoadClientSecrets(Filename: string);
+var
+  C: ISuperObject;
+  web: ISuperObject;
+begin
+  C := TSuperObject.ParseFile(FileName, False);
+
+  web := C.O['web'];
+
+  client_id := web.S['client_id'];
+  client_secret := web.S['client_secret'];
+  auth_uri := web.S['auth_uri'];
+  token_uri := web.S['token_uri'];
+
+  redirect_uri := web.A['redirect_uris'].S[0];
+
+  if redirect_uri <> MY_HOST + MY_CALLBACK_URL then
+    raise Exception
+      .CreateFmt('Please enter the redirect URI %s in the API console!',
+        [MY_HOST + MY_CALLBACK_URL]);
+end;
+
 function ToCredentials(const JSON: string): TCredentials;
 var
-  Claims: ISuperObject;
+  C: ISuperObject;
 begin
-  Claims := SO(JSON);
+  C := SO(JSON);
 
-  Result.aud := Claims.S['aud'];
-  Result.name := Claims.S['name'];
-  Result.email := Claims.S['email'];
-  Result.email_verified := Claims.S['email_verified'];
-  Result.picture := Claims.S['picture'];
+  Result.access_token := C.S['access_token'];
+  Result.expires_in := C.I['expires_in'];
 end;
 {$ENDIF}
 
