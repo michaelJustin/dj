@@ -42,7 +42,7 @@ type
 implementation
 
 uses
-  BindingHelper,
+  OAuthHelper,
   IdHTTP, SysUtils, Classes;
 
 { TOAuth2CallbackResource }

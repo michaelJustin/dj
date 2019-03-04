@@ -39,7 +39,7 @@ uses
   djWebAppContext,
   djInterfaces,
   djNCSALogHandler,
-  BindingHelper,
+  OAuthHelper,
   PublicResource,
   OAuth2CallbackResource,
   ShellAPI,
