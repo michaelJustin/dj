@@ -40,19 +40,23 @@ uses
 const
   MY_HOST = 'http://localhost';
   MY_CALLBACK_URL = '/oauth2callback';
+  DRIVE_SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
 
-  SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
+var
+  // values from client_secret.json
+  client_secret: string;
+  client_id: string;
+  auth_uri: string;
+  token_uri: string;
 
-  DEFAULT_GOOGLE_SIGNIN_CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
-  MY_GOOGLE_SIGNIN_CLIENT_ID = '235205874120-57lktp5qfr899u57jnepagcsnilbbdlo.apps.googleusercontent.com';
-
-  CLIENT_SECRET = 'rAB5hhgkeO_o09e-PKiZz480';
-
+  // values from auth token response
 type
   TCredentials = record
     access_token: string;
     expires_in: Integer;
   end;
+
+procedure LoadClientSecrets(Filename: string);
 
 function ToCredentials(const JSON: string): TCredentials;
 
@@ -67,6 +71,37 @@ uses
   {$ENDIF}
 
 {$IFDEF FPC}
+procedure LoadClientSecrets(Filename: string);
+var
+  S: TStream;
+  Data: TJSONData;
+  C, web : TJSONObject;
+  redirect_uri: string;
+begin
+  S := TFileStream.Create(FileName, fmOpenRead or fmShareDenyNone);
+  try
+    Data := GetJSON(S);
+    C := TJSONObject(Data);
+
+    web := C.Objects['web'];
+
+    client_id := web.Get('client_id');
+    client_secret := web.Get('client_secret');
+    auth_uri := web.Get('auth_uri');
+    token_uri := web.Get('token_uri');
+
+    redirect_uri := web.Arrays['redirect_uris'].Strings[0];
+
+    if redirect_uri <> MY_HOST + MY_CALLBACK_URL then
+      raise Exception
+        .CreateFmt('Please enter the redirect URI %s in the API console!',
+          [MY_HOST + MY_CALLBACK_URL]);
+
+  finally
+    S.Free;
+  end;
+end;
+
 function ToCredentials(const JSON: string): TCredentials;
 var
   Data: TJSONData;

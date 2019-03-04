@@ -58,12 +58,12 @@ begin
   AuthCode := Request.Params.Values['code'];
 
   if AuthCode = '' then begin
-    Response.Redirect('https://accounts.google.com/o/oauth2/v2/auth'
+    Response.Redirect(auth_uri
      + '?access_type=offline'
-     + '&client_id=' + MY_GOOGLE_SIGNIN_CLIENT_ID
+     + '&client_id=' + client_id
      + '&redirect_uri=' + MY_HOST + MY_CALLBACK_URL
      + '&response_type=code'
-     + '&scope=' + SCOPE
+     + '&scope=' + DRIVE_SCOPE
      // + '&state=' + State
      );
   end else begin
@@ -73,13 +73,13 @@ begin
     IdHTTP := TIdHTTP.Create;
     try
         Params.Values['code'] := AuthCode;
-        Params.Values['client_id'] := MY_GOOGLE_SIGNIN_CLIENT_ID;
-        Params.Values['client_secret'] := CLIENT_SECRET;
+        Params.Values['client_id'] := client_id;
+        Params.Values['client_secret'] := client_secret;
         Params.Values['redirect_uri'] := MY_HOST + MY_CALLBACK_URL;
         Params.Values['grant_type'] := 'authorization_code';
 
         IdHTTP.Request.ContentType := 'application/x-www-form-urlencoded';
-        ResponseText := IdHTTP.Post('https://www.googleapis.com/oauth2/v4/token', Params);
+        ResponseText := IdHTTP.Post(token_uri, Params);
         Response.Session.Content.Values['credentials'] := ResponseText;
         Response.Redirect('/');
     finally

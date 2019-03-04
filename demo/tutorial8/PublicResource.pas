@@ -58,13 +58,9 @@ begin
     Response.Redirect(MY_CALLBACK_URL)
   end else begin
     Credentials := ToCredentials(Request.Session.Content.Values['credentials']);
-
-    WriteLn('expires_in: ' + IntToStr(Credentials.expires_in));
-
     if Credentials.expires_in <= 0 then begin
       Response.Redirect(MY_CALLBACK_URL)
     end else begin
-      // call Drive API
       IdHTTP := TIdHTTP.Create;
       try
         IdHTTP.Request.CustomHeaders.Values['Authorization'] :=

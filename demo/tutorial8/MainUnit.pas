@@ -53,6 +53,9 @@ var
   Context: TdjWebAppContext;
   LogHandler: IHandler;
 begin
+  // initializes global variables
+  LoadClientSecrets('client_secret.json');
+
   Server := TdjServer.Create(80);
   try
     try
