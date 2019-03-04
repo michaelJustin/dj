@@ -45,6 +45,9 @@ uses
   OAuthHelper,
   IdHTTP, SysUtils, Classes;
 
+const
+  DRIVE_SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
+
 { TOAuth2CallbackResource }
 
 procedure TOAuth2CallbackResource.OnGet(Request: TdjRequest;
@@ -61,7 +64,7 @@ begin
     Response.Redirect(auth_uri
      + '?access_type=offline'
      + '&client_id=' + client_id
-     + '&redirect_uri=' + MY_HOST + MY_CALLBACK_URL
+     + '&redirect_uri=' + redirect_uri
      + '&response_type=code'
      + '&scope=' + DRIVE_SCOPE
      // + '&state=' + State
@@ -75,7 +78,7 @@ begin
         Params.Values['code'] := AuthCode;
         Params.Values['client_id'] := client_id;
         Params.Values['client_secret'] := client_secret;
-        Params.Values['redirect_uri'] := MY_HOST + MY_CALLBACK_URL;
+        Params.Values['redirect_uri'] := redirect_uri;
         Params.Values['grant_type'] := 'authorization_code';
 
         IdHTTP.Request.ContentType := 'application/x-www-form-urlencoded';

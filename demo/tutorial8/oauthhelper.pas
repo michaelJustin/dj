@@ -40,7 +40,6 @@ uses
 const
   MY_HOST = 'http://localhost';
   MY_CALLBACK_URL = '/oauth2callback';
-  DRIVE_SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
 
 var
   // values from client_secret.json
@@ -48,6 +47,7 @@ var
   client_id: string;
   auth_uri: string;
   token_uri: string;
+  redirect_uri: string;
 
   // values from auth token response
 type
@@ -76,7 +76,6 @@ var
   S: TStream;
   Data: TJSONData;
   C, web : TJSONObject;
-  redirect_uri: string;
 begin
   S := TFileStream.Create(FileName, fmOpenRead or fmShareDenyNone);
   try
