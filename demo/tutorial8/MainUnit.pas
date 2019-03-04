@@ -61,7 +61,7 @@ begin
     try
       Context := TdjWebAppContext.Create('', True);
 
-      Context.Add(TPublicResource, '/');
+      Context.Add(TRootResource, '/');
       Context.Add(TOAuth2CallbackResource, MY_CALLBACK_URL);
 
       Server.Add(Context);
