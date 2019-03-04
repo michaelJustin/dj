@@ -26,7 +26,7 @@
 
 *)
 
-unit PublicResource;
+unit RootResource;
 
 interface
 
@@ -34,7 +34,7 @@ uses
   djWebComponent, djTypes;
 
 type
-  TPublicResource = class(TdjWebComponent)
+  TRootResource = class(TdjWebComponent)
   public
     procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
   end;
@@ -47,9 +47,9 @@ uses
 
 // see https://developers.google.com/identity/protocols/OAuth2WebServer
 
-{ TPublicResource }
+{ TRootResource }
 
-procedure TPublicResource.OnGet(Request: TdjRequest; Response: TdjResponse);
+procedure TRootResource.OnGet(Request: TdjRequest; Response: TdjResponse);
 var
   Credentials: TCredentials;
   IdHTTP: TIdHTTP;
