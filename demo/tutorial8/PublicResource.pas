@@ -42,13 +42,17 @@ type
 implementation
 
 uses
-  BindingHelper;
+  BindingHelper,
+  IdHTTP;
+
+// see https://developers.google.com/identity/protocols/OAuth2WebServer
 
 { TPublicResource }
 
 procedure TPublicResource.OnGet(Request: TdjRequest; Response: TdjResponse);
 var
   Credentials: TCredentials;
+  IdHTTP: TIdHTTP;
 begin
   if Request.Session.Content.Values['credentials'] = '' then begin
     Response.Redirect(MY_CALLBACK_URL)
@@ -58,9 +62,16 @@ begin
       Response.Redirect(MY_CALLBACK_URL)
     end else begin
       // call Drive API
-      Response.ContentText := '<html><bod>Call Drive API ... </body></html>';
-      Response.ContentType := 'text/html';
-      Response.CharSet := 'utf-8';
+      IdHTTP := TIdHTTP.Create;
+      try
+        IdHTTP.Request.CustomHeaders.Values['Authorization'] :=
+          'Bearer ' + Credentials.access_token;
+        Response.ContentText := IdHTTP.Get('https://www.googleapis.com/drive/v2/files');
+        Response.ContentType := 'text/html';
+        Response.CharSet := 'utf-8';
+      finally
+        IdHTTP.Free;
+      end;
     end;
   end;
 end;

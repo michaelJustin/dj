@@ -47,8 +47,6 @@ uses
 
 { TOAuth2CallbackResource }
 
-// see https://developers.google.com/identity/protocols/OAuth2WebServer
-
 procedure TOAuth2CallbackResource.OnGet(Request: TdjRequest;
   Response: TdjResponse);
 var

@@ -1,7 +1,7 @@
 (*
 
     Daraja Framework
-    Copyright (C) 2016  Michael Justin
+    Copyright (C) Michael Justin
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
@@ -26,7 +26,7 @@
 
 *)
 
-unit BindingHelper;
+unit OAuthHelper;
 
 // note: this is unsupported example code
 
@@ -47,13 +47,6 @@ const
   MY_GOOGLE_SIGNIN_CLIENT_ID = '235205874120-57lktp5qfr899u57jnepagcsnilbbdlo.apps.googleusercontent.com';
 
   CLIENT_SECRET = 'rAB5hhgkeO_o09e-PKiZz480';
-
-  // Before you can integrate Google Sign-In into your website, you must create 
-  // a client ID, which you need to call the sign-in API. For details 
-  // see "Integrating Google Sign-In into your web app" 
-  // https://developers.google.com/identity/sign-in/web/sign-in
-
-function Bind(Context, FileName: string; SessionParams: TStrings): string;
 
 type
   TCredentials = record
@@ -99,58 +92,5 @@ begin
   Result.picture := Claims.S['picture'];
 end;
 {$ENDIF}
-
-function Bind(Context, FileName: string; SessionParams: TStrings): string;
-var
-  SL : TStrings;
-  Folder: string;
-begin
-  if MY_GOOGLE_SIGNIN_CLIENT_ID = DEFAULT_GOOGLE_SIGNIN_CLIENT_ID then
-    raise Exception.Create('Please configure the Google Sign-In client ID in BindingHelper.pas');
-
-  if Context = '' then Folder := 'ROOT' else Folder := Context;
-
-  SL := TStringList.Create;
-    try
-      SL.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'webapps/'
-       + Folder + '/' + FileName);
-      Result := SL.Text;
-    finally
-      SL.Free;
-    end;
-
-  Result := StringReplace(Result,
-      '<dj:header/>',
-      '<header>' +
-      '<p>Navigation</p>' +
-      '</header>'
-      ,
-      [rfReplaceAll]);
-
-  if SessionParams.Values['name'] <> '' then
-  begin
-    Result := StringReplace(Result,
-        '<dj:footer/>',
-        '<footer>' +
-        '<p>Logged in as <strong>#{email}</strong></p>' +
-        '</footer>'
-        ,
-        [rfReplaceAll]);
-  end else begin
-    Result := StringReplace(Result,
-        '<dj:footer/>',
-        '<footer>' +
-        '<p>Not logged in</p>' +
-        '</footer>'
-        ,
-        [rfReplaceAll]);
-
-  end;
-
-  (* Result := StringReplace(Result,
-      '#{name}',
-      SessionParams.Values['name'],
-      [rfReplaceAll]); *)
-end;
 
 end.
