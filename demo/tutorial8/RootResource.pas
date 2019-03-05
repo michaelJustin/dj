@@ -66,7 +66,7 @@ begin
         IdHTTP.Request.CustomHeaders.Values['Authorization'] :=
           'Bearer ' + Credentials.access_token;
         Response.ContentText := IdHTTP.Get('https://www.googleapis.com/drive/v2/files');
-        Response.ContentType := 'text/html';
+        Response.ContentType := 'text/plain';
         Response.CharSet := 'utf-8';
       finally
         IdHTTP.Free;
