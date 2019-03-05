@@ -53,9 +53,6 @@ var
   Context: TdjWebAppContext;
   LogHandler: IHandler;
 begin
-  // initializes global variables
-  LoadClientSecrets('client_secret.json');
-
   Server := TdjServer.Create(80);
   try
     try
@@ -69,6 +66,9 @@ begin
       // add NCSA logger handler (at the end to log all handlers)
       LogHandler := TdjNCSALogHandler.Create;
       Server.AddHandler(LogHandler);
+
+      // initializes global variables
+      LoadClientSecrets('client_secret.json');
 
       Server.Start;
 
