@@ -81,8 +81,8 @@ begin
         Params.Values['redirect_uri'] := redirect_uri;
         Params.Values['grant_type'] := 'authorization_code';
 
-        IdHTTP.Request.ContentType := 'application/x-www-form-urlencoded';
         ResponseText := IdHTTP.Post(token_uri, Params);
+
         Response.Session.Content.Values['credentials'] := ResponseText;
         Response.Redirect('/');
     finally
