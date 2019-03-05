@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+  <head>
+    <title>OpenID Connect example</title>
+
+    <meta name="google-signin-client_id" content="#{client_id}">
+  </head>
+  <body>
+
+  <!-- paypal
+    <span id='cwppButton'></span>
+    <script src='https://www.paypalobjects.com/js/external/connect/api.js'></script>
+    <script>
+    paypal.use( ['login'], function (login) {
+      login.render ({
+        "appid":"#{appid}",
+        "authend":"sandbox",
+        "scopes":"openid",
+        "containerid":"cwppButton",
+        "locale":"de-de",
+        "buttonType":"CWP",
+        "buttonSize":"lg",
+        "returnurl":"#{returnurl}"
+      });
+    });
+    </script>
+    -->
+
+
+  <div id="my-signin2"></div>
+  <script>
+    function onSuccess(googleUser) {
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    }
+    function onFailure(error) {
+      console.log(error);
+    }
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure /*,
+        'ux_mode': 'redirect',
+        'redirect_uri': 'http://localhost/openidcallback' */
+      });
+    }
+  </script>
+
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+  </body
+</html>
