@@ -83,7 +83,7 @@ begin
       WriteLn('Invalid state parameter.');
       Exit;
     end;
-    // exchange auth code for access token and ID token
+    // exchange auth code for claims
     Params := TStringList.Create;
     IdHTTP := TIdHTTP.Create;
     try

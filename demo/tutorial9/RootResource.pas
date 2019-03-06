@@ -45,7 +45,7 @@ type
 implementation
 
 uses
-  OpenIDHelper,
+  OpenIDHelper, BindingHelper,
   IdHTTP, SysUtils, Classes;
 
 { TRootResource }
@@ -65,17 +65,27 @@ begin
   end else begin
     IdTokenResponse := ToIdTokenResponse(Request.Session.Content.Values['credentials']);
     if IdTokenResponse.expires_in <= 0 then begin
-      Response.Redirect(OpenIDParams.redirect_uri)
+      Response.Redirect(OpenIDParams.redirect_uri) // TODO does this happen?
     end else begin
       S := ReadJWTParts(IdTokenResponse.id_token);
 
-      WriteLn(S);
+      // WriteLn(S);
 
       Claims := ParseJWT(S);
 
-      WriteLn('sub:' + Claims.sub); // Benutzer ID (stabil!)
-      WriteLn('email:' + Claims.email);
-      WriteLn('email_verified:' + Claims.email_verified);
+      // WriteLn('sub:' + Claims.sub); // Benutzer ID (stabil!)
+      // WriteLn('email:' + Claims.email);
+      // WriteLn('email_verified:' + Claims.email_verified);
+
+      Request.Session.Content.Values['iss'] := Claims.iss;
+      Request.Session.Content.Values['sub'] := Claims.sub;
+      Request.Session.Content.Values['email'] := Claims.email;
+      Request.Session.Content.Values['name'] := Claims.name;
+
+      Response.ContentText := Bind(Config.GetContext.GetContextPath,
+        'index.html', Request.Session.Content);
+      Response.ContentType := 'text/html';
+      Response.CharSet := 'utf-8';
     end;
   end;
 end;

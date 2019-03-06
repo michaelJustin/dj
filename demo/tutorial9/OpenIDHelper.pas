@@ -64,7 +64,7 @@ type
     aud: string;
     iat: Integer;
     exp: Integer;
-    // name: string;
+    name: string;
     email: string;
     email_verified: string;
   end;
@@ -170,6 +170,23 @@ begin
   // refresh_token only if access_type=offline
 end;
 
+(*
+"claims_supported": [
+  "aud",
+  "email",
+  "email_verified",
+  "exp",
+  "family_name",
+  "given_name",
+  "iat",
+  "iss",
+  "locale",
+  "name",
+  "picture",
+  "sub"
+ ],
+*)
+
 function ParseJWT(const JSON: string): TIdTokenClaims;
 var
   Data: TJSONData;
@@ -185,6 +202,7 @@ begin
   Result.exp := C.Get('exp');
   Result.email := C.Get('email');
   Result.email_verified := C.Get('email_verified');
+  Result.name := C.Get('name');
 end;
 
 {$ELSE}
@@ -215,6 +233,7 @@ begin
   Result.exp := C.I['exp'];
   Result.email := C.S['email'];
   Result.email_verified := C.S['email_verified'];
+  Result.name := C.S['name'];
 end;
 {$ENDIF}
 
