@@ -46,7 +46,7 @@ implementation
 
 uses
   OpenIDHelper,
-  IdHTTP, SysUtils, Classes;
+  IdHTTP, IdSSLOpenSSL, SysUtils, Classes;
 
 { TOpenIDCallbackResource }
 
@@ -61,6 +61,7 @@ procedure TOpenIDCallbackResource.OnGet(Request: TdjRequest;
 var
   AuthCode: string;
   IdHTTP: TIdHTTP;
+  IOHandler: TIdSSLIOHandlerSocketOpenSSL;
   Params: TStrings;
   ResponseText: string;
 begin
@@ -87,6 +88,10 @@ begin
     Params := TStringList.Create;
     IdHTTP := TIdHTTP.Create;
     try
+      IOHandler := TIdSSLIOHandlerSocketOpenSSL.Create(IdHTTP);
+      IOHandler.SSLOptions.SSLVersions := [sslvTLSv1_1, sslvTLSv1_2];
+      IdHTTP.IOHandler := IOHandler;
+
       Params.Values['code'] := AuthCode;
       Params.Values['client_id'] := OpenIDParams.client_id;
       Params.Values['client_secret'] := OpenIDParams.client_secret;

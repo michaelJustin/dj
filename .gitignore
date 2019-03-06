@@ -110,3 +110,4 @@ demo/tutorial9/client_secret_paypal.json
 demo/tutorial9/client_secret_google.json
 demo/tutorial9/openid_configuration_google.txt
 demo/tutorial9/openid_configuration_paypal.txt
+demo/tutorial9/client_secret_github.json
