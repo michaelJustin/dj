@@ -106,3 +106,5 @@ demo/tutorial9/backup/
 demo/tutorial9/superobject.pas
 demo/tutorial9/openid_secret.json
 demo/tutorial9/client_secret.json
+demo/tutorial9/client_secret_paypal.json
+demo/tutorial9/client_secret_google.json
