@@ -54,9 +54,27 @@ type
   TIdTokenResponse = record
     access_token: string;
     token_type: string;
+    // OPTIONAL. Expiration time of the Access Token in seconds since the response was generated.
     expires_in: Integer;
     id_token: string;
   end;
+
+  (*
+  "claims_supported": [
+    "aud",
+    "email",
+    "email_verified",
+    "exp",
+    "family_name",
+    "given_name",
+    "iat",
+    "iss",
+    "locale",
+    "name",
+    "picture",
+    "sub"
+   ],
+  *)
 
   TIdTokenClaims = record
     iss: string;
@@ -169,23 +187,6 @@ begin
   // token_type = bearer
   // refresh_token only if access_type=offline
 end;
-
-(*
-"claims_supported": [
-  "aud",
-  "email",
-  "email_verified",
-  "exp",
-  "family_name",
-  "given_name",
-  "iat",
-  "iss",
-  "locale",
-  "name",
-  "picture",
-  "sub"
- ],
-*)
 
 function ParseJWT(const JSON: string): TIdTokenClaims;
 var

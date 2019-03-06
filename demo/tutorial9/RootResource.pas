@@ -64,19 +64,15 @@ begin
     Response.Redirect(OpenIDParams.redirect_uri)
   end else begin
     IdTokenResponse := ToIdTokenResponse(Request.Session.Content.Values['credentials']);
-    if IdTokenResponse.expires_in <= 0 then begin
-      Response.Redirect(OpenIDParams.redirect_uri) // TODO does this happen?
+    if IdTokenResponse.expires_in <= 0 then begin // does this (<=0) happen?
+      Response.Redirect(OpenIDParams.redirect_uri)
     end else begin
       S := ReadJWTParts(IdTokenResponse.id_token);
-
       // WriteLn(S);
-
       Claims := ParseJWT(S);
-
       // WriteLn('sub:' + Claims.sub); // Benutzer ID (stabil!)
       // WriteLn('email:' + Claims.email);
       // WriteLn('email_verified:' + Claims.email_verified);
-
       Request.Session.Content.Values['iss'] := Claims.iss;
       Request.Session.Content.Values['sub'] := Claims.sub;
       Request.Session.Content.Values['email'] := Claims.email;
