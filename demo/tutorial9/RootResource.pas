@@ -59,8 +59,6 @@ var
   S: string;
   Claims: TIdTokenClaims;
 begin
-  WriteLn('doc:' + Request.Document);
-
   if Request.Session.Content.Values['credentials'] = '' then begin
     Response.Session.Content.Values['state'] := CreateState;
     Response.Redirect(OpenIDParams.redirect_uri)

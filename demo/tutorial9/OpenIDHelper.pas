@@ -170,6 +170,23 @@ begin
   // refresh_token only if access_type=offline
 end;
 
+function ParseJWT(const JSON: string): TIdTokenClaims;
+var
+  Data: TJSONData;
+  C : TJSONObject;
+begin
+  Data := GetJSON(JSON);
+  C := TJSONObject(Data);
+
+  Result.iss := C.Get('iss');
+  Result.sub := C.Get('sub');
+  Result.aud := C.Get('aud');
+  Result.iat := C.Get('iat');
+  Result.exp := C.Get('exp');
+  Result.email := C.Get('email');
+  Result.email_verified := C.Get('email_verified');
+end;
+
 {$ELSE}
 function ToIdTokenResponse(const JSON: string): TIdTokenResponse;
 var
