@@ -54,7 +54,6 @@ type
   TIdTokenResponse = record
     access_token: string;
     token_type: string;
-    // OPTIONAL. Expiration time of the Access Token in seconds since the response was generated.
     expires_in: Integer;
     id_token: string;
   end;
@@ -76,6 +75,7 @@ type
    ],
   *)
 
+  // TODO should be a key-value list except iat / exp
   TIdTokenClaims = record
     iss: string;
     sub: string;
