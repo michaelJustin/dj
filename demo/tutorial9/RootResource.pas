@@ -45,26 +45,41 @@ type
 implementation
 
 uses
-  BindingHelper, OpenIDHelper,
-  IdHTTP, SysUtils;
+  OpenIDHelper,
+  IdHTTP, SysUtils, Classes;
 
 { TRootResource }
 
+// https://developers.google.com/identity/protocols/OpenIDConnect
 // https://developer.paypal.com/docs/integration/direct/identity/button-js-builder/
 
 procedure TRootResource.OnGet(Request: TdjRequest; Response: TdjResponse);
 var
-  AuthCode: string;
+  IdTokenResponse: TIdTokenResponse;
+  S: string;
+  Claims: TIdTokenClaims;
 begin
-  AuthCode := Request.Params.Values['code'];
+  WriteLn('doc:' + Request.Document);
 
-  WriteLn(Request.QueryParams);
+  if Request.Session.Content.Values['credentials'] = '' then begin
+    Response.Session.Content.Values['state'] := CreateState;
+    Response.Redirect(OpenIDParams.redirect_uri)
+  end else begin
+    IdTokenResponse := ToIdTokenResponse(Request.Session.Content.Values['credentials']);
+    if IdTokenResponse.expires_in <= 0 then begin
+      Response.Redirect(OpenIDParams.redirect_uri)
+    end else begin
+      S := ReadJWTParts(IdTokenResponse.id_token);
 
-  Response.ContentText := BindingHelper.Bind(Config.GetContext.GetContextPath,
-    'index.html', OpenIDParams);
+      WriteLn(S);
 
-  Response.ContentType := 'text/html';
-  Response.CharSet := 'utf-8';
+      Claims := ParseJWT(S);
+
+      WriteLn('sub:' + Claims.sub); // Benutzer ID (stabil!)
+      WriteLn('email:' + Claims.email);
+      WriteLn('email_verified:' + Claims.email_verified);
+    end;
+  end;
 end;
 
 end.

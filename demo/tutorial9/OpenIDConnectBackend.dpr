@@ -21,51 +21,19 @@
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the Daraja framework without
     disclosing the source code of your own applications. These activities
-    include: offering paid services to customers as an ASP, shipping Daraja
+    include: offering paid services to customers as an ASP, shipping Daraja 
     with a closed source product.
 
 *)
 
-unit BindingHelper;
+program OpenIDConnectBackend;
 
-// note: this is unsupported example code
-
-interface
-
-{$i IdCompilerDefines.inc}
+{$APPTYPE CONSOLE}
 
 uses
-  OpenIDHelper, Classes;
+  MainUnit;
 
-function Bind(Context, FileName: string; OpenIDParams: TOpenIDParams): string;
-
-implementation
-
-uses
-  SysUtils;
-
-function Bind(Context, FileName: string; OpenIDParams: TOpenIDParams): string;
-var
-  SL : TStrings;
-  Folder: string;
 begin
-  if Context = '' then Folder := 'ROOT' else Folder := Context;
-
-  SL := TStringList.Create;
-    try
-      SL.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'webapps/'
-       + Folder + '/' + FileName);
-      Result := SL.Text;
-    finally
-      SL.Free;
-    end;
-
-  Result := StringReplace(Result,
-      '<dj:header/>',
-      '<header>' +
-      '<p>Navigation</p>' +
-      '</header>',
-      [rfReplaceAll]);
-end;
-
+  Demo;
 end.
+

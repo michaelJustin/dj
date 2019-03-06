@@ -41,14 +41,43 @@ const
   MY_HOST = 'http://localhost';
   MY_CALLBACK_URL = '/openidcallback';
 
-procedure LoadClientSecrets(Filename: string);
-
 type
   TOpenIDParams = record
-    client_id: string; // Google
-    // appid: string; // PayPal
-    returnurl: string;
+    client_id: string;
+    client_secret: string;
+    redirect_uri: string;
+    auth_uri: string;
+    token_uri: string;
   end;
+
+type
+  TIdTokenResponse = record
+    access_token: string;
+    token_type: string;
+    expires_in: Integer;
+    id_token: string;
+  end;
+
+  TIdTokenClaims = record
+    iss: string;
+    sub: string;
+    aud: string;
+    iat: Integer;
+    exp: Integer;
+    // name: string;
+    email: string;
+    email_verified: string;
+  end;
+
+function CreateState: string;
+
+procedure LoadClientSecrets(Filename: string);
+
+function ToIdTokenResponse(const JSON: string): TIdTokenResponse;
+
+function ReadJWTParts(const JSON: string): string;
+
+function ParseJWT(const JSON: string): TIdTokenClaims;
 
 var
   OpenIDParams: TOpenIDParams;
@@ -56,6 +85,7 @@ var
 implementation
 
 uses
+  IdCoderMIME, IdGlobal,
   SysUtils,
   {$IFDEF FPC}
   fpjson, jsonparser;
@@ -63,21 +93,34 @@ uses
   superobject;
   {$ENDIF}
 
+function CreateState: string;
+var
+  Guid: TGUID;
+begin
+  CreateGUID(Guid);
+  Result := GUIDToString(Guid);
+end;
+
 {$IFDEF FPC}
 procedure LoadClientSecrets(Filename: string);
 var
   S: TStream;
   Data: TJSONData;
-  C : TJSONObject;
+  C: TJSONObject;
+  W: TJSONObject;
 begin
   S := TFileStream.Create(FileName, fmOpenRead or fmShareDenyNone);
   try
     Data := GetJSON(S);
     C := TJSONObject(Data);
 
-    OpenIDParams.client_id := C.Get('client_id');
-    // OpenIDParams.appid := C.Get('appid');
-    OpenIDParams.returnurl := MY_HOST + MY_CALLBACK_URL;
+    W := C.Objects['web'];
+
+    OpenIDParams.client_id := W.Get('client_id');
+    OpenIDParams.client_secret := W.Get('client_secret');
+    OpenIDParams.redirect_uri := MY_HOST + MY_CALLBACK_URL; // TODO compare ...
+    OpenIDParams.auth_uri := W.Get('auth_uri');
+    OpenIDParams.token_uri := W.Get('token_uri');
 
   finally
     S.Free;
@@ -95,28 +138,93 @@ begin
 
   web := C.O['web'];
 
-  client_id := web.S['client_id'];
-  client_secret := web.S['client_secret'];
-  auth_uri := web.S['auth_uri'];
-  token_uri := web.S['token_uri'];
+  OpenIDParams.client_id := web.S['client_id'];
+  OpenIDParams.client_secret := web.S['client_secret'];
+  OpenIDParams.redirect_uri := MY_HOST + MY_CALLBACK_URL; // TODO compare ...
+  OpenIDParams.auth_uri := web.S['auth_uri'];
+  OpenIDParams.token_uri := web.S['token_uri'];
 
-  redirect_uri := web.A['redirect_uris'].S[0];
-
-  if redirect_uri <> MY_HOST + MY_CALLBACK_URL then
+  (* if OpenIDParams.redirect_uri <> MY_HOST + MY_CALLBACK_URL then
     raise Exception
       .CreateFmt('Please enter the redirect URI %s in the API console!',
-        [MY_HOST + MY_CALLBACK_URL]);
+        [MY_HOST + MY_CALLBACK_URL]); *)
 end;
 
-function ToCredentials(const JSON: string): TCredentials;
+{$ENDIF}
+
+
+{$IFDEF FPC}
+function ToIdTokenResponse(const JSON: string): TIdTokenResponse;
+var
+  Data: TJSONData;
+  C : TJSONObject;
+begin
+  Data := GetJSON(JSON);
+  C := TJSONObject(Data);
+
+  Result.access_token := C.Get('access_token');
+  Result.id_token := C.Get('id_token');
+  Result.expires_in := C.Get('expires_in');
+
+  // token_type = bearer
+  // refresh_token only if access_type=offline
+end;
+
+{$ELSE}
+function ToIdTokenResponse(const JSON: string): TIdTokenResponse;
 var
   C: ISuperObject;
 begin
   C := SO(JSON);
 
   Result.access_token := C.S['access_token'];
+  Result.id_token := C.S['id_token'];
   Result.expires_in := C.I['expires_in'];
+
+  // token_type = bearer
+  // refresh_token only if access_type=offline
+end;
+
+function ParseJWT(const JSON: string): TIdTokenClaims;
+var
+  C: ISuperObject;
+begin
+  C := SO(JSON);
+
+  Result.iss := C.S['iss'];
+  Result.sub := C.S['sub'];
+  Result.aud := C.S['aud'];
+  Result.iat := C.I['iat'];
+  Result.exp := C.I['exp'];
+  Result.email := C.S['email'];
+  Result.email_verified := C.S['email_verified'];
 end;
 {$ENDIF}
 
+// https://auth0.com/docs/tokens/id-token
+
+function ReadJWTParts(const JSON: string): string;
+var
+  SL: TStrings;
+  // I: Integer;
+  S: string;
+begin
+  Assert('{"alg":"RS256","kid":"cf022a49e9786148ad0e379cc854844e36c3edc1","typ":"JWT"' =
+    TIdDecoderMIME.DecodeString('eyJhbGciOiJSUzI1NiIsImtpZCI6ImNmMDIyYTQ5ZTk3ODYxNDhhZDBlMzc5Y2M4NTQ4NDRlMzZjM2VkYzEiLCJ0eXAiOiJKV1QifQ', IndyTextEncoding_UTF8));
+
+  SL := TStringlist.Create;
+  try
+    SL.Delimiter := '.';
+    SL.StrictDelimiter := True;
+    SL.DelimitedText := JSON;
+
+    // The body, also called the payload, contains identity claims about a user.
+    S := SL[1];
+    while Length(S) mod 4 <> 0 do S := S + '=';
+    Result := TIdDecoderMIME.DecodeString(S, IndyTextEncoding_UTF8);
+
+  finally
+    SL.Free;
+  end;
+end;
 end.

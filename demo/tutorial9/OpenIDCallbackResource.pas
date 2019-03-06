@@ -60,13 +60,51 @@ procedure TOpenIDCallbackResource.OnGet(Request: TdjRequest;
   Response: TdjResponse);
 var
   AuthCode: string;
+  IdHTTP: TIdHTTP;
+  Params: TStrings;
+  ResponseText: string;
 begin
   AuthCode := Request.Params.Values['code'];
 
-  WriteLn('AuthCode: ' + AuthCode);
+  if AuthCode = '' then begin
+    // get an auth code
+    Response.Redirect(OpenIDParams.auth_uri
+     + '?client_id=' + OpenIDParams.client_id
+     + '&response_type=code'
+     + '&scope=openid%20profile%20email' // phone
+     + '&redirect_uri=' + OpenIDParams.redirect_uri
+     + '&state=' + Request.Session.Content.Values['state']
+     );
+  end else begin
+    // auth code received, check state first
+    if (Request.Params.Values['state'] <> Request.Session.Content.Values['state']) then
+    begin
+      Response.ResponseNo := 401;
+      WriteLn('Invalid state parameter.');
+      Exit;
+    end;
+    // exchange auth code for access token and ID token
+    Params := TStringList.Create;
+    IdHTTP := TIdHTTP.Create;
+    try
+      Params.Values['code'] := AuthCode;
+      Params.Values['client_id'] := OpenIDParams.client_id;
+      Params.Values['client_secret'] := OpenIDParams.client_secret;
+      Params.Values['redirect_uri'] := OpenIDParams.redirect_uri;
+      Params.Values['grant_type'] := 'authorization_code';
 
-  Response.ContentType := 'text/plain';
-  Response.CharSet := 'utf-8';
+      ResponseText := IdHTTP.Post(OpenIDParams.token_uri, Params);
+
+      Response.Session.Content.Values['credentials'] := ResponseText;
+
+      WriteLn('received credentials');
+
+      Response.Redirect('/index.html');
+    finally
+      IdHTTP.Free;
+      Params.Free;
+    end;
+  end
 end;
 
 end.
