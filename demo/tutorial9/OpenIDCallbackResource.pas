@@ -72,7 +72,8 @@ begin
     Response.Redirect(OpenIDParams.auth_uri
      + '?client_id=' + OpenIDParams.client_id
      + '&response_type=code'
-     + '&scope=openid%20profile%20email' // phone
+     + '&scope=openid%20profile%20email'  // Google
+     //+ '&scope=user'  // GitHub / OAuth
      + '&redirect_uri=' + OpenIDParams.redirect_uri
      + '&state=' + Request.Session.Content.Values['state']
      );
@@ -89,14 +90,18 @@ begin
     IdHTTP := TIdHTTP.Create;
     try
       IOHandler := TIdSSLIOHandlerSocketOpenSSL.Create(IdHTTP);
-      IOHandler.SSLOptions.SSLVersions := [sslvTLSv1_1, sslvTLSv1_2];
+      IOHandler.SSLOptions.SSLVersions := [{sslvTLSv1_1, }sslvTLSv1_2];
       IdHTTP.IOHandler := IOHandler;
 
       Params.Values['code'] := AuthCode;
       Params.Values['client_id'] := OpenIDParams.client_id;
       Params.Values['client_secret'] := OpenIDParams.client_secret;
-      Params.Values['redirect_uri'] := OpenIDParams.redirect_uri;
-      Params.Values['grant_type'] := 'authorization_code';
+      Params.Values['redirect_uri'] := OpenIDParams.redirect_uri; // optional for GitHub
+      Params.Values['grant_type'] := 'authorization_code'; // not for GitHub
+
+      // https://stackoverflow.com/questions/21978125/
+      IdHTTP.Request.Accept := 'application/json';
+      IdHTTP.Request.UserAgent := 'Foo';
 
       ResponseText := IdHTTP.Post(OpenIDParams.token_uri, Params);
 

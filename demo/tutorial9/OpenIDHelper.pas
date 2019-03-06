@@ -181,8 +181,8 @@ begin
   C := TJSONObject(Data);
 
   Result.access_token := C.Get('access_token');
-  Result.id_token := C.Get('id_token');
-  Result.expires_in := C.Get('expires_in');
+  Result.id_token := C.Get('id_token', '');
+  Result.expires_in := C.Get('expires_in', 0);
 
   // token_type = bearer
   // refresh_token only if access_type=offline
