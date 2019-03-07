@@ -58,7 +58,7 @@ begin
     try
       Context := TdjWebAppContext.Create('', True);
 
-      Context.Add(TRootResource, '/');
+      Context.Add(TRootResource, '/index.html');
       Context.Add(TOpenIDCallbackResource, MY_CALLBACK_URL);
 
       Server.Add(Context);
@@ -67,14 +67,14 @@ begin
       LogHandler := TdjNCSALogHandler.Create;
       Server.AddHandler(LogHandler);
 
-      LoadClientSecrets('openid_secret.json');
+      LoadClientSecrets('client_secret.json');
 
       Server.Start;
 
       // launch browser
-      ShellExecute(0, 'open', PChar(MY_HOST + '/'), '', '', 0);
+      ShellExecute(0, 'open', PChar(MY_HOST + '/index.html'), '', '', 0);
 
-      WriteLn('Server is running, launching ' + MY_HOST + '/ ...');
+      WriteLn('Server is running, launching ' + MY_HOST + '/index.html ...');
       WriteLn('Hit any key to terminate.');
     except
       on E: Exception do WriteLn(E.Message);

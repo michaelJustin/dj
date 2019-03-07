@@ -35,19 +35,21 @@ interface
 {$i IdCompilerDefines.inc}
 
 uses
-  OpenIDHelper, Classes;
+  Classes;
 
-function Bind(Context, FileName: string; OpenIDParams: TOpenIDParams): string;
+function Bind(Context, FileName: string; Params: TStrings): string;
 
 implementation
 
 uses
   SysUtils;
 
-function Bind(Context, FileName: string; OpenIDParams: TOpenIDParams): string;
+function Bind(Context, FileName: string; Params: TStrings): string;
 var
   SL : TStrings;
   Folder: string;
+  I: Integer;
+  Name, Value, Search: string;
 begin
   if Context = '' then Folder := 'ROOT' else Folder := Context;
 
@@ -63,27 +65,23 @@ begin
   Result := StringReplace(Result,
       '<dj:header/>',
       '<header>' +
-      '<p>Navigation</p>' +
+      '<p></p>' +
       '</header>',
       [rfReplaceAll]);
 
-  (*
-  PayPal Result := StringReplace(Result,
-      '#{appid}',
-      OpenIDParams.appid,
-      [rfReplaceAll]);
-  *)
-
-  // Google
   Result := StringReplace(Result,
-      '#{client_id}',
-      OpenIDParams.client_id,
+      '<dj:footer/>',
+      '<footer>' +
+      '<p></p>' +
+      '</footer>',
       [rfReplaceAll]);
 
-  Result := StringReplace(Result,
-      '#{returnurl}',
-      OpenIDParams.returnurl,
-      [rfReplaceAll]);
+  for I := 0 to Params.Count -1 do begin
+    Name := Params.Names[I]; Value := Params.Values[Name];
+    Search := '#{sessionScope[' + Name + ']}';
+    if Pos(Search, Result) > 0 then
+      Result := StringReplace(Result, Search, Value, [rfReplaceAll])
+  end;
 end;
 
 end.
