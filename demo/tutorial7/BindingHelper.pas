@@ -1,7 +1,7 @@
 (*
 
     Daraja Framework
-    Copyright (C) 2016  Michael Justin
+    Copyright (C) Michael Justin
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
@@ -81,8 +81,7 @@ begin
       '<dj:header/>',
       '<header>' +
       '<p>Navigation</p>' +
-      '</header>'
-      ,
+      '</header>',
       [rfReplaceAll]);
 
   if SessionParams.Values['name'] <> '' then
@@ -91,18 +90,15 @@ begin
         '<dj:footer/>',
         '<footer>' +
         '<p>Logged in as <strong>#{email}</strong></p>' +
-        '</footer>'
-        ,
+        '</footer>',
         [rfReplaceAll]);
   end else begin
     Result := StringReplace(Result,
         '<dj:footer/>',
         '<footer>' +
         '<p>Not logged in</p>' +
-        '</footer>'
-        ,
+        '</footer>',
         [rfReplaceAll]);
-
   end;
 
   Result := StringReplace(Result,
@@ -124,7 +120,6 @@ begin
       '#{picture}',
       SessionParams.Values['picture'],
       [rfReplaceAll]);
-
 end;
 
 end.
