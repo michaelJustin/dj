@@ -102,8 +102,6 @@ begin
 
       Response.Session.Content.Values['credentials'] := ResponseText;
 
-      WriteLn('received credentials');
-
       Response.Redirect('/index.html');
     finally
       IdHTTP.Free;
