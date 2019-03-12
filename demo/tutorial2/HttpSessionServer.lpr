@@ -34,8 +34,6 @@ uses
   SessionDemoResource in 'SessionDemoResource.pas',
   MainUnit in 'MainUnit.pas';
 
-
-
 begin
   Demo;
 end.
