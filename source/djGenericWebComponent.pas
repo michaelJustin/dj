@@ -139,7 +139,7 @@ uses
 
 constructor TdjGenericWebComponent.Create;
 begin
-  inherited;
+  inherited Create;
 
   // logging -----------------------------------------------------------------
 {$IFDEF DARAJA_LOGGING}

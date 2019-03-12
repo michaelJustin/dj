@@ -98,7 +98,7 @@ implementation
 
 constructor TdjServerBase.Create;
 begin
-  inherited;
+  inherited Create;
 
   // logging -----------------------------------------------------------------
   {$IFDEF DARAJA_LOGGING}

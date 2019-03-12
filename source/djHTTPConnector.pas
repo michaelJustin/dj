@@ -107,7 +107,7 @@ begin
   Logger := TdjLoggerFactory.GetLogger('dj.' + TdjHTTPConnector.ClassName);
 {$ENDIF DARAJA_LOGGING}
 
-  inherited;
+  inherited Create(Handler);
 
   Assert(Assigned(Handler));
 
