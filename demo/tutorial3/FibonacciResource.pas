@@ -49,6 +49,13 @@ begin
   Result := fib(n-1) + fib(n-2);
 end;
 
+{$IFDEF FPC}
+function EndsText(const ASubText: string; const AText: string): Boolean;
+begin
+  Result := AText.EndsText(ASubText, AText);
+end;
+{$ENDIF}
+
 procedure TFibonacciResource.OnGet(Request: TdjRequest; Response: TdjResponse);
 const
   INVALID_ARGUMENT_VALUE = -1;

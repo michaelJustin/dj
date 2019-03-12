@@ -26,15 +26,36 @@
 
 *)
 
-program TwoMappingsServer;
+unit MainUnit;
 
-{$APPTYPE CONSOLE}
+interface
+
+procedure Demo;
+
+implementation
 
 uses
-  FibonacciResource in 'FibonacciResource.pas',
-  MainUnit in 'MainUnit.pas';
+  FibonacciResource,
+  djServer, djWebAppContext;
 
+procedure Demo;
+var
+  Server: TdjServer;
+  Context: TdjWebAppContext;
 begin
-  Demo;
-end.
+  Server := TdjServer.Create(80);
+  try
+    Context := TdjWebAppContext.Create('tutorial');
+    Context.Add(TFibonacciResource, '/fib.txt');
+    Context.Add(TFibonacciResource, '/fib.html');
+    Server.Add(Context);
+    Server.Start;
+    WriteLn('Server is running, please open http://localhost/tutorial/fib.html or fib.txt');
+	WriteLn('Hit any key to terminate.');
+    ReadLn;
+  finally
+    Server.Free;
+  end;
+end;
 
+end.
