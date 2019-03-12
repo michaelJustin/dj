@@ -108,7 +108,7 @@ end;
 
 constructor TdjNCSALogHandler.Create;
 begin
-  inherited;
+  inherited Create;
 
   // logging -----------------------------------------------------------------
 {$IFDEF DARAJA_LOGGING}

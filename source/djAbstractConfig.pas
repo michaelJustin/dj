@@ -102,7 +102,7 @@ implementation
 
 constructor TdjAbstractConfig.Create;
 begin
-  inherited;
+  inherited Create;
 
   FParams := TdjInitParameters.Create;
 end;

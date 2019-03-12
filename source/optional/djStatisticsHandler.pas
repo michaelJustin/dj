@@ -118,7 +118,7 @@ uses
 
 constructor TdjStatisticsHandler.Create;
 begin
-  inherited;
+  inherited Create;
 
   FResponses2xx := TIdThreadSafeInt64.Create;
   FResponses3xx := TIdThreadSafeInt64.Create;
