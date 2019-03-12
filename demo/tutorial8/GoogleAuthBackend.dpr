@@ -31,7 +31,8 @@ program GoogleAuthBackend;
 {$APPTYPE CONSOLE}
 
 uses
-  MainUnit;
+  MainUnit,
+  JsonDataObjects in '..\common\JsonDataObjects.pas';
 
 begin
   Demo;

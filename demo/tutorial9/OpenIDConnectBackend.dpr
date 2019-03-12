@@ -31,7 +31,8 @@ program OpenIDConnectBackend;
 {$APPTYPE CONSOLE}
 
 uses
-  MainUnit;
+  MainUnit,
+  JsonDataObjects in '..\common\JsonDataObjects.pas';
 
 begin
   Demo;

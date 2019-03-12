@@ -67,7 +67,7 @@ uses
   {$IFDEF FPC}
   fpjson, jsonparser;
   {$ELSE}
-  superobject;
+  JsonDataObjects;
   {$ENDIF}
 
 {$IFDEF FPC}
@@ -117,10 +117,9 @@ end;
 
 procedure LoadClientSecrets(Filename: string);
 var
-  C: ISuperObject;
-  web: ISuperObject;
+  C, web: TJsonObject;
 begin
-  C := TSuperObject.ParseFile(FileName, False);
+  C := TJsonObject.ParseFromFile(FileName) as TJsonObject;
 
   web := C.O['web'];
 
@@ -139,9 +138,9 @@ end;
 
 function ToCredentials(const JSON: string): TCredentials;
 var
-  C: ISuperObject;
+  C: TJsonObject;
 begin
-  C := SO(JSON);
+  C := TJsonObject.Parse(JSON) as TJsonObject;
 
   Result.access_token := C.S['access_token'];
   Result.expires_in := C.I['expires_in'];
