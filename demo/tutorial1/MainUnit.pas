@@ -30,13 +30,13 @@ unit MainUnit;
 
 interface
 
-uses
-  HelloWorldResource,
-  djServer, djWebAppContext;
-
 procedure Demo;
 
 implementation
+
+uses
+  HelloWorldResource,
+  djServer, djWebAppContext;
 
 procedure Demo;
 var
