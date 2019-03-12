@@ -26,14 +26,35 @@
 
 *)
 
-program HelloWorldServer;
+unit MainUnit;
 
-{$APPTYPE CONSOLE}
+interface
 
 uses
-  MainUnit in 'MainUnit.pas',
-  HelloWorldResource in 'HelloWorldResource.pas';
+  HelloWorldResource,
+  djServer, djWebAppContext;
 
+procedure Demo;
+
+implementation
+
+procedure Demo;
+var
+  Server: TdjServer;
+  Context: TdjWebAppContext;
 begin
-  Demo;
+  Server := TdjServer.Create(80);
+  try
+    Context := TdjWebAppContext.Create('tutorial');
+    Context.Add(THelloWorldResource, '/hello');
+    Server.Add(Context);
+    Server.Start;
+    WriteLn('Server is running, please open http://localhost/tutorial/hello');
+    WriteLn('Hit any key to terminate.');
+    ReadLn;
+  finally
+    Server.Free;
+  end;
+end;
+
 end.

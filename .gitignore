@@ -84,25 +84,17 @@ __history/
 # Heaptrace
 heaptrace.log
 
-# exact
-source/backup/
+backup/
 target/
 
-demo/bootstrap/backup/
-demo/common/backup/
-test/unittests/backup/
-
+# exact
 doc/DarajaFrameworkGettingStarted.pdf
 test/unittests/Unittests.fpcunit.ini
 test/unittests/Unittests.res
 test/unittests/dunit.ini
-demo/tutorial6/backup/
-demo/tutorial7/backup/
 demo/tutorial7/GoogleAuthBackend.ico
-demo/tutorial8/backup/
 demo/tutorial8/client_secret.json
 demo/tutorial8/superobject.pas
-demo/tutorial9/backup/
 demo/tutorial9/superobject.pas
 demo/tutorial9/openid_secret.json
 demo/tutorial9/client_secret.json
