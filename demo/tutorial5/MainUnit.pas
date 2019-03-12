@@ -21,21 +21,41 @@
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the Daraja framework without
     disclosing the source code of your own applications. These activities
-    include: offering paid services to customers as an ASP, shipping Daraja 
+    include: offering paid services to customers as an ASP, shipping Daraja
     with a closed source product.
 
 *)
 
-program FormBasedLoginServer;
+unit MainUnit;
 
-{$APPTYPE CONSOLE}
+interface
+
+procedure Demo;
+
+implementation
 
 uses
-  LoginResource in 'LoginResource.pas',
-  LogoutResource in 'LogoutResource.pas',
-  MainUnit in 'MainUnit.pas';
+  LoginResource, LogoutResource,
+  djServer, djWebAppContext;
 
+procedure Demo;
+var
+  Server: TdjServer;
+  Context: TdjWebAppContext;
 begin
-  Demo;
-end.
+  Server := TdjServer.Create(80);
+  try
+    Context := TdjWebAppContext.Create('', True);
+    Context.Add(TLoginResource, '/index.html');
+    Context.Add(TLogoutResource, '/logout');
+    Server.Add(Context);
+    Server.Start;
+    WriteLn('Server is running, please open http://localhost/index.html');
+    WriteLn('Hit any key to terminate.');
+    ReadLn;
+  finally
+    Server.Free;
+  end;
+end;
 
+end.
