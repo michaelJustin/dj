@@ -26,16 +26,35 @@
 
 *)
 
-program BinaryResponseServer;
+unit MainUnit;
 
-{$APPTYPE CONSOLE}
+interface
+
+procedure Demo;
+
+implementation
 
 uses
-  BinaryResource in 'BinaryResource.pas',
-  MainUnit in 'MainUnit.pas';
+  BinaryResource,
+  djServer, djWebAppContext;
 
+procedure Demo;
+var
+  Server: TdjServer;
+  Context: TdjWebAppContext;
 begin
-  Demo;
+  Server := TdjServer.Create(80);
+  try
+    Context := TdjWebAppContext.Create('tutorial');
+    Context.Add(TBinaryResource, '/example.pdf');
+    Server.Add(Context);
+    Server.Start;
+    WriteLn('Server is running, please open http://localhost/tutorial/example.pdf');
+    WriteLn('Hit any key to terminate.');
+    ReadLn;
+  finally
+    Server.Free;
+  end;
+end;
+
 end.
-
-
