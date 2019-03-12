@@ -26,44 +26,58 @@
 
 *)
 
-unit FooterTemplate;
+unit MainUnit;
 
 interface
 
-uses
-  djTypes;
-
-function GetFooterHtml(const Request: TdjRequest): string;
+procedure Demo;
 
 implementation
 
 uses
-  SysUtils;
+  djServer,
+  djWebAppContext,
+  djInterfaces,
+  djNCSALogHandler,
+  PublicResource,
+  SecuredResource,
+  LoginResource,
+  LoginErrorResource,
+  LogoutResource,
+  FormAuthHandler;
 
-function GetFooterHtml(const Request: TdjRequest): string;
+procedure Demo;
 var
-  UserName: string;
-  IsLoggedIn: Boolean;
+  Server: TdjServer;
+  Context: TdjWebAppContext;
+  Handler: IHandler;
+  LogHandler: IHandler;
 begin
-  UserName := Request.Session.Content.Values['auth:username'];
-  IsLoggedIn := UserName <> '';
+  Server := TdjServer.Create(80);
+  try
+    Context := TdjWebAppContext.Create('', True);
+    Context.Add(TPublicResource, '/index.html');
+    Context.Add(TSecuredResource, '/admin');
+    Context.Add(TLoginResource, '/login');
+    Context.Add(TLoginErrorResource, '/loginError');
+    Context.Add(TLogoutResource, '/logout');
+    Server.Add(Context);
 
-  Result :=
-    '  <footer>' + #13
-  + '  <hr />' + #13
-  + '  <div>' + #13
-  + '    <a href="/index.html">Main page</a>' + #13
-  + '    <a href="/admin">Administration</a>' + #13;
+    // add the security handler
+    Handler := TFormAuthHandler.Create;
+    Server.AddHandler(Handler);
 
-  if IsLoggedIn then
-  begin
-    Result := Result + Format(
-      '    <a href="/logout">Logout</a> Logged in as %s' + #13
-      , [UserName]);
+    // add NCSA logger handler (at the end to log all handlers)
+    LogHandler := TdjNCSALogHandler.Create;
+    Server.AddHandler(LogHandler);
+
+    Server.Start;
+    WriteLn('Server is running, please open http://localhost/index.html');
+    WriteLn('Hit any key to terminate.');
+    ReadLn;
+  finally
+    Server.Free;
   end;
-  Result := Result
-    + '  </div>' + #13
-    + '  </footer>' + #13;
 end;
 
 end.

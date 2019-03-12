@@ -1,7 +1,7 @@
 (*
 
     Daraja Framework
-    Copyright (C) 2016  Michael Justin
+    Copyright (C) Michael Justin
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
@@ -31,51 +31,14 @@ program FormBasedLoginServer;
 {$APPTYPE CONSOLE}
 
 uses
-  djServer,
-  djWebAppContext,
-  djInterfaces,
-  djNCSALogHandler,
   PublicResource in 'PublicResource.pas',
   SecuredResource in 'SecuredResource.pas',
   LoginResource in 'LoginResource.pas',
   LoginErrorResource in 'LoginErrorResource.pas',
   LogoutResource in 'LogoutResource.pas',
   FormAuthHandler in 'FormAuthHandler.pas',
-  FooterTemplate in 'FooterTemplate.pas';
-
-procedure Demo;
-var
-  Server: TdjServer;
-  Context: TdjWebAppContext;
-  Handler: IHandler;
-  LogHandler: IHandler;
-begin
-  Server := TdjServer.Create(80);
-  try
-    Context := TdjWebAppContext.Create('', True);
-    Context.Add(TPublicResource, '/index.html');
-    Context.Add(TSecuredResource, '/admin');
-    Context.Add(TLoginResource, '/login');
-    Context.Add(TLoginErrorResource, '/loginError');
-    Context.Add(TLogoutResource, '/logout');
-    Server.Add(Context);
-
-    // add the security handler
-    Handler := TFormAuthHandler.Create;
-    Server.AddHandler(Handler);
-
-    // add NCSA logger handler (at the end to log all handlers)
-    LogHandler := TdjNCSALogHandler.Create;
-    Server.AddHandler(LogHandler);
-
-    Server.Start;
-    WriteLn('Server is running, please open http://localhost/index.html');
-    WriteLn('Hit any key to terminate.');
-    ReadLn;
-  finally
-    Server.Free;
-  end;
-end;
+  FooterTemplate in 'FooterTemplate.pas',
+  MainUnit in 'MainUnit.pas';
 
 begin
   Demo;

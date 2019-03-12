@@ -7,13 +7,11 @@
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
       <Title Value="GoogleAuthBackend"/>
-      <Scaled Value="True"/>
+      <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
-      <UseXPManifest Value="True"/>
       <XPManifest>
         <DpiAware Value="True"/>
       </XPManifest>
-      <Icon Value="0"/>
     </General>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
@@ -49,14 +47,16 @@
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
-    <Target>
-      <Filename Value="GoogleAuthBackend"/>
-    </Target>
     <SearchPaths>
-      <IncludeFiles Value="..\..\..\Indy10\Lib\Core;$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\..\Indy10\Lib\Core;..\..\..\Indy10\Lib\Protocols;..\..\..\Indy10\Lib\System;..\..\source;..\..\source\optional;..\common;F:\Sandbox_Delphi\TimeShuttleD7\TimeShuttleCommon\"/>
+      <IncludeFiles Value="$(ProjOutDir);..\..\..\Indy10\Lib\Core"/>
+      <OtherUnitFiles Value="..\..\source;..\..\source\optional;..\..\..\Indy10\Lib\Core;..\..\..\Indy10\Lib\Protocols;..\..\..\Indy10\Lib\System"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <SyntaxMode Value="Delphi"/>
+      </SyntaxOptions>
+    </Parsing>
     <Linking>
       <Options>
         <Win32>

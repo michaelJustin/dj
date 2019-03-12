@@ -4,9 +4,14 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <General>
+      <Flags>
+        <MainUnitHasUsesSectionForAllUnits Value="False"/>
+        <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasTitleStatement Value="False"/>
+        <MainUnitHasScaledStatement Value="False"/>
+      </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <Title Value="GoogleAuthBackend"/>
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
       <XPManifest>
@@ -31,7 +36,7 @@
     </RequiredPackages>
     <Units Count="1">
       <Unit0>
-        <Filename Value="GoogleAuthBackend.lpr"/>
+        <Filename Value="HelloWorldServer.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
     </Units>

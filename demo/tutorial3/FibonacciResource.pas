@@ -1,6 +1,6 @@
 (*
 
-    Daraja Framework
+    Daraja HTTP Framework
     Copyright (C) Michael Justin
 
     This program is free software: you can redistribute it and/or modify
@@ -48,6 +48,13 @@ begin
   if n=1 then begin Result := 1; Exit; end;
   Result := fib(n-1) + fib(n-2);
 end;
+
+{$IFDEF FPC}
+function EndsText(const ASubText: string; const AText: string): Boolean;
+begin
+  Result := AText.EndsText(ASubText, AText);
+end;
+{$ENDIF}
 
 procedure TFibonacciResource.OnGet(Request: TdjRequest; Response: TdjResponse);
 const

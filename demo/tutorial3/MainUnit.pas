@@ -26,44 +26,36 @@
 
 *)
 
-unit FooterTemplate;
+unit MainUnit;
 
 interface
 
-uses
-  djTypes;
-
-function GetFooterHtml(const Request: TdjRequest): string;
+procedure Demo;
 
 implementation
 
 uses
-  SysUtils;
+  FibonacciResource,
+  djServer, djWebAppContext;
 
-function GetFooterHtml(const Request: TdjRequest): string;
+procedure Demo;
 var
-  UserName: string;
-  IsLoggedIn: Boolean;
+  Server: TdjServer;
+  Context: TdjWebAppContext;
 begin
-  UserName := Request.Session.Content.Values['auth:username'];
-  IsLoggedIn := UserName <> '';
-
-  Result :=
-    '  <footer>' + #13
-  + '  <hr />' + #13
-  + '  <div>' + #13
-  + '    <a href="/index.html">Main page</a>' + #13
-  + '    <a href="/admin">Administration</a>' + #13;
-
-  if IsLoggedIn then
-  begin
-    Result := Result + Format(
-      '    <a href="/logout">Logout</a> Logged in as %s' + #13
-      , [UserName]);
+  Server := TdjServer.Create(80);
+  try
+    Context := TdjWebAppContext.Create('tutorial');
+    Context.Add(TFibonacciResource, '/fib.txt');
+    Context.Add(TFibonacciResource, '/fib.html');
+    Server.Add(Context);
+    Server.Start;
+    WriteLn('Server is running, please open http://localhost/tutorial/fib.html or fib.txt');
+	WriteLn('Hit any key to terminate.');
+    ReadLn;
+  finally
+    Server.Free;
   end;
-  Result := Result
-    + '  </div>' + #13
-    + '  </footer>' + #13;
 end;
 
 end.
