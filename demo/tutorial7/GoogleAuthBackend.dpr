@@ -36,8 +36,7 @@ uses
   LoginResource in 'LoginResource.pas',
   PublicResource in 'PublicResource.pas',
   TokenSigninResource in 'TokenSigninResource.pas',
-  MainUnit in 'MainUnit.pas',
-  JsonDataObjects in '..\common\JsonDataObjects.pas';
+  MainUnit in 'MainUnit.pas';
 
 begin
   Demo;

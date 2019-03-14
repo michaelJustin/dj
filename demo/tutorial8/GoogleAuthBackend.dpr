@@ -32,7 +32,9 @@ program GoogleAuthBackend;
 
 uses
   MainUnit,
-  JsonDataObjects in '..\common\JsonDataObjects.pas';
+  OAuth2CallbackResource in 'OAuth2CallbackResource.pas',
+  OAuthHelper in 'OAuthHelper.pas',
+  RootResource in 'RootResource.pas';
 
 begin
   Demo;

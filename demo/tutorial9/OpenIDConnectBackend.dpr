@@ -32,7 +32,10 @@ program OpenIDConnectBackend;
 
 uses
   MainUnit,
-  JsonDataObjects in '..\common\JsonDataObjects.pas';
+  BindingHelper in 'BindingHelper.pas',
+  OpenIDCallbackResource in 'OpenIDCallbackResource.pas',
+  OpenIDHelper in 'OpenIDHelper.pas',
+  RootResource in 'RootResource.pas';
 
 begin
   Demo;
