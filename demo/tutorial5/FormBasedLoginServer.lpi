@@ -8,6 +8,7 @@
         <MainUnitHasCreateFormStatements Value="False"/>
         <MainUnitHasTitleStatement Value="False"/>
         <MainUnitHasScaledStatement Value="False"/>
+        <UseDefaultCompilerOptions Value="True"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
@@ -31,30 +32,19 @@
         <PackageName Value="LazUtils"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="3">
+    <Units Count="1">
       <Unit0>
         <Filename Value="FormBasedLoginServer.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
-      <Unit1>
-        <Filename Value="LoginResource.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit1>
-      <Unit2>
-        <Filename Value="LogoutResource.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
-    <Target>
-      <Filename Value="FormBasedLoginServer"/>
-    </Target>
     <SearchPaths>
-      <IncludeFiles Value="..\..\..\Indy10\Lib\Core;$(ProjOutDir)"/>
-      <OtherUnitFiles Value="..\..\source;..\..\..\Indy10\Lib\Core;..\..\..\Indy10\Lib\Protocols;..\..\..\Indy10\Lib\System;..\common"/>
+      <IncludeFiles Value="$(ProjOutDir);..\..\..\Indy10\Lib\Core"/>
+      <OtherUnitFiles Value="..\..\source;..\..\source\optional;..\..\..\Indy10\Lib\Core;..\..\..\Indy10\Lib\Protocols;..\..\..\Indy10\Lib\System"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Parsing>
@@ -62,6 +52,13 @@
         <SyntaxMode Value="Delphi"/>
       </SyntaxOptions>
     </Parsing>
+    <Linking>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="12">

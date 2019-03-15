@@ -1,6 +1,7 @@
 (*
-    Daraja Web Framework
-    Copyright (C) 2016 Michael Justin
+
+    Daraja HTTP Framework
+    Copyright (C) Michael Justin
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as published by
@@ -15,45 +16,26 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+
     You can be released from the requirements of the license by purchasing
     a commercial license. Buying such a license is mandatory as soon as you
     develop commercial activities involving the Daraja framework without
     disclosing the source code of your own applications. These activities
-    include: offering paid services to customers as an ASP, shipping Daraja
+    include: offering paid services to customers as an ASP, shipping Daraja 
     with a closed source product.
-    
+
 *)
 
 program FormBasedLoginServer;
 
-// note: this is unsupported example code
+{$APPTYPE CONSOLE}
 
 uses
-  djServer,
-  djWebAppContext,
   LoginResource in 'LoginResource.pas',
-  LogoutResource in 'LogoutResource.pas';
-
-procedure Demo;
-var
-  Server: TdjServer;
-  Context: TdjWebAppContext;
-begin
-  Server := TdjServer.Create(80);
-  try
-    Context := TdjWebAppContext.Create('', True);
-    Context.Add(TLoginResource, '/index.html');
-    Context.Add(TLogoutResource, '/logout');
-    Server.Add(Context);
-    Server.Start;
-    WriteLn('Server is running, please open http://localhost/index.html');
-    WriteLn('Hit any key to terminate.');
-    ReadLn;
-  finally
-    Server.Free;
-  end;
-end;
+  LogoutResource in 'LogoutResource.pas',
+  MainUnit in 'MainUnit.pas';
 
 begin
   Demo;
 end.
+

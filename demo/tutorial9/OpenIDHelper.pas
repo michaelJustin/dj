@@ -1,6 +1,6 @@
 (*
 
-    Daraja Framework
+    Daraja HTTP Framework
     Copyright (C) Michael Justin
 
     This program is free software: you can redistribute it and/or modify
@@ -108,7 +108,7 @@ uses
   {$IFDEF FPC}
   fpjson, jsonparser;
   {$ELSE}
-  superobject;
+  JsonDataObjects;
   {$ENDIF}
 
 function CreateState: string;
@@ -149,10 +149,9 @@ end;
 
 procedure LoadClientSecrets(Filename: string);
 var
-  C: ISuperObject;
-  web: ISuperObject;
+  C, web: TJsonObject;
 begin
-  C := TSuperObject.ParseFile(FileName, False);
+  C := TJsonObject.ParseFromFile(FileName) as TJsonObject;
 
   web := C.O['web'];
 
@@ -209,9 +208,9 @@ end;
 {$ELSE}
 function ToIdTokenResponse(const JSON: string): TIdTokenResponse;
 var
-  C: ISuperObject;
+  C: TJsonObject;
 begin
-  C := SO(JSON);
+  C := TJsonObject.Parse(JSON) as TJsonObject;
 
   Result.access_token := C.S['access_token'];
   Result.id_token := C.S['id_token'];
@@ -223,9 +222,9 @@ end;
 
 function ParseJWT(const JSON: string): TIdTokenClaims;
 var
-  C: ISuperObject;
+  C: TJsonObject;
 begin
-  C := SO(JSON);
+  C := TJsonObject.Parse(JSON) as TJsonObject;
 
   Result.iss := C.S['iss'];
   Result.sub := C.S['sub'];
@@ -243,11 +242,10 @@ end;
 function ReadJWTParts(const JSON: string): string;
 var
   SL: TStrings;
-  // I: Integer;
   S: string;
 begin
-  Assert('{"alg":"RS256","kid":"cf022a49e9786148ad0e379cc854844e36c3edc1","typ":"JWT"' =
-    TIdDecoderMIME.DecodeString('eyJhbGciOiJSUzI1NiIsImtpZCI6ImNmMDIyYTQ5ZTk3ODYxNDhhZDBlMzc5Y2M4NTQ4NDRlMzZjM2VkYzEiLCJ0eXAiOiJKV1QifQ', IndyTextEncoding_UTF8));
+  // Assert('{"alg":"RS256","kid":"cf022a49e9786148ad0e379cc854844e36c3edc1","typ":"JWT"' =
+  //  TIdDecoderMIME.DecodeString('eyJhbGciOiJSUzI1NiIsImtpZCI6ImNmMDIyYTQ5ZTk3ODYxNDhhZDBlMzc5Y2M4NTQ4NDRlMzZjM2VkYzEiLCJ0eXAiOiJKV1QifQ', IndyTextEncoding_UTF8));
 
   SL := TStringlist.Create;
   try
@@ -264,4 +262,5 @@ begin
     SL.Free;
   end;
 end;
+
 end.

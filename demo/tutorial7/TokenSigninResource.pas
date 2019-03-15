@@ -1,6 +1,6 @@
 ﻿(*
 
-    Daraja Framework
+    Daraja HTTP Framework
     Copyright (C) Michael Justin
 
     This program is free software: you can redistribute it and/or modify
@@ -47,7 +47,7 @@ uses
   {$IFDEF FPC}
   fpjson, jsonparser;
   {$ELSE}
-  superobject;
+  JsonDataObjects;
   {$ENDIF}
 
 type
@@ -77,9 +77,9 @@ end;
 {$ELSE}
 function ToClaims(const JSON: string): TClaims;
 var
-  Claims: ISuperObject;
+  Claims: TJsonObject;
 begin
-  Claims := SO(JSON);
+  Claims := TJsonObject.Parse(JSON) as TJsonObject;
 
   Result.aud := Claims.S['aud'];
   Result.name := Claims.S['name'];

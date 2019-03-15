@@ -1,6 +1,6 @@
 (*
 
-    Daraja Framework
+    Daraja HTTP Framework
     Copyright (C) Michael Justin
 
     This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,11 @@ program OpenIDConnectBackend;
 {$APPTYPE CONSOLE}
 
 uses
-  MainUnit;
+  MainUnit,
+  BindingHelper in 'BindingHelper.pas',
+  OpenIDCallbackResource in 'OpenIDCallbackResource.pas',
+  OpenIDHelper in 'OpenIDHelper.pas',
+  RootResource in 'RootResource.pas';
 
 begin
   Demo;

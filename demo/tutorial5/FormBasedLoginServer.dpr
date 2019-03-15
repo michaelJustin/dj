@@ -1,6 +1,6 @@
 (*
 
-    Daraja Framework
+    Daraja HTTP Framework
     Copyright (C) Michael Justin
 
     This program is free software: you can redistribute it and/or modify
@@ -31,30 +31,9 @@ program FormBasedLoginServer;
 {$APPTYPE CONSOLE}
 
 uses
-  djServer,
-  djWebAppContext,
   LoginResource in 'LoginResource.pas',
-  LogoutResource in 'LogoutResource.pas';
-
-procedure Demo;
-var
-  Server: TdjServer;
-  Context: TdjWebAppContext;
-begin
-  Server := TdjServer.Create(80);
-  try
-    Context := TdjWebAppContext.Create('', True);
-    Context.Add(TLoginResource, '/index.html');
-    Context.Add(TLogoutResource, '/logout');
-    Server.Add(Context);
-    Server.Start;
-    WriteLn('Server is running, please open http://localhost/index.html');
-    WriteLn('Hit any key to terminate.');
-    ReadLn;
-  finally
-    Server.Free;
-  end;
-end;
+  LogoutResource in 'LogoutResource.pas',
+  MainUnit in 'MainUnit.pas';
 
 begin
   Demo;

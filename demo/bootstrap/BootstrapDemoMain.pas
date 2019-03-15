@@ -1,6 +1,6 @@
 (*
 
-    Daraja Framework
+    Daraja HTTP Framework
     Copyright (C) Michael Justin
 
     This program is free software: you can redistribute it and/or modify
@@ -38,7 +38,6 @@ implementation
 
 uses
   {$IFDEF DARAJA_LOGGING}
-  djLogAPI,
   djLogOverSimpleLogger,
   SimpleLogger,
   {$ENDIF DARAJA_LOGGING}

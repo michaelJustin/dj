@@ -1,6 +1,6 @@
 (*
 
-    Daraja Framework
+    Daraja HTTP Framework
     Copyright (C) Michael Justin
 
     This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,10 @@ program GoogleAuthBackend;
 {$APPTYPE CONSOLE}
 
 uses
-  MainUnit;
+  MainUnit,
+  OAuth2CallbackResource in 'OAuth2CallbackResource.pas',
+  OAuthHelper in 'OAuthHelper.pas',
+  RootResource in 'RootResource.pas';
 
 begin
   Demo;

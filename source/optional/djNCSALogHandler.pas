@@ -33,11 +33,11 @@ interface
 {$i IdCompilerDefines.inc}
 
 uses
-  djHandlerWrapper, djServerContext,
+  djHandlerWrapper, djServerContext, djTypes,
 {$IFDEF DARAJA_LOGGING}
   djLogAPI, djLoggerFactory,
 {$ENDIF DARAJA_LOGGING}
-  IdCustomHTTPServer, djTypes,
+  IdCustomHTTPServer,
   SysUtils;
 
 type
@@ -78,8 +78,7 @@ type
 implementation
 
 uses
-  djPlatform,
-  IdGlobal{$IFDEF MSWINDOWS}, Windows{$ENDIF};
+  IdGlobal{$IFNDEF FPC}, Windows{$ENDIF};
 
 function DateTimeToNCSATime(const AValue: TDateTime; const AFS:
   TFormatSettings): string;
@@ -109,7 +108,7 @@ end;
 
 constructor TdjNCSALogHandler.Create;
 begin
-  inherited;
+  inherited Create;
 
   // logging -----------------------------------------------------------------
 {$IFDEF DARAJA_LOGGING}
@@ -132,7 +131,6 @@ end;
 
 procedure TdjNCSALogHandler.Handle(Target: string; Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
-
 var
   LogMsg: string;
 
