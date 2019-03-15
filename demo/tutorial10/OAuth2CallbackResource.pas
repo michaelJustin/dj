@@ -42,8 +42,8 @@ type
 implementation
 
 uses
-  GitHubHelper,
-  IdHTTP, IdSSLOpenSSL, SysUtils, Classes;
+  GitHubHelper, IndyHttpTransport,
+  SysUtils, Classes;
 
 { TOAuth2CallbackResource }
 
@@ -52,8 +52,7 @@ procedure TOAuth2CallbackResource.OnGet(Request: TdjRequest;
 var
   AuthCode: string;
   State: string;
-  IdHTTP: TIdHTTP;
-  IOHandler: TIdSSLIOHandlerSocketOpenSSL;
+  IdHTTP: TIndyHttpTransport;
   Params: TStrings;
   ResponseText: string;
 begin
@@ -71,12 +70,8 @@ begin
     // To access the OAuth provider and get the user information we need to
     // exchange the AUTHORIZATON_CODE for an ACCESS_TOKEN.
     Params := TStringList.Create;
-    IdHTTP := TIdHTTP.Create;
+    IdHTTP := TIndyHttpTransport.Create;
     try
-      IOHandler := TIdSSLIOHandlerSocketOpenSSL.Create(IdHTTP);
-      IOHandler.SSLOptions.SSLVersions := [sslvTLSv1_1, sslvTLSv1_2];
-      IdHTTP.IOHandler := IOHandler;
-
       Params.Values['client_id'] := client_id;
       Params.Values['client_secret'] := client_secret;
       Params.Values['code'] := AuthCode;
@@ -85,7 +80,6 @@ begin
       // Params.Values['grant_type'] := 'authorization_code'; // see https://tools.ietf.org/html/rfc6749#section-4.1.3
 
       IdHTTP.Request.Accept := 'application/json';
-      IdHTTP.Request.UserAgent := 'Foo';
 
       ResponseText := IdHTTP.Post(token_uri, Params);
 

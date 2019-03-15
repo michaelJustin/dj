@@ -26,58 +26,48 @@
 
 *)
 
-unit RootResource;
+unit IndyHttpTransport;
+
+// note: this is unsupported example code
 
 interface
 
+{$i IdCompilerDefines.inc}
+
 uses
-  djWebComponent, djTypes;
+  IdHTTP;
 
 type
-  TRootResource = class(TdjWebComponent)
+  TIndyHttpTransport = class(TIdCustomHTTP)
   public
-    procedure OnGet(Request: TdjRequest; Response: TdjResponse); override;
+    constructor Create;
   end;
 
 implementation
 
 uses
-  GitHubHelper, IndyHttpTransport,
-  SysUtils, Classes;
+  djGlobal,
+  IdSSLOpenSSL;
 
-{ TRootResource }
+{ TIndyHttpTransport }
 
-procedure TRootResource.OnGet(Request: TdjRequest; Response: TdjResponse);
+constructor TIndyHttpTransport.Create;
 var
-  C: string;
-  IdTokenResponse: TIdTokenResponse;
-  IdHTTP: TIndyHttpTransport;
-  JsonResponse: string;
+  SSLIO: TIdSSLIOHandlerSocketOpenSSL;
 begin
-  C := Request.Session.Content.Values['credentials'];
+  inherited Create;
 
-  if C = '' then begin
-    Response.Session.Content.Values['state'] := CreateState;
-    Response.Redirect(MY_CALLBACK_URL)
-  end else begin
-    IdTokenResponse := ToIdTokenResponse(C);
+  HTTPOptions := HTTPOptions + [hoNoProtocolErrorException, hoWantProtocolErrorContent];
 
-    IdHTTP := TIndyHttpTransport.Create;
-    try
-      IdHTTP.Request.Accept := 'application/json';
+  SSLIO := TIdSSLIOHandlerSocketOpenSSL.Create(Self);
+  SSLIO.SSLOptions.SSLVersions := [sslvTLSv1, sslvTLSv1_1, sslvTLSv1_2];
+  SSLIO.SSLOptions.Mode        := sslmClient;
+  SSLIO.SSLOptions.VerifyMode  := [];
+  SSLIO.SSLOptions.VerifyDepth := 0;
 
-      IdHTTP.Request.CustomHeaders.Values['Authorization'] :=
-          'Bearer ' + IdTokenResponse.access_token;
+  Self.IOHandler := SSLIO;
 
-      JsonResponse := IdHTTP.Get('https://api.github.com/user');
-    finally
-      IdHTTP.Free;
-    end;
-
-    Response.ContentText := PrettyJson(JsonResponse);
-    Response.ContentType := 'text/plain';
-    Response.CharSet := 'utf-8';
-  end;
+  Request.UserAgent := djGlobal.DWF_SERVER_FULL_NAME;
 end;
 
 end.
