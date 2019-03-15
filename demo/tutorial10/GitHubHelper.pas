@@ -38,7 +38,7 @@ uses
   Classes;
 
 const
-  USER_SCOPE = 'user';
+  USER_SCOPE = 'read:user read:email';
   auth_uri = 'https://github.com/login/oauth/authorize';
   token_uri = 'https://github.com/login/oauth/access_token';
 
