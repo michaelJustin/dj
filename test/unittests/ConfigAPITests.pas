@@ -97,6 +97,8 @@ type
 
     procedure TestBindErrorRaisesException;
 
+    procedure TestCachedGetRequest;
+
   end;
 
 implementation
@@ -575,6 +577,26 @@ begin
   Response.ContentText := 'Hello';
 end;
 
+// ---
+type
+  TCachedGetComponent = class(TdjWebComponent)
+  public
+    procedure OnGet(Request: TdjRequest; Response: TdjResponse);  override;
+    function OnGetLastModified(Request: TdjRequest): TDateTime; override;
+  end;
+
+{ TCachedGetComponent }
+
+procedure TCachedGetComponent.OnGet(Request: TdjRequest; Response: TdjResponse);
+begin
+  Response.ContentText := 'CachedGET';
+end;
+
+function TCachedGetComponent.OnGetLastModified(Request: TdjRequest): TDateTime;
+begin
+  Result := Now;
+end;
+
 procedure TAPIConfigTests.TestNoMatchingContextReturns404;
 var
   Server: TdjServer;
@@ -947,6 +969,29 @@ begin
     {$ENDIF}
 
     CheckGETResponseEquals('中文', '/get/hello');
+
+  finally
+    Server.Free;
+  end;
+end;
+
+procedure TAPIConfigTests.TestCachedGetRequest;
+var
+  Server: TdjServer;
+  Context: TdjWebAppContext;
+begin
+  Server := TdjServer.Create;
+  try
+    Context := TdjWebAppContext.Create('cached');
+    Context.AddWebComponent(TCachedGetComponent, '*.html');
+    Server.Add(Context);
+    Server.Start;
+
+    // set "If-Modified-Since" header to yesterday to enforce a fresh response
+    CheckCachedGETResponseEquals(Date - 1, 'CachedGET', '/cached/index.html');
+
+    // set "If-Modified-Since" header to Now to get "304 resource not modified"
+    CheckCachedGETResponseIs304(Now, '/cached/index.html');
 
   finally
     Server.Free;

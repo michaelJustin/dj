@@ -56,6 +56,8 @@ type
     Logger: ILogger;
 {$ENDIF DARAJA_LOGGING}
 
+    procedure DoCachedGet(Request: TdjRequest; Response: TdjResponse); virtual;
+
   protected
     (**
      * Called by the server (via the service method) to allow a component to handle a DELETE request.
@@ -98,6 +100,16 @@ type
      *)
     procedure OnPatch(Request: TdjRequest; Response: TdjResponse); virtual;
 
+    (**
+     * Returns the time the WebComponent object was last modified.
+     * If the time is unknown, this method returns 0 (the default).
+     * WebComponents that support HTTP GET requests and can quickly determine
+     * their last modification time should override this method. This makes
+     * browser and proxy caches work more effectively, reducing the load on
+     * server and network resources.
+     *)
+    function OnGetLastModified(Request: TdjRequest): TDateTime; virtual;
+
   public
     constructor Create;
 
@@ -126,9 +138,11 @@ type
 implementation
 
 uses
-  IdCustomHTTPServer;
+  IdCustomHTTPServer, IdGlobalProtocols,
+  SysUtils;
 
 const
+  RESOURCE_LAST_MODIFIED_DEFAULT = 0;
   HTTP_ERROR_METHOD_NOT_ALLOWED = 405;
 
 { TdjWebComponent }
@@ -192,6 +206,38 @@ begin
   Response.ResponseNo := HTTP_ERROR_METHOD_NOT_ALLOWED;
 end;
 
+function TdjWebComponent.OnGetLastModified(Request: TdjRequest): TDateTime;
+begin
+  Result := RESOURCE_LAST_MODIFIED_DEFAULT;
+end;
+
+procedure TdjWebComponent.DoCachedGet(Request: TdjRequest;
+  Response: TdjResponse);
+var
+  ResourceDate : TDateTime;
+  ReqDate : TDateTime;
+begin
+  ResourceDate := OnGetLastModified(Request);
+
+  if ResourceDate = RESOURCE_LAST_MODIFIED_DEFAULT then
+  begin
+    OnGet(Request, Response);
+  end else begin
+    ReqDate := GMTToLocalDateTime(Request.RawHeaders.Values['If-Modified-Since']);
+    // if the file date in the If-Modified-Since header is within 2 seconds of the
+    // actual file, then we will send a 304.
+    if (ReqDate <> 0) and (Abs(ReqDate - ResourceDate) < 2 * (1 / (24 * 60 * 60))) then
+    begin
+      Response.ResponseNo := 304;
+    end else begin
+      Response.Date := Now;
+      Response.LastModified := ResourceDate;
+
+      OnGet(Request, Response);
+    end;
+  end;
+end;
+
 procedure TdjWebComponent.Service(Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
 begin
@@ -202,7 +248,7 @@ begin
       end;
     hcGET:
       begin
-        OnGet(Request, Response);
+        DoCachedGet(Request, Response);
       end;
     hcPOST:
       begin
