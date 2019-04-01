@@ -69,8 +69,9 @@ type
 
     procedure CheckPOSTResponseEquals(Expected: string; URL: string = ''; msg: string = '');
 
+    // for tests overriding the TdjWebComponent.OnGetLastModified method
+    // (since 1.2.10)
     procedure CheckCachedGETResponseEquals(IfModifiedSince: TDateTime; Expected: string; URL: string = ''; msg: string = '');
-
     procedure CheckCachedGETResponseIs304(IfModifiedSince: TDateTime; URL: string = ''; msg: string = '');
 
   end;
