@@ -169,6 +169,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a2d6a8e8f95d67b59e6872bb3566ddaea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTdjWebComponent.html#a2d6a8e8f95d67b59e6872bb3566ddaea">OnPatch</a> (<a class="el" href="classTdjRequest.html">TdjRequest</a> Request, <a class="el" href="classTdjResponse.html">TdjResponse</a> Response)</td></tr>
 <tr class="memdesc:a2d6a8e8f95d67b59e6872bb3566ddaea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by the server (via the service method) to allow a component to handle a PATCH request.  <a href="#a2d6a8e8f95d67b59e6872bb3566ddaea">More...</a><br /></td></tr>
 <tr class="separator:a2d6a8e8f95d67b59e6872bb3566ddaea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70994d564c63005c2d7f6dbab261b405"><td class="memItemLeft" align="right" valign="top">TDateTime&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTdjWebComponent.html#a70994d564c63005c2d7f6dbab261b405">OnGetLastModified</a> (<a class="el" href="classTdjRequest.html">TdjRequest</a> Request)</td></tr>
+<tr class="memdesc:a70994d564c63005c2d7f6dbab261b405"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the time the WebComponent object was last modified.  <a href="#a70994d564c63005c2d7f6dbab261b405">More...</a><br /></td></tr>
+<tr class="separator:a70994d564c63005c2d7f6dbab261b405"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classTdjGenericWebComponent"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classTdjGenericWebComponent')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classTdjGenericWebComponent.html">TdjGenericWebComponent</a></td></tr>
 <tr class="memitem:a850dc30af1e64dd23dd29b6088791638 inherit pro_methods_classTdjGenericWebComponent"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTdjGenericWebComponent.html#a850dc30af1e64dd23dd29b6088791638">Service</a> (<a class="el" href="classTdjServerContext.html">TdjServerContext</a> Context, <a class="el" href="classTdjRequest.html">TdjRequest</a> Request, <a class="el" href="classTdjResponse.html">TdjResponse</a> Response)</td></tr>
 <tr class="memdesc:a850dc30af1e64dd23dd29b6088791638 inherit pro_methods_classTdjGenericWebComponent"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle a HTTP request.  <a href="classTdjGenericWebComponent.html#a850dc30af1e64dd23dd29b6088791638">More...</a><br /></td></tr>
@@ -189,6 +192,43 @@ Additional Inherited Members</h2></td></tr>
 <li>OnDelete, for HTTP DELETE requests </li>
 </ul>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a70994d564c63005c2d7f6dbab261b405"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70994d564c63005c2d7f6dbab261b405">&#9670;&nbsp;</a></span>OnGetLastModified()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TDateTime TdjWebComponent::OnGetLastModified </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classTdjRequest.html">TdjRequest</a>&#160;</td>
+          <td class="paramname"><em>Request</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the time the WebComponent object was last modified. </p>
+<p>If the time is unknown, this method returns 0 (the default).</p>
+<p>WebComponents that support HTTP GET requests and can quickly determine their last modification time should override this method. This makes browser and proxy caches work more effectively, reducing the load on server and network resources.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Request</td><td>HTTP request </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the last modified timestamp </dd></dl>
+
+</div>
+</div>
 <a id="a2d6a8e8f95d67b59e6872bb3566ddaea"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2d6a8e8f95d67b59e6872bb3566ddaea">&#9670;&nbsp;</a></span>OnPatch()</h2>
 
@@ -285,7 +325,7 @@ Additional Inherited Members</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="classTdjWebComponent.html">TdjWebComponent</a></li>
-    <li class="footer">Generated on Fri Mar 15 2019 11:51:33 for Daraja HTTP Framework by
+    <li class="footer">Generated on Mon Apr 1 2019 14:58:31 for Daraja HTTP Framework by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.15 </li>
   </ul>

@@ -69,6 +69,11 @@ type
 
     procedure CheckPOSTResponseEquals(Expected: string; URL: string = ''; msg: string = '');
 
+    // for tests overriding the TdjWebComponent.OnGetLastModified method
+    // (since 1.2.10)
+    procedure CheckCachedGETResponseEquals(IfModifiedSince: TDateTime; Expected: string; URL: string = ''; msg: string = '');
+    procedure CheckCachedGETResponseIs304(IfModifiedSince: TDateTime; URL: string = ''; msg: string = '');
+
   end;
 
 implementation
@@ -87,6 +92,33 @@ begin
   Actual := IdHTTP.Get(URL{$IFDEF STRING_IS_ANSI}, DestEncoding{$ENDIF});
 
   CheckEquals(Expected, Actual, msg);
+end;
+
+procedure THTTPTestCase.CheckCachedGETResponseEquals(IfModifiedSince: TDateTime; Expected: string; URL: string = ''; msg: string = '');
+var
+  Actual: string;
+begin
+  if Pos('http', URL) <> 1 then URL := 'http://127.0.0.1' + URL;
+
+  IdHTTP.Request.RawHeaders.Values['If-Modified-Since'] := LocalDateTimeToGMT(IfModifiedSince);
+  Actual := IdHTTP.Get(URL{$IFDEF STRING_IS_ANSI}, DestEncoding{$ENDIF});
+
+  CheckEquals(Expected, Actual, msg);
+end;
+
+procedure THTTPTestCase.CheckCachedGETResponseIs304(IfModifiedSince: TDateTime; URL: string = ''; msg: string = '');
+var
+  Actual: Integer;
+begin
+  if Pos('http', URL) <> 1 then URL := 'http://127.0.0.1' + URL;
+
+  IdHTTP.Request.LastModified := IfModifiedSince;
+  IdHTTP.HTTPOptions := IdHTTP.HTTPOptions + [hoNoProtocolErrorException];
+
+  IdHTTP.Get(URL{$IFDEF STRING_IS_ANSI}, DestEncoding{$ENDIF});
+  Actual := IdHTTP.ResponseCode;
+
+  CheckEquals(304, Actual, msg);
 end;
 
 procedure THTTPTestCase.CheckGETResponse200(URL: string; msg: string);
