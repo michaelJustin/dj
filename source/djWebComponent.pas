@@ -103,10 +103,14 @@ type
     (**
      * Returns the time the WebComponent object was last modified.
      * If the time is unknown, this method returns 0 (the default).
+     *
      * WebComponents that support HTTP GET requests and can quickly determine
      * their last modification time should override this method. This makes
      * browser and proxy caches work more effectively, reducing the load on
      * server and network resources.
+     *
+     * \param Request HTTP request
+     * \return the last modified timestamp
      *)
     function OnGetLastModified(Request: TdjRequest): TDateTime; virtual;
 
