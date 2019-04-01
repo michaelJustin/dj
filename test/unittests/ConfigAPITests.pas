@@ -97,6 +97,8 @@ type
 
     procedure TestBindErrorRaisesException;
 
+    // test overriding the TdjWebComponent.OnGetLastModified method
+    // (since 1.2.10)
     procedure TestCachedGetRequest;
 
   end;
