@@ -33,8 +33,8 @@ interface
 {$i IdCompilerDefines.inc}
 
 const
-  DWF_SERVER_VERSION = '1.2.10';
-  DWF_SERVER_FULL_NAME = 'Daraja Framework ' + DWF_SERVER_VERSION;
+  DWF_SERVER_VERSION = '2.0.rc1';
+  DWF_SERVER_FULL_NAME = 'Daraja HTTP Framework ' + DWF_SERVER_VERSION;
   DWF_SERVER_COPYRIGHT = 'Copyright (C) Michael Justin';
 
 function HTMLEncode(const AData: string): string;

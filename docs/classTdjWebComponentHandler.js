@@ -9,7 +9,7 @@ var classTdjWebComponentHandler =
     [ "DoStop", "classTdjWebComponentHandler.html#abae76908133d305d14120037e2330849", null ],
     [ "FindComponent", "classTdjWebComponentHandler.html#a70623380029921a3a13e410228bb9efd", null ],
     [ "FindHolder", "classTdjWebComponentHandler.html#a3034648813588ededb0bdfa351880ee5", null ],
-    [ "Handle", "classTdjWebComponentHandler.html#a72158e3754930a34f242a1c4d40b9e6a", null ],
+    [ "Handle", "classTdjWebComponentHandler.html#a78e04d395dafd424e57ea025bbcbe5bf", null ],
     [ "WebComponentContext", "classTdjWebComponentHandler.html#aa4dcbaf246842425c9c16519f9cc82b0", null ],
     [ "WebComponentMappings", "classTdjWebComponentHandler.html#ab8cf6bb37cea33b6c82a11e91a7ff05a", null ],
     [ "WebComponents", "classTdjWebComponentHandler.html#ae9690d21f6e0ffdd95761964ce104bbb", null ]
