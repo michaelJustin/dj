@@ -38,7 +38,7 @@ uses
 type
   TFormAuthHandler = class(TdjHandlerWrapper)
   public
-    procedure Handle(Target: string; Context: TdjServerContext; Request:
+    procedure Handle(const Target: string; Context: TdjServerContext; Request:
       TdjRequest; Response: TdjResponse); override;
   end;
 
@@ -49,7 +49,7 @@ uses
 
 { TFormAuthHandler }
 
-procedure TFormAuthHandler.Handle(Target: string; Context: TdjServerContext;
+procedure TFormAuthHandler.Handle(const Target: string; Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
 var
   IsLoggedIn: Boolean;

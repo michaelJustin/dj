@@ -147,7 +147,7 @@ type
      * \throws EWebComponentException if an exception occurs that interferes with the component's normal operation
      * \sa IHandler
      *)
-    procedure Handle(Target: string; Context: TdjServerContext; Request:
+    procedure Handle(const Target: string; Context: TdjServerContext; Request:
       TdjRequest; Response: TdjResponse); override;
 
     // ILifeCycle interface
@@ -579,7 +579,7 @@ begin
   end;
 end;
 
-procedure TdjWebComponentHandler.Handle(Target: string; Context:
+procedure TdjWebComponentHandler.Handle(const Target: string; Context:
   TdjServerContext; Request: TdjRequest; Response: TdjResponse);
 var
   Holder: TdjWebComponentHolder;

@@ -80,7 +80,7 @@ type
      *
      * \sa IHandler
      *)
-    procedure Handle(Target: string; Context: TdjServerContext; Request: TdjRequest; Response:
+    procedure Handle(const Target: string; Context: TdjServerContext; Request: TdjRequest; Response:
       TdjResponse); virtual; abstract;
 
   end;

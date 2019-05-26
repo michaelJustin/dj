@@ -80,7 +80,7 @@ type
      *
      * \sa IHandler
      *)
-    procedure Handle(Target: string; Context: TdjServerContext;
+    procedure Handle(const Target: string; Context: TdjServerContext;
       Request: TdjRequest; Response: TdjResponse); override;
 
     // Lifecycle
@@ -232,7 +232,7 @@ end;
 
 // handler -------------------------------------------------------------------
 
-procedure TdjHandlerCollection.Handle(Target: string; Context: TdjServerContext;
+procedure TdjHandlerCollection.Handle(const Target: string; Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
 var
   H: IHandler;
