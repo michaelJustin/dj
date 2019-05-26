@@ -64,7 +64,7 @@ type
    *)
   IHandler = interface(ILifeCycle)
     ['{670E1E72-7EAA-4655-B40C-DD273110B9B7}']
-    procedure Handle(Target: string; Context: TdjServerContext; Request:
+    procedure Handle(const Target: string; Context: TdjServerContext; Request:
       TdjRequest; Response: TdjResponse);
   end;
 

@@ -84,7 +84,7 @@ type
      *
      * \sa IHandler
      *)
-    procedure Handle(Target: string; Context: TdjServerContext;
+    procedure Handle(const Target: string; Context: TdjServerContext;
       Request: TdjRequest; Response: TdjResponse); override;
   end;
 
@@ -154,7 +154,7 @@ begin
     + '</html>';
 end;
 
-procedure TdjDefaultHandler.Handle(Target: string; Context: TdjServerContext;
+procedure TdjDefaultHandler.Handle(const Target: string; Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
 begin
   if (Response.ResponseNo = -1) then

@@ -69,7 +69,7 @@ type
 
   TSessionDetector = class(TdjHandlerWrapper)
   public
-    procedure Handle(Target: string; Context: TdjServerContext;
+    procedure Handle(const Target: string; Context: TdjServerContext;
       Request: TdjRequest; Response: TdjResponse); override;
   end;
 
@@ -93,7 +93,7 @@ end;
 
 { TSessionDetector }
 
-procedure TSessionDetector.Handle(Target: string; Context: TdjServerContext;
+procedure TSessionDetector.Handle(const Target: string; Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
 begin
   inherited; // required to get a session (in "with context" mode)

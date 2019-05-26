@@ -326,13 +326,13 @@ end;
 type
   THelloHandler = class(TdjAbstractHandler)
   public
-    procedure Handle(Target: string; Context: TdjServerContext;
+    procedure Handle(const Target: string; Context: TdjServerContext;
       Request: TdjRequest; Response: TdjResponse); override;
   end;
 
 { THelloHandler }
 
-procedure THelloHandler.Handle(Target: string; Context: TdjServerContext;
+procedure THelloHandler.Handle(const Target: string; Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
 begin
   Response.ContentText := 'Hello world!';

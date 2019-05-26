@@ -71,7 +71,7 @@ type
      * \sa IHandler
      *
      *)
-    procedure Handle(Target: string; Context: TdjServerContext; Request:
+    procedure Handle(const Target: string; Context: TdjServerContext; Request:
       TdjRequest; Response: TdjResponse); override;
   end;
 
@@ -129,7 +129,7 @@ begin
 {$ENDIF}
 end;
 
-procedure TdjNCSALogHandler.Handle(Target: string; Context: TdjServerContext;
+procedure TdjNCSALogHandler.Handle(const Target: string; Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
 var
   LogMsg: string;

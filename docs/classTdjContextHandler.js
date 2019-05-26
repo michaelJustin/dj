@@ -6,7 +6,7 @@ var classTdjContextHandler =
     [ "DoStart", "classTdjContextHandler.html#a1188cebb723774e5ab77d783a6a409be", null ],
     [ "DoStop", "classTdjContextHandler.html#af700d8f3c33fffc5292a8ed426127fa1", null ],
     [ "GetCurrentContext", "classTdjContextHandler.html#a2899c76a945310a7167569ce550da8ab", null ],
-    [ "Handle", "classTdjContextHandler.html#a8e2c91624fd2c2951ebccca0572effda", null ],
+    [ "Handle", "classTdjContextHandler.html#ad0e9a2b5b63a4a1fa6656a0d8a8e2e37", null ],
     [ "SetInitParameter", "classTdjContextHandler.html#a73eb8c1f25817a067f01e24db79a28d1", null ],
     [ "ToConnectorName", "classTdjContextHandler.html#a09563e9ec5af41c98ffbb1bfcc419fd6", null ],
     [ "ConnectorNames", "classTdjContextHandler.html#a4404b1fde6e371e72da4d23a28198d21", null ],

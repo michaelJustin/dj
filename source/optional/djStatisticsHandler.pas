@@ -87,7 +87,7 @@ type
      * \sa IHandler
      *
      *)
-    procedure Handle(Target: string; Context: TdjServerContext;
+    procedure Handle(const Target: string; Context: TdjServerContext;
       Request: TdjRequest; Response: TdjResponse); override;
 
     // properties
@@ -216,7 +216,7 @@ begin
   Result := FResponses5xx.Value;
 end;
 
-procedure TdjStatisticsHandler.Handle(Target: string; Context: TdjServerContext;
+procedure TdjStatisticsHandler.Handle(const Target: string; Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
 var
   Started: Cardinal;

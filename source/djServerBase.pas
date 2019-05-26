@@ -75,7 +75,7 @@ type
      *
      * \sa IHandler
      *)	
-    procedure Handle(Target: string; Context: TdjServerContext; Request:
+    procedure Handle(const Target: string; Context: TdjServerContext; Request:
       TdjRequest; Response: TdjResponse); override;
 
     // ILifeCycle interface
@@ -119,7 +119,7 @@ begin
   inherited;
 end;
 
-procedure TdjServerBase.Handle(Target: string; Context: TdjServerContext;
+procedure TdjServerBase.Handle(const Target: string; Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
 begin
 

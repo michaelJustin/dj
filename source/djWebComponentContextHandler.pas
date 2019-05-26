@@ -126,7 +126,7 @@ type
      *
      * \sa IHandler
      *)
-    procedure Handle(Target: string; Context: TdjServerContext;
+    procedure Handle(const Target: string; Context: TdjServerContext;
       Request: TdjRequest; Response: TdjResponse); override;
 
     // ILifeCycle interface
@@ -271,7 +271,7 @@ begin
   WebComponentHandler.Handle(Target, Context, Request, Response);
 end;
 
-procedure TdjWebComponentContextHandler.Handle(Target: string;
+procedure TdjWebComponentContextHandler.Handle(const Target: string;
   Context: TdjServerContext; Request: TdjRequest; Response: TdjResponse);
 begin
   if not ContextMatches(ToConnectorName(Context), Target) then

@@ -114,7 +114,7 @@ type
      *
      * \sa IHandler
      *)
-    procedure Handle(Target: string; Context: TdjServerContext;
+    procedure Handle(const Target: string; Context: TdjServerContext;
       Request: TdjRequest; Response: TdjResponse); override;
 
     // properties
@@ -237,7 +237,7 @@ end;
 
 // IHandler
 
-procedure TdjHandlerWrapper.Handle(Target: string; Context: TdjServerContext;
+procedure TdjHandlerWrapper.Handle(const Target: string; Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
 begin
   if (Assigned(Handler)) and Handler.IsStarted then

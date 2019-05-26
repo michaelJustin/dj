@@ -75,7 +75,7 @@ type
      *
      * \sa IHandler
      *)
-    procedure Handle(Target: string; Context: TdjServerContext;
+    procedure Handle(const Target: string; Context: TdjServerContext;
       Request: TdjRequest; Response: TdjResponse); override;
 
   end;
@@ -98,7 +98,7 @@ begin
   {$ENDIF DARAJA_LOGGING}
 end;
 
-procedure TdjHandlerList.Handle(Target: string; Context: TdjServerContext;
+procedure TdjHandlerList.Handle(const Target: string; Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
 var
   H: IHandler;

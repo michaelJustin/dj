@@ -208,7 +208,7 @@ type
      *
      * \sa IHandler
      *)
-    procedure Handle(Target: string; Context: TdjServerContext;
+    procedure Handle(const Target: string; Context: TdjServerContext;
       Request: TdjRequest; Response: TdjResponse); override;
 
     // properties
@@ -426,7 +426,7 @@ begin
   inherited;
 end;
 
-procedure TdjContextHandler.Handle(Target: string; Context: TdjServerContext;
+procedure TdjContextHandler.Handle(const Target: string; Context: TdjServerContext;
   Request: TdjRequest; Response: TdjResponse);
 begin
   Trace('Handle ' + Target);
