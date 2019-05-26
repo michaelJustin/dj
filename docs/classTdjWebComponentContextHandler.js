@@ -8,5 +8,5 @@ var classTdjWebComponentContextHandler =
     [ "DoHandle", "classTdjWebComponentContextHandler.html#af0c5c36f2b2019fcb915fd50b46dfe74", null ],
     [ "DoStart", "classTdjWebComponentContextHandler.html#aed740eb29bbbf4e13c935d315fd21377", null ],
     [ "DoStop", "classTdjWebComponentContextHandler.html#a2886d31595d161be8d63805945638076", null ],
-    [ "Handle", "classTdjWebComponentContextHandler.html#a85f401a2b494c97bf04d1b7b347818f7", null ]
+    [ "Handle", "classTdjWebComponentContextHandler.html#aac1c42962e5a3a2a16cdabf79c6d5924", null ]
 ];
