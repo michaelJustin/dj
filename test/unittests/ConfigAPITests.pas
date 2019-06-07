@@ -83,6 +83,7 @@ type
 
     // Test character encoding (UTF-8)
     procedure TestCharSet;
+    procedure TestContentType;
 
     procedure TestContextWithConnectorName;
 
@@ -971,6 +972,29 @@ begin
     {$ENDIF}
 
     CheckGETResponseEquals('中文', '/get/hello');
+
+  finally
+    Server.Free;
+  end;
+end;
+
+procedure TAPIConfigTests.TestContentType;
+var
+  Server: TdjServer;
+  Context: TdjWebAppContext;
+begin
+  Server := TdjServer.Create;
+  try
+    Context := TdjWebAppContext.Create('get');
+    Context.Add(TCharSetComponent, '/hello');
+    Server.Add(Context);
+    Server.Start;
+
+    {$IFDEF STRING_IS_ANSI}
+    DestEncoding := IndyTextEncoding_UTF8; // TODO document
+    {$ENDIF}
+
+    CheckContentTypeEquals('text/plain', '/get/hello');
 
   finally
     Server.Free;

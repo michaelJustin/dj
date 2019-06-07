@@ -74,6 +74,8 @@ type
     procedure CheckCachedGETResponseEquals(IfModifiedSince: TDateTime; Expected: string; URL: string = ''; msg: string = '');
     procedure CheckCachedGETResponseIs304(IfModifiedSince: TDateTime; URL: string = ''; msg: string = '');
 
+    procedure CheckContentTypeEquals(Expected: string; URL: string = ''; msg: string = '');
+
   end;
 
 implementation
@@ -119,6 +121,15 @@ begin
   Actual := IdHTTP.ResponseCode;
 
   CheckEquals(304, Actual, msg);
+end;
+
+procedure THTTPTestCase.CheckContentTypeEquals(Expected: string; URL: string;
+  msg: string);
+begin
+  if Pos('http', URL) <> 1 then URL := 'http://127.0.0.1' + URL;
+
+  IdHTTP.Get(URL);
+  CheckEquals(Expected, IdHTTP.Response.ContentType, msg);
 end;
 
 procedure THTTPTestCase.CheckGETResponse200(URL: string; msg: string);
