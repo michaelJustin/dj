@@ -12,12 +12,11 @@ var
   IOHandler: TIdServerIOHandlerSSLOpenSSL;
   Server: TIdHTTPServer;
 begin
-  // OpenSSL Handler erzeugen
+  // create IOHandler for OpenSSL
   IOHandler := TIdServerIOHandlerSSLOpenSSL.Create;
   IOHandler.SSLOptions.CertFile := 'cert.pem';
   IOHandler.SSLOptions.KeyFile := 'key.pem';
   IOHandler.SSLOptions.RootCertFile := 'cacert.pem';
-  // IOHandler.SSLOptions.Method := sslvSSLv23;
   IOHandler.SSLOptions.Mode := sslmServer;
 
   Server := TIdHTTPServer.Create;
