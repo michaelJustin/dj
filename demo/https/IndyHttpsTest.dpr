@@ -46,7 +46,9 @@ begin
   try
     Start;
   except
-    on E:Exception do
+    on E:Exception do begin
       Writeln(E.Classname, ': ', E.Message);
+      ReadLn;
+    end;
   end;
 end.
