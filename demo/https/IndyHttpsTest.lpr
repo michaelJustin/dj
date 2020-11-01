@@ -12,7 +12,7 @@ var
   IOHandler: TIdServerIOHandlerSSLOpenSSL;
   Server: TIdHTTPServer;
 begin
-  // create IOHandler for OpenSSL
+  // OpenSSL Handler erzeugen
   IOHandler := TIdServerIOHandlerSSLOpenSSL.Create;
   IOHandler.SSLOptions.CertFile := 'cert.pem';
   IOHandler.SSLOptions.KeyFile := 'key.pem';
@@ -45,9 +45,7 @@ begin
   try
     Start;
   except
-    on E:Exception do begin
+    on E:Exception do
       Writeln(E.Classname, ': ', E.Message);
-      ReadLn;
-    end;
   end;
 end.
