@@ -110,8 +110,10 @@ uses
   djWebAppContext, djInterfaces, djWebComponent, djWebComponentHolder,
   djWebComponentContextHandler, djServer, djDefaultHandler, djStatisticsHandler,
   djHTTPConnector, djContextHandlerCollection, djHandlerList, djTypes,
+  djAbstractHandler, djServerContext,
   IdServerInterceptLogFile, IdSchedulerOfThreadPool, IdGlobal, IdException,
-  SysUtils, Classes, djAbstractHandler, djServerContext;
+  IdResourceStrings,
+  SysUtils, Classes;
 
 type
   EUnitTestException = class(Exception);
@@ -478,7 +480,7 @@ begin
         Server2.Start;
       except
         on E: EIdCouldNotBindSocket do
-          CheckEquals('Could not bind socket. Address and port are already in use.', E.Message);
+          CheckEquals(RSCouldNotBindSocket, E.Message);
         on E: Exception do
           Fail(E.Message);
       end;
